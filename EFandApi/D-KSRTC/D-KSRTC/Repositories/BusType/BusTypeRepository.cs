@@ -29,11 +29,17 @@ namespace D_KSRTC.Repositories.BusType
             }
         }
 
-        public Task<Models.BusType?> DeleteBusTypeAsync(int typeId)
+        public async Task<Models.BusType?> DeleteBusTypeAsync(int typeId)
         {
             try
             {
-                
+                var bus = await _dbContext.BusType.FindAsync(typeId);
+                if (bus != null)
+                {
+                    _dbContext.BusType.Remove(bus);
+                    await _dbContext.SaveChangesAsync();
+                }
+                return bus;
             }
             catch (Exception ex)
             {
@@ -42,15 +48,21 @@ namespace D_KSRTC.Repositories.BusType
             };
         }
 
-        public Task<List<Models.BusType>> GetAllBusTypeAsync()
+        public async Task<List<Models.BusType>> GetAllBusTypeAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+              var  getBusTypeById = await _dbContext.BusType.ToListAsync();
+                return getBusTypeById;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
-        public Task<Models.BusType> GetBusTypeByIdAsync(int typeId)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public Task<Models.BusType> UpdateBusTypeAsync(Models.BusType typeName)
         {
