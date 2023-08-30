@@ -8,8 +8,8 @@ namespace D_KSRTC.Repositories.BusType
 {
     public class BusTypeRepository : IBusTypeRepository
     {
-        private readonly DbContextClass _dbContext;
-        public BusTypeRepository(DbContextClass dbContext)
+        private readonly DKSRTCContext _dbContext;
+        public BusTypeRepository(DKSRTCContext dbContext)
         {
             _dbContext = dbContext;
         }

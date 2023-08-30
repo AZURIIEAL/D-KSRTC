@@ -16,7 +16,7 @@ namespace D_KSRTC.Repositories.Location
         {
             try
             {
-                _dbContext.Location.Add(locationDetails);
+                _dbContext.LocationDetails.Add(locationDetails);
                 await _dbContext.SaveChangesAsync();
                 return locationDetails;
             }
@@ -31,10 +31,10 @@ namespace D_KSRTC.Repositories.Location
         {
             try
             {
-                var location = await _dbContext.Location.FindAsync(LocationId);
+                var location = await _dbContext.LocationDetails.FindAsync(LocationId);
                 if (location != null)
                 {
-                    _dbContext.Location.Remove(location);
+                    _dbContext.LocationDetails.Remove(location);
                     await _dbContext.SaveChangesAsync();
                 }
                 return location;
@@ -50,7 +50,7 @@ namespace D_KSRTC.Repositories.Location
         {
             try
             {
-                return await _dbContext.Location.ToListAsync();
+                return await _dbContext.LocationDetails.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace D_KSRTC.Repositories.Location
         {
             try
             {
-                return await _dbContext.Location.FindAsync(LocationId);
+                return await _dbContext.LocationDetails.FindAsync(LocationId);
             }
             catch (Exception ex)
             {
