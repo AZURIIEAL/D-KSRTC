@@ -1,4 +1,5 @@
 ﻿using D_KSRTC.Models;
+using D_KSRTC.Requests.Commands.Location.AddLocation;
 using D_KSRTC.Requests.Queries.Location.GetAllLocation;
 using D_KSRTC.Requests.Queries.Location.GetLocationById;
 using MediatR;
@@ -51,6 +52,27 @@ namespace D_KSRTC.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex); // Log the exception to the console.
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<LocationDetails>> AddLocationAsync(LocationDetails location)
+        {
+            try
+            {
+                // Assuming you have a command to add a location, replace with your actual command class
+                var result = await _mediator.Send(new AddLocationCommand(location.LocationName));
+
+                // You can return a CreatedAtAction result with the created location and its ID
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex); // Log the exception to the console.
+                // Log the exception or perform any necessary error handling
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
