@@ -1,7 +1,7 @@
 ﻿using D_KSRTC.Models;
 using MediatR;
 
-namespace D_KSRTC.Commands
+namespace D_KSRTC.Requests.Commands.Location.AddLocation
 {
     public class AddLocationCommand : IRequest<LocationDetails>
     {

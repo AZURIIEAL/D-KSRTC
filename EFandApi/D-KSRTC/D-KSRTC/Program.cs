@@ -1,5 +1,5 @@
 using D_KSRTC.Data;
-using D_KSRTC.Repositories;
+using D_KSRTC.Repositories.Location;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

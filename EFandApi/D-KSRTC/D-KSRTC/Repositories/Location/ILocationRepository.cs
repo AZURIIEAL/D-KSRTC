@@ -1,6 +1,6 @@
 ﻿using D_KSRTC.Models;
 
-namespace D_KSRTC.Repositories
+namespace D_KSRTC.Repositories.Location
 {
     public interface ILocationRepository
     {

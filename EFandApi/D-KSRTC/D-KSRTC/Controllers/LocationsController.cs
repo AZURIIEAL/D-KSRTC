@@ -1,5 +1,6 @@
 ﻿using D_KSRTC.Models;
-using D_KSRTC.Queries;
+using D_KSRTC.Requests.Queries.Location.GetAllLocation;
+using D_KSRTC.Requests.Queries.Location.GetLocationById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,19 +12,50 @@ namespace D_KSRTC.Controllers
     [ApiController]
     public class LocationsController : ControllerBase
     {
+        //Setting up mediator
         private readonly IMediator _mediator;
         public LocationsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
+        //Adding the get alldata api
         [HttpGet]
-        public async Task<List<LocationDetails>> GetLocationsAsync(CancellationToken cancellationToken = default)
+        public async Task<ActionResult<List<LocationDetails>>> GetLocationsAsync(CancellationToken cancellationToken = default)
         {
-            var locationDetails = await _mediator.Send(new GetAllLocationsQuery(), cancellationToken);
-
-            return locationDetails;
+            try
+            {
+                var locationDetails = await _mediator.Send(new GetAllLocationsQuery(), cancellationToken);
+                return locationDetails;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
         }
+        [HttpGet("{LocationId}")]
+        public async Task<ActionResult<LocationDetails>> GetLocationByIdAsync(int LocationId)
+        {
+            try
+            {
+                var locationDetails = await _mediator.Send(new GetLocationByIdQuery { Id = LocationId });
+
+                if (locationDetails == null)
+                {
+                    return NotFound(); // Return 404 Not Found if locationDetails is null.
+                }
+
+                return locationDetails;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex); // Log the exception to the console.
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
+
 
 
 
