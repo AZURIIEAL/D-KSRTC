@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\AbinFiles\\Assignments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\D-KSRTC.csproj": {}
+    "C:\\Assigments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\D-KSRTC.csproj": {}
   },
   "projects": {
-    "C:\\AbinFiles\\Assignments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\D-KSRTC.csproj": {
+    "C:\\Assigments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\D-KSRTC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\AbinFiles\\Assignments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\D-KSRTC.csproj",
+        "projectUniqueName": "C:\\Assigments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\D-KSRTC.csproj",
         "projectName": "D-KSRTC",
-        "projectPath": "C:\\AbinFiles\\Assignments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\D-KSRTC.csproj",
-        "packagesPath": "C:\\Users\\CQ-Abin\\.nuget\\packages\\",
-        "outputPath": "C:\\AbinFiles\\Assignments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\obj\\",
+        "projectPath": "C:\\Assigments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\D-KSRTC.csproj",
+        "packagesPath": "C:\\Users\\CQ-Christina\\.nuget\\packages\\",
+        "outputPath": "C:\\Assigments\\D-KSRTC\\EFandApi\\D-KSRTC\\D-KSRTC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\CQ-Abin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\CQ-Christina\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
