@@ -36,11 +36,11 @@ namespace D_KSRTC.Controllers
             }
         }
         [HttpGet("{LocationId}")]
-        public async Task<ActionResult<LocationDetails>> GetLocationByIdAsync(int LocationId)
+        public async Task<ActionResult<LocationDetails>> GetLocationByIdAsync(int LocationId, CancellationToken cancellationToken = default)
         {
             try
             {
-                var locationDetails = await _mediator.Send(new GetLocationByIdQuery { Id = LocationId });
+                var locationDetails = await _mediator.Send(new GetLocationByIdQuery { Id = LocationId }, cancellationToken);
 
                 if (locationDetails == null)
                 {
@@ -59,12 +59,12 @@ namespace D_KSRTC.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<LocationDetails>> AddLocationAsync(LocationDetails location)
+        public async Task<ActionResult<LocationDetails>> AddLocationAsync(LocationDetails location, CancellationToken cancellationToken = default)
         {
             try
             {
                 // Assuming you have a command to add a location, replace with your actual command class
-                var result = await _mediator.Send(new AddLocationCommand(location.LocationName));
+                var result = await _mediator.Send(new AddLocationCommand(location.LocationName), cancellationToken);
 
                 // You can return a CreatedAtAction result with the created location and its ID
                 return result;
@@ -72,7 +72,7 @@ namespace D_KSRTC.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex); // Log the exception to the console.
-                // Log the exception or perform any necessary error handling
+                                       // Log the exception or perform any necessary error handling
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }

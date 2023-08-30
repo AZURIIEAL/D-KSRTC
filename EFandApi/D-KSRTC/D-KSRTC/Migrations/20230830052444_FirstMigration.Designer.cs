@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace D_KSRTC.Migrations
 {
-    [DbContext(typeof(DbContextClass))]
+    [DbContext(typeof(DKSRTCContext))]
     [Migration("20230830052444_FirstMigration")]
     partial class FirstMigration
     {

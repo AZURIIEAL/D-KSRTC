@@ -1,17 +1,13 @@
 ﻿using D_KSRTC.Data;
 using D_KSRTC.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace D_KSRTC.Repositories.Location
 {
     public class LocationRepository : ILocationRepository
     {
-        private readonly DbContextClass _dbContext;
+        private readonly DKSRTCContext _dbContext;
 
-        public LocationRepository(DbContextClass dbContext)
+        public LocationRepository(DKSRTCContext dbContext)
         {
             _dbContext = dbContext;
         }

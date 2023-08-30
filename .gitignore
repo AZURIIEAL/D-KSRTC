@@ -1,0 +1,20 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+.vs
+*.cache
+*.dll
+*.exe
+*.pdb
+/build/
+*.suo
+*.user
+obj/
+.vscode
+/bin
+/src/UI/controlqore.web/package-lock.json
+src/UI/controlqore-web/package-lock.json
+*.log
+/azurite
+src/UI/controlqore/package-lock.json

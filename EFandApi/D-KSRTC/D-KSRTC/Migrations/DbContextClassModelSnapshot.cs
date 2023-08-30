@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace D_KSRTC.Migrations
 {
-    [DbContext(typeof(DbContextClass))]
+    [DbContext(typeof(DKSRTCContext))]
     partial class DbContextClassModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
