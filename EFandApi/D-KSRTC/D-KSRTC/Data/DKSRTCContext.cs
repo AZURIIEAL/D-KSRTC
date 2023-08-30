@@ -9,7 +9,8 @@ namespace D_KSRTC.Data
 
         // DbSet for LocationDetails entity.
         // Consider adding comments or summaries to your properties.
-        public DbSet<Models.LocationDetails> Location { get; set; }
+        public DbSet<Models.LocationDetails> LocationDetails { get; set; }
+        public DbSet<Models.BusType> BusType{ get; set; }
 
     }
 }
