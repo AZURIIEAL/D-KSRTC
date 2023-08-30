@@ -20,7 +20,7 @@ namespace D_KSRTC.Repositories
             return locationDetails;
         }
 
-        public async Task<LocationDetails> DeleteLocationAsync(int LocationId)
+        public async Task<LocationDetails?> DeleteLocationAsync(int LocationId)
         {
             var location = await _dbContext.Location.FindAsync(LocationId);
             if (location != null)

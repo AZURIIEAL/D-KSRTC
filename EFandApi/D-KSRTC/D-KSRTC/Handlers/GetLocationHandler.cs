@@ -1,10 +1,11 @@
 ﻿using D_KSRTC.Models;
 using D_KSRTC.Queries;
 using D_KSRTC.Repositories;
+using MediatR;
 
 namespace D_KSRTC.Handlers
 {
-    public class GetLocationHandler
+    public class GetLocationHandler :  IRequestHandler<GetAllLocationsQuery, List<LocationDetails>>
     {
         public readonly ILocationRepository _locationRepository;
         public GetLocationHandler(ILocationRepository locationRepository)

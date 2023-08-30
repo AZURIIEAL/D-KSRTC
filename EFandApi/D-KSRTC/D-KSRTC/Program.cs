@@ -1,4 +1,5 @@
 using D_KSRTC.Data;
+using D_KSRTC.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -12,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<DbContextClass>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("SQLConnection")));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",

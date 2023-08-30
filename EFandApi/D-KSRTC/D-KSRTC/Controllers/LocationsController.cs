@@ -18,9 +18,9 @@ namespace D_KSRTC.Controllers
         }
 
         [HttpGet]
-        public async Task<List<LocationDetails>> GetLocationsAsync()
+        public async Task<List<LocationDetails>> GetLocationsAsync(CancellationToken cancellationToken = default)
         {
-            var locationDetails = await _mediator.Send(new GetAllLocationsQuery());
+            var locationDetails = await _mediator.Send(new GetAllLocationsQuery(), cancellationToken);
 
             return locationDetails;
         }
