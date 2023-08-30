@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 
-namespace D_KSRTC.Repositories.BusType
+namespace D_KSRTC.Repositories.BusTypes
 {
     public class BusTypeRepository : IBusTypeRepository
     {
@@ -14,7 +14,7 @@ namespace D_KSRTC.Repositories.BusType
             _dbContext = dbContext;
         }
 
-        public async Task<Models.BusType> AddBusTypeAsync(Models.BusType typeName)
+        public async Task<BusType> AddBusTypeAsync(BusType typeName)
         {
             try
             {
@@ -29,6 +29,7 @@ namespace D_KSRTC.Repositories.BusType
             }
         }
 
+<<<<<<< HEAD:EFandApi/D-KSRTC/D-KSRTC/Repositories/BusType/BusTypeRepository.cs
         public async Task<Models.BusType?> DeleteBusTypeAsync(int typeId)
         {
             try
@@ -49,6 +50,9 @@ namespace D_KSRTC.Repositories.BusType
         }
 
         public async Task<List<Models.BusType>> GetAllBusTypeAsync()
+=======
+        public Task<List<BusType>> GetAllBusTypeAsync()
+>>>>>>> 8c675610c88b5442183a887c2c15a74ff614209e:EFandApi/D-KSRTC/D-KSRTC/Repositories/BusTypes/BusTypeRepository.cs
         {
             try
             {
@@ -62,9 +66,16 @@ namespace D_KSRTC.Repositories.BusType
             }
         }
 
+<<<<<<< HEAD:EFandApi/D-KSRTC/D-KSRTC/Repositories/BusType/BusTypeRepository.cs
      
+=======
+        public Task<BusType> GetBusTypeByIdAsync(int typeId)
+        {
+            throw new NotImplementedException();
+        }
+>>>>>>> 8c675610c88b5442183a887c2c15a74ff614209e:EFandApi/D-KSRTC/D-KSRTC/Repositories/BusTypes/BusTypeRepository.cs
 
-        public Task<Models.BusType> UpdateBusTypeAsync(Models.BusType typeName)
+        public Task<BusType> UpdateBusTypeAsync(BusType typeName)
         {
             throw new NotImplementedException();
         }
