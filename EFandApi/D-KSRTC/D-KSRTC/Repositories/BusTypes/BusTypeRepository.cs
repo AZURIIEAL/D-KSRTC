@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 
-namespace D_KSRTC.Repositories.BusType
+namespace D_KSRTC.Repositories.BusTypes
 {
     public class BusTypeRepository : IBusTypeRepository
     {
@@ -14,7 +14,7 @@ namespace D_KSRTC.Repositories.BusType
             _dbContext = dbContext;
         }
 
-        public async Task<Models.BusType> AddBusTypeAsync(Models.BusType typeName)
+        public async Task<BusType> AddBusTypeAsync(BusType typeName)
         {
             try
             {
@@ -29,30 +29,17 @@ namespace D_KSRTC.Repositories.BusType
             }
         }
 
-        public Task<Models.BusType?> DeleteBusTypeAsync(int typeId)
-        {
-            try
-            {
-                
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                throw;
-            };
-        }
-
-        public Task<List<Models.BusType>> GetAllBusTypeAsync()
+        public Task<List<BusType>> GetAllBusTypeAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Models.BusType> GetBusTypeByIdAsync(int typeId)
+        public Task<BusType> GetBusTypeByIdAsync(int typeId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Models.BusType> UpdateBusTypeAsync(Models.BusType typeName)
+        public Task<BusType> UpdateBusTypeAsync(BusType typeName)
         {
             throw new NotImplementedException();
         }
