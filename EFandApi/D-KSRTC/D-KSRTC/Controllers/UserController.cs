@@ -1,6 +1,8 @@
 ﻿using D_KSRTC.Models;
+using D_KSRTC.Requests.Commands.Locations.DeleteLocation;
 using D_KSRTC.Requests.Commands.Users.AddUser;
-using D_KSRTC.Requests.Queries.Location.GetAllLocation;
+using D_KSRTC.Requests.Commands.Users.DeleteUser;
+using D_KSRTC.Requests.Commands.Users.UpdateUser;
 using D_KSRTC.Requests.Queries.Users.GetAllUsers;
 using D_KSRTC.Requests.Queries.Users.GetUserById;
 using MediatR;
@@ -75,6 +77,66 @@ namespace D_KSRTC.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateUserAsync(int id, UpdateUserCommand command, CancellationToken cancellationToken = default)
+        {
+
+            if (id != command.Id)
+            {
+                //incase the person tried to alter the id.
+                return BadRequest("ID mismatch between URL and request body.");
+            }
+
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                if (result == 1)
+                {
+                    return NoContent(); // 204 No Content
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex); // Log the exception to the console.
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> DeleteUserAsync(int id)
+        {
+            try
+            {
+                var result = await _mediator.Send(new DeleteUserCommand { Id = id });
+
+                if (result == 1)
+                {
+                    return NoContent(); // 204 No Content
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex); // Log the exception to the console.
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }

@@ -1,6 +1,4 @@
-﻿using D_KSRTC.Models;
-using D_KSRTC.Repositories.Location;
-using D_KSRTC.Repositories.Users;
+﻿using D_KSRTC.Repositories.Users;
 
 using MediatR;
 
@@ -18,7 +16,7 @@ namespace D_KSRTC.Requests.Commands.Users.UpdateUser
 
         public async Task<int> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
         {
-            var userDetails = await _userRepository.GetUserByIdAsync(command.id);
+            var userDetails = await _userRepository.GetUserByIdAsync(command.Id);
             if (userDetails == null) { return default; }
 
             userDetails.FirstName = command.FirstName;
