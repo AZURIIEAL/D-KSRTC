@@ -10,12 +10,12 @@ namespace D_KSRTC.Requests.Commands.BusTypes.AddBusType
     {
         private readonly BusTypeRepository _busTypeRepository;
 
-        public AddBusTypeCommandHandler(ILocationRepository busTypeRepository)
+        public AddBusTypeCommandHandler(IBusTypeRepository busTypeRepository)
         {
-            _busTypeRepository = busTypeRepository;
+            _busTypeRepository = (BusTypeRepository?)busTypeRepository;
         }
 
-        public AddBusTypeCommandHandler(BusTypeRepository? busTypeRepository) { }
+        
         public async Task<BusType> Handle(AddBusTypeCommand command, CancellationToken cancellationToken)
         {
             var busType = new BusType()
