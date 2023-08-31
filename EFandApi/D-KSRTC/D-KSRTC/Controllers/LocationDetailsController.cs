@@ -11,13 +11,59 @@ namespace D_KSRTC.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LocationsController : ControllerBase
+    public class LocationDetailsController : ControllerBase
     {
         //Setting up mediator
         private readonly IMediator _mediator;
-        public LocationsController(IMediator mediator)
+        public LocationDetailsController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<LocationDetails>> AddLocationAsync(LocationDetails location, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                // Assuming you have a command to add a location, replace with your actual command class
+                var result = await _mediator.Send(new AddLocationCommand(location.LocationName), cancellationToken);
+
+                // You can return a CreatedAtAction result with the created location and its ID
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex); // Log the exception to the console.
+                                       // Log the exception or perform any necessary error handling
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpGet]
+        [Route("{LocationId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<LocationDetails>> GetLocationByIdAsync(int LocationId, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var locationDetails = await _mediator.Send(new GetLocationByIdQuery { Id = LocationId }, cancellationToken);
+
+                if (locationDetails == null)
+                {
+                    return NotFound(); // Return 404 Not Found if locationDetails is null.
+                }
+
+                return Ok(locationDetails);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex); // Log the exception to the console.
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
         }
 
         //Adding the get alldata api
@@ -41,51 +87,7 @@ namespace D_KSRTC.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
-        [HttpGet]
-        [Route("{LocationId}")]
-        [ProducesResponseType(StatusCodes.Status200OK)] 
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<LocationDetails>> GetLocationByIdAsync(int LocationId, CancellationToken cancellationToken = default)
-        {
-            try
-            {
-                var locationDetails = await _mediator.Send(new GetLocationByIdQuery { Id = LocationId }, cancellationToken);
-
-                if (locationDetails == null)
-                {
-                    return NotFound(); // Return 404 Not Found if locationDetails is null.
-                }
-
-                return Ok(locationDetails);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex); // Log the exception to the console.
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
-            }
-        }
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<LocationDetails>> AddLocationAsync(LocationDetails location, CancellationToken cancellationToken = default)
-        {
-            try
-            {
-                // Assuming you have a command to add a location, replace with your actual command class
-                var result = await _mediator.Send(new AddLocationCommand(location.LocationName), cancellationToken);
-
-                // You can return a CreatedAtAction result with the created location and its ID
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex); // Log the exception to the console.
-                                       // Log the exception or perform any necessary error handling
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
-            }
-        }
+        
         [HttpPut]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

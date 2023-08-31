@@ -18,5 +18,4 @@ namespace D_KSRTC.Data.Configurations
         }
     }
 
-
 }
