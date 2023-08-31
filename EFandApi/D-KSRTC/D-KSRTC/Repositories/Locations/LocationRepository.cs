@@ -59,7 +59,7 @@ namespace D_KSRTC.Repositories.Location
             }
         }
 
-        public async Task<LocationDetails> GetLocationByIdAsync(int LocationId)
+        public async Task<LocationDetails?> GetLocationByIdAsync(int LocationId)
         {
             try
             {

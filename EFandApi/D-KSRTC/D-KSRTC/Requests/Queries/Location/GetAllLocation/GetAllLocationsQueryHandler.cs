@@ -4,10 +4,10 @@ using MediatR;
 
 namespace D_KSRTC.Requests.Queries.Location.GetAllLocation
 {
-    public class GetAllLocationQueryHandler : IRequestHandler<GetAllLocationsQuery, List<LocationDetails>>
+    public class GetAllLocationsQueryHandler : IRequestHandler<GetAllLocationsQuery, List<LocationDetails>>
     {
         public readonly ILocationRepository _locationRepository;
-        public GetAllLocationQueryHandler(ILocationRepository locationRepository)
+        public GetAllLocationsQueryHandler(ILocationRepository locationRepository)
         {
             _locationRepository = locationRepository;
         }
