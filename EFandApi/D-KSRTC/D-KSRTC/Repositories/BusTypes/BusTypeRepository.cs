@@ -70,7 +70,7 @@ namespace D_KSRTC.Repositories.BusTypes
 
         }
 
-        public async Task<BusType> GetBusTypeByIdAsync(int typeId)
+        public async Task<BusType?> GetBusTypeByIdAsync(int typeId)
         {
             try
             {
@@ -87,9 +87,9 @@ namespace D_KSRTC.Repositories.BusTypes
         {
             try
             {
-                _dbContext.Entry().State = EntityState.Modified;
+                _dbContext.Entry(_dbContext.BusType).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();
-                return BusType;
+                return typeName;
             }
             catch (Exception ex)
             {
