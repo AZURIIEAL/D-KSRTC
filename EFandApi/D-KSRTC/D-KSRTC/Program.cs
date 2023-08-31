@@ -1,5 +1,6 @@
 using D_KSRTC.Data;
 using D_KSRTC.Repositories.BusCategories;
+using D_KSRTC.Repositories.BusTypeCategories;
 using D_KSRTC.Repositories.BusTypes;
 using D_KSRTC.Repositories.Location;
 using D_KSRTC.Repositories.Users;
@@ -19,6 +20,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Get
 builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddScoped<IBusTypeRepository, BusTypeRepository>();
 builder.Services.AddScoped<IBusCategoryRepository, BusCategoryRepository>();
+builder.Services.AddScoped<IBusTypeCategoryRepository,BusTypeCategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 //Configuring for CORS.
 builder.Services.AddCors(options =>

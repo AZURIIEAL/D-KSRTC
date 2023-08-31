@@ -13,6 +13,7 @@ namespace D_KSRTC.Data
         public DbSet<Models.BusType> BusType{ get; set; }
         public DbSet<Models.BusCategory> BusCategory { get; set; }
         public DbSet<Models.BusTypeCategory> BusTypeCategory { get; set; }
+        public DbSet<Models.Bus> Bus { get; set; }
         public DbSet<Models.User> User { get; set; }
 
     }

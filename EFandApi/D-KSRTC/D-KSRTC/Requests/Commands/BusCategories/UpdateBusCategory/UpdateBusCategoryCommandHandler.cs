@@ -17,7 +17,7 @@ namespace D_KSRTC.Requests.Commands.BusCategories.UpdateBusCategory
             var categoryDetails = await _busCategoryRepository.GetBusCategoryByIdAsync(command.CategoryId);
             if (categoryDetails == null)
             {
-                throw new ArgumentException($"Bus category with ID {command.CategoryId} not found.");
+                throw new FileNotFoundException($"Bus category with ID {command.CategoryId} not found.");
             }
 
             categoryDetails.CategoryName = command.CategoryName;

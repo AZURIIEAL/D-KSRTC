@@ -1,32 +1,57 @@
-﻿using D_KSRTC.Models;
+﻿using D_KSRTC.Data;
+using D_KSRTC.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace D_KSRTC.Repositories.BusTypeCategories
 {
-    public class BusTypeCategoryRepository : IBusTypeCategoryRepository
-    {
-        public Task<BusTypeCategory> AddBusTypeCategoryAsync(BusTypeCategory TCDetails)
+        public class BusTypeCategoryRepository : IBusTypeCategoryRepository
         {
-            throw new NotImplementedException();
-        }
+            private readonly DKSRTCContext _dbContext;
 
-        public Task<BusTypeCategory?> DeleteBusTypeCategoryAsync(int TCId)
-        {
-            throw new NotImplementedException();
-        }
+            public BusTypeCategoryRepository(DKSRTCContext dbContext)
+            {
+                _dbContext = dbContext;
+            }
 
-        public Task<List<BusTypeCategory>> GetAllBusTypeCategoryAsync()
-        {
-            throw new NotImplementedException();
-        }
+            public async Task<BusTypeCategory> AddBusTypeCategoryAsync(BusTypeCategory tcDetails)
+            {
+                _dbContext.BusTypeCategory.Add(tcDetails);
+                await _dbContext.SaveChangesAsync();
+                return tcDetails;
+            }
 
-        public Task<BusTypeCategory?> GetBusTypeCategoryByIdAsync(int TCId)
-        {
-            throw new NotImplementedException();
-        }
+            public async Task<BusTypeCategory?> DeleteBusTypeCategoryAsync(int tcId)
+            {
+                var tc = await _dbContext.BusTypeCategory.FindAsync(tcId);
+                if (tc != null)
+                {
+                    _dbContext.BusTypeCategory.Remove(tc);
+                    await _dbContext.SaveChangesAsync();
+                }
+                return tc;
+            }
 
-        public Task<BusTypeCategory> UpdateBusTypeCategoryAsync(BusTypeCategory TCDetails)
-        {
-            throw new NotImplementedException();
+            public async Task<List<BusTypeCategory>> GetAllBusTypeCategoryAsync()
+            {
+                return await _dbContext.BusTypeCategory
+                    .Include(tc => tc.CategoryIdNavigaton)
+                    .Include(tc => tc.TypeIdNavigaton)
+                    .ToListAsync();
+            }
+
+            public async Task<BusTypeCategory?> GetBusTypeCategoryByIdAsync(int tcId)
+            {
+                return await _dbContext.BusTypeCategory
+                    .Include(tc => tc.CategoryIdNavigaton)
+                    .Include(tc => tc.TypeIdNavigaton)
+                    .FirstOrDefaultAsync(tc => tc.TCId == tcId);
+            }
+
+            public async Task<BusTypeCategory> UpdateBusTypeCategoryAsync(BusTypeCategory tcDetails)
+            {
+                _dbContext.Entry(tcDetails).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+                return tcDetails;
+            }
         }
     }
-}
