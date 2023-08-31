@@ -9,7 +9,7 @@ namespace D_KSRTC.Repositories.BusTypes
         public Task<BusType> AddBusTypeAsync(BusType typeName);
         public Task<BusType> UpdateBusTypeAsync(BusType typeName);
         //Add delete bus type.
-
+        public Task<BusType?> DeleteBusTypeAsync(int TypeId);
     }
 }
 
