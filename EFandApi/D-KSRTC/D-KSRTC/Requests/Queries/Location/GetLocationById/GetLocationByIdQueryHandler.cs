@@ -13,7 +13,8 @@ namespace D_KSRTC.Requests.Queries.Location.GetLocationById
         }
         public async Task<LocationDetails> Handle(GetLocationByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _locationRepository.GetLocationByIdAsync(request.Id);
+            LocationDetails? locationDetails =  await _locationRepository.GetLocationByIdAsync(request.Id);
+            return locationDetails ?? new LocationDetails();
         }
     }
 }
