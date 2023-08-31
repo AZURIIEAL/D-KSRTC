@@ -16,6 +16,8 @@ namespace D_KSRTC.Repositories.BusTypes
             _dbContext = dbContext;
         }
 
+        public object?[]? TypeId { get; private set; }
+
         public async Task<BusType> AddBusTypeAsync(BusType typeName)
         {
             try
@@ -36,90 +38,73 @@ namespace D_KSRTC.Repositories.BusTypes
         {
             try
             {
-               var TypeId = await _dbContext.BusType.FindAsync(TypeId);
-                if (TypeId != null)
+               var bus = await _dbContext.BusType.FindAsync(TypeId);
+                if (bus != null)
                 {
-                    _dbContext.LocationDetails.Remove (TypeId);
+                    _dbContext.BusType.Remove (bus);
+                    await _dbContext.SaveChangesAsync();
                 }
+                return bus;
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                throw;
             }
         }
 
-        public Task<List<BusType>> GetAllBusTypeAsync()
+        public async Task<List<BusType>> GetAllBusTypeAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dbContext.BusType.ToListAsync();
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+
         }
 
-        public Task<BusType> GetBusTypeByIdAsync(int typeId)
+        public async Task<BusType> GetBusTypeByIdAsync(int typeId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dbContext.BusType.FindAsync(typeId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
-        public Task<BusType> UpdateBusTypeAsync(BusType typeName)
+        public async Task<BusType> UpdateBusTypeAsync(BusType typeName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Entry().State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+                return BusType;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
          }
 
-        //    public async Task<BusType> DeleteBusTypeAsync(int TypeId)
-        //    {
-        //        try
-        //        {
-        //            var busType = await _dbContext.BusType.FindAsync(TypeId);
-        //            if (busType != null)
-        //            {
-        //                _dbContext.BusType.Remove(busType);
-        //                await _dbContext.SaveChangesAsync();
-        //            }
-        //            return busType;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine(ex);
-        //            throw;
-        //        }
-        //    }
+      
 
-        //    public Task<List<BusType>> GetAllBusTypeAsync()
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    public Task<BusType> GetBusTypeByIdAsync(int typeId)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    public Task<BusType> UpdateBusTypeAsync(BusType typeName)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-        //public async Task<List<BusType>> GetAllBusTypeAsync()
-        //{
-        //    try
-        //    {
-        //        var busType = await _dbContext.BusType.FindAsync(TypeId);
-        //        if (busType != null)
-        //        {
-        //            _dbContext.LocationDetails.Remove(busType);
-        //            await _dbContext.SaveChangesAsync();
-        //        }
-        //        return busType;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex);
-        //        throw;
-        //    }
+       
     }
           
 
       
-    }
+    
