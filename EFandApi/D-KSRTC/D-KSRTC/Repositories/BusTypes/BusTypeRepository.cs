@@ -9,14 +9,11 @@ namespace D_KSRTC.Repositories.BusTypes
     public class BusTypeRepository : IBusTypeRepository
     {
         public readonly DKSRTCContext _dbContext;
-        private readonly object _dbcontext;
 
         public BusTypeRepository(DKSRTCContext dbContext)
         {
             _dbContext = dbContext;
         }
-
-        public object?[]? TypeId { get; private set; }
 
         public async Task<BusType> AddBusTypeAsync(BusType typeName)
         {
@@ -44,7 +41,8 @@ namespace D_KSRTC.Repositories.BusTypes
                     _dbContext.BusType.Remove (bus);
                     await _dbContext.SaveChangesAsync();
                 }
-                return bus;
+
+                return bus??new BusType();
 
             }
             catch (Exception ex)
