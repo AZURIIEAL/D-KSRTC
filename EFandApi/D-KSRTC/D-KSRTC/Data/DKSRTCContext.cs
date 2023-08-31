@@ -11,6 +11,7 @@ namespace D_KSRTC.Data
         // Consider adding comments or summaries to your properties.
         public DbSet<Models.LocationDetails> LocationDetails { get; set; }
         public DbSet<Models.BusType> BusType{ get; set; }
+        public DbSet<Models.User> User { get; set; }
 
     }
 }

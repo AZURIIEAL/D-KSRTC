@@ -1,27 +1,28 @@
 ﻿using D_KSRTC.Data;
 using D_KSRTC.Models;
 using Microsoft.EntityFrameworkCore;
-namespace D_KSRTC.Repositories.Location
+
+namespace D_KSRTC.Repositories.Users
 {
-    public class LocationRepository : ILocationRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DKSRTCContext _dbContext;
 
-        public LocationRepository(DKSRTCContext dbContext)
+        public UserRepository(DKSRTCContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<LocationDetails> AddLocationAsync(LocationDetails locationDetails)
+        public async Task<User> AddUserAsync(User user)
         {
             try
             {
-                _dbContext.LocationDetails.Add(locationDetails);
+                _dbContext.User.Add(user);
                 //This line of code sets the state of the locationDetails entity to Modified within the Entity Framework contex
                 //This indicates that the entity has been modified and its changes need to be saved to the database.
-                _dbContext.Entry(locationDetails).State = EntityState.Modified;
+                _dbContext.Entry(user).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();
-                return locationDetails;
+                return user;
             }
             catch (Exception ex)
             {
@@ -30,20 +31,20 @@ namespace D_KSRTC.Repositories.Location
             }
         }
 
-        public async Task<LocationDetails?> DeleteLocationAsync(int LocationId)
+        public async Task<User?> DeleteUserAsync(int userId)
         {
             try
             {
-                var location = await _dbContext.LocationDetails.FindAsync(LocationId);
-                if (location != null)
+                var user = await _dbContext.User.FindAsync(userId);
+                if (user != null)
                 {
-                    _dbContext.LocationDetails.Remove(location);
+                    _dbContext.User.Remove(user);
                     //This line of code sets the state of the locationDetails entity to Modified within the Entity Framework contex
                     //This indicates that the entity has been modified and its changes need to be saved to the database.
-                    _dbContext.Entry(location).State = EntityState.Modified;
+                    _dbContext.Entry(user).State = EntityState.Modified;
                     await _dbContext.SaveChangesAsync();
                 }
-                return location;
+                return user;
             }
             catch (Exception ex)
             {
@@ -52,11 +53,11 @@ namespace D_KSRTC.Repositories.Location
             }
         }
 
-        public async Task<List<LocationDetails>> GetAllLocationsAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
             try
             {
-                return await _dbContext.LocationDetails.ToListAsync();
+                return await _dbContext.User.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -65,11 +66,11 @@ namespace D_KSRTC.Repositories.Location
             }
         }
 
-        public async Task<LocationDetails?> GetLocationByIdAsync(int LocationId)
+        public async Task<User?> GetUserByIdAsync(int userId)
         {
             try
             {
-                return await _dbContext.LocationDetails.FindAsync(LocationId);
+                return await _dbContext.User.FindAsync(userId);
             }
             catch (Exception ex)
             {
@@ -78,21 +79,22 @@ namespace D_KSRTC.Repositories.Location
             }
         }
 
-        public async Task<LocationDetails> UpdateLocationAsync(LocationDetails locationDetails)
+        public async Task<User> UpdateUserAsync(User user)
         {
             try
             {
-                //This line of code sets the state of the locationDetails entity to Modified within the Entity Framework context (_dbContext)
+                //This line of code sets the state of the locationDetails entity to Modified within the Entity Framework contex
                 //This indicates that the entity has been modified and its changes need to be saved to the database.
-                _dbContext.Entry(locationDetails).State = EntityState.Modified;
+                _dbContext.Entry(user).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();
-                return locationDetails;
+                return user;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 throw;
-            } 
+            }
         }
+
     }
 }
