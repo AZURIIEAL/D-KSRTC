@@ -12,7 +12,7 @@ namespace D_KSRTC.Requests.Commands.Location.UpdateLocation
         {
             _locationRepository = locationRepository;
         }
-        //NEED TO CHECK LATER.
+     
         public async Task<int> Handle(UpdateLocationCommand command, CancellationToken cancellationToken)
         {
             var locationDetails = await _locationRepository.GetLocationByIdAsync(command.Id);

@@ -107,7 +107,7 @@ namespace D_KSRTC.Controllers
 
                 if (result == 1)
                 {
-                    return NoContent(); // 204 No Content
+                    return Ok("Updated"); // 204 No Content
                 }
                 else
                 {
@@ -133,7 +133,7 @@ namespace D_KSRTC.Controllers
 
                 if (result == 1)
                 {
-                    return NoContent(); // 204 No Content
+                    return Ok("Deleted"); // 204 No Content
                 }
                 else
                 {

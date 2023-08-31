@@ -36,6 +36,24 @@ namespace D_KSRTC.Migrations
                 {
                     table.PrimaryKey("PK_LocationDetails", x => x.LocationId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserId);
+                });
         }
 
         /// <inheritdoc />
@@ -46,6 +64,9 @@ namespace D_KSRTC.Migrations
 
             migrationBuilder.DropTable(
                 name: "LocationDetails");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

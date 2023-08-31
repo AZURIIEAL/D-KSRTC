@@ -1,31 +1,35 @@
 ﻿using D_KSRTC.Models;
-using D_KSRTC.Requests.Commands.Users.AddUser;
-using D_KSRTC.Requests.Commands.Users.DeleteUser;
-using D_KSRTC.Requests.Commands.Users.UpdateUser;
-using D_KSRTC.Requests.Queries.Users.GetAllUsers;
-using D_KSRTC.Requests.Queries.Users.GetUserById;
+using D_KSRTC.Requests.Commands.BusCategories.AddBusCategory;
+using D_KSRTC.Requests.Commands.BusCategories.DeleteBusCategory;
+using D_KSRTC.Requests.Commands.BusCategories.UpdateBusCategory;
+using D_KSRTC.Requests.Queries.BusCategories.GetBusCategoryById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static D_KSRTC.Requests.Queries.BusCategories.GetAllBusCategory.GetAllBusCategoryQuery;
+
+
 namespace D_KSRTC.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class BusCategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public UserController(IMediator mediator)
+
+        public BusCategoryController(IMediator mediator)
         {
             _mediator = mediator;
         }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<User>> AddLocationAsync( AddUserCommand user, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<BusCategory>> AddBusCategoryAsync(BusCategory category, CancellationToken cancellationToken = default)
         {
             try
             {
-                var result = await _mediator.Send(user, cancellationToken);
-                return Ok(result);
+                var result = await _mediator.Send(new AddBusCategoryCommand(category.CategoryName, category.BaseFare), cancellationToken);
+                return CreatedAtAction(nameof(GetBusCategoryByIdAsync), new { categoryId = result.CategoryId }, result);
             }
             catch (Exception ex)
             {
@@ -35,22 +39,16 @@ namespace D_KSRTC.Controllers
         }
 
         [HttpGet]
-        [Route("{UserId}")]
+        [Route("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<User>> GetUserByIdAsync(int UserId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<BusCategory>> GetBusCategoryByIdAsync(int categoryId, CancellationToken cancellationToken = default)
         {
             try
             {
-                var userDetails = await _mediator.Send(new GetUsersByIdQuery { Id = UserId }, cancellationToken);
-
-                if (userDetails == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(userDetails);
+                var categoryDetails = await _mediator.Send(new GetBusCategoryByIdQuery { CategoryId = categoryId }, cancellationToken);
+                return Ok(categoryDetails);
             }
             catch (Exception ex)
             {
@@ -59,19 +57,16 @@ namespace D_KSRTC.Controllers
             }
         }
 
+        // Adding the GetAllBusCategories API
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<List<User>>> GetUsersAsync(CancellationToken cancellationToken = default)
+        public async Task<ActionResult<List<BusCategory>>> GetAllBusCategoriesAsync(CancellationToken cancellationToken = default)
         {
             try
             {
-                var userDetails = await _mediator.Send(new GetAllUsersQuery(), cancellationToken);
-                if (userDetails == null)
-                {
-                    return NoContent(); // 204 No Content
-                }
-                return Ok(userDetails);
+                var categories = await _mediator.Send(new GetAllBusCategoriesQuery(), cancellationToken);
+                return Ok(categories);
             }
             catch (Exception ex)
             {
@@ -79,54 +74,47 @@ namespace D_KSRTC.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
+
         [HttpPut]
-        [Route("{id}")]
+        [Route("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateUserAsync(int id, UpdateUserCommand command, CancellationToken cancellationToken = default)
+        public async Task<ActionResult> UpdateBusCategoryAsync(int categoryId, UpdateBusCategoryCommand command, CancellationToken cancellationToken = default)
         {
 
-            if (id != command.Id)
+            if (categoryId != command.CategoryId)
             {
-                //incase the person tried to alter the id.
                 return BadRequest("ID mismatch between URL and request body.");
             }
 
             try
             {
-                var result = await _mediator.Send(command, cancellationToken);
-
-                if (result == 1)
-                {
-                    return Ok("Updated"); // 204 No Content
-                }
-                else
-                {
-                    return NotFound();
-                }
+                await _mediator.Send(command, cancellationToken);
+                return NoContent();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex); // Log the exception to the console.
+                Console.WriteLine(ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> DeleteUserAsync(int id)
+        public async Task<ActionResult> DeleteBusCategoryAsync(int categoryId)
         {
             try
             {
-                var result = await _mediator.Send(new DeleteUserCommand { Id = id });
+                var result = await _mediator.Send(new DeleteBusCategoryCommand { CategoryId = categoryId });
 
                 if (result == 1)
                 {
-                    return Ok("Deleted"); // 204 No Content
+                    return NoContent();
                 }
                 else
                 {
@@ -135,10 +123,9 @@ namespace D_KSRTC.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex); // Log the exception to the console.
+                Console.WriteLine(ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
-
     }
 }

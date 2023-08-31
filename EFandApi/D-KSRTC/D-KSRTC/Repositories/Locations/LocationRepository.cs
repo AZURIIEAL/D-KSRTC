@@ -17,9 +17,6 @@ namespace D_KSRTC.Repositories.Location
             try
             {
                 _dbContext.LocationDetails.Add(locationDetails);
-                //This line of code sets the state of the locationDetails entity to Modified within the Entity Framework contex
-                //This indicates that the entity has been modified and its changes need to be saved to the database.
-                _dbContext.Entry(locationDetails).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();
                 return locationDetails;
             }
@@ -38,9 +35,6 @@ namespace D_KSRTC.Repositories.Location
                 if (location != null)
                 {
                     _dbContext.LocationDetails.Remove(location);
-                    //This line of code sets the state of the locationDetails entity to Modified within the Entity Framework contex
-                    //This indicates that the entity has been modified and its changes need to be saved to the database.
-                    _dbContext.Entry(location).State = EntityState.Modified;
                     await _dbContext.SaveChangesAsync();
                 }
                 return location;
