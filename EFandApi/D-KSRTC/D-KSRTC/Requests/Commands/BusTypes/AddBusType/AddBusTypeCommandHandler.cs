@@ -1,26 +1,24 @@
 ﻿using D_KSRTC.Models;
 using D_KSRTC.Repositories.BusTypes;
-using D_KSRTC.Repositories.Location;
 using MediatR;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace D_KSRTC.Requests.Commands.BusTypes.AddBusType
 {
     public class AddBusTypeCommandHandler : IRequestHandler<AddBusTypeCommand, BusType>
     {
-        private readonly BusTypeRepository _busTypeRepository;
+        private readonly IBusTypeRepository _busTypeRepository;
 
         public AddBusTypeCommandHandler(IBusTypeRepository busTypeRepository)
         {
-            _busTypeRepository = (BusTypeRepository?)busTypeRepository;
+            _busTypeRepository = busTypeRepository;
         }
 
-        
         public async Task<BusType> Handle(AddBusTypeCommand command, CancellationToken cancellationToken)
         {
             var busType = new BusType()
             {
-                TypeName = command.TypeName
+                TypeName = command.TypeName,
+                PDF = command.PDF
             };
 
             return await _busTypeRepository.AddBusTypeAsync(busType);

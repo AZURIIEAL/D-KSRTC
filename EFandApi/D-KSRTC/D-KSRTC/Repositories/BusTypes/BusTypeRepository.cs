@@ -8,21 +8,20 @@ namespace D_KSRTC.Repositories.BusTypes
 {
     public class BusTypeRepository : IBusTypeRepository
     {
-        public readonly DKSRTCContext _dbContext;
+        private readonly DKSRTCContext _dbContext;
 
         public BusTypeRepository(DKSRTCContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<BusType> AddBusTypeAsync(BusType typeName)
+        public async Task<BusType> AddBusTypeAsync(BusType busType)
         {
             try
             {
-                _dbContext.BusType.Add(typeName);
+                _dbContext.BusType.Add(busType);
                 await _dbContext.SaveChangesAsync();
-                return typeName;
-
+                return busType;
             }
             catch (Exception ex)
             {
@@ -31,19 +30,17 @@ namespace D_KSRTC.Repositories.BusTypes
             }
         }
 
-        public async Task<BusType> DeleteBusTypeAsync(int TypeId)
+        public async Task<BusType?> DeleteBusTypeAsync(int typeId)
         {
             try
             {
-               var bus = await _dbContext.BusType.FindAsync(TypeId);
-                if (bus != null)
+                var busType = await _dbContext.BusType.FindAsync(typeId);
+                if (busType != null)
                 {
-                    _dbContext.BusType.Remove (bus);
+                    _dbContext.BusType.Remove(busType);
                     await _dbContext.SaveChangesAsync();
                 }
-
-                return bus??new BusType();
-
+                return busType;
             }
             catch (Exception ex)
             {
@@ -52,20 +49,17 @@ namespace D_KSRTC.Repositories.BusTypes
             }
         }
 
-        public async Task<List<BusType>> GetAllBusTypeAsync()
+        public async Task<List<BusType>> GetAllBusTypesAsync()
         {
             try
             {
                 return await _dbContext.BusType.ToListAsync();
-
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 throw;
             }
-
         }
 
         public async Task<BusType?> GetBusTypeByIdAsync(int typeId)
@@ -81,13 +75,13 @@ namespace D_KSRTC.Repositories.BusTypes
             }
         }
 
-        public async Task<BusType> UpdateBusTypeAsync(BusType typeName)
+        public async Task<BusType> UpdateBusTypeAsync(BusType busType)
         {
             try
             {
-                _dbContext.Entry(_dbContext.BusType).State = EntityState.Modified;
+                _dbContext.Entry(busType).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();
-                return typeName;
+                return busType;
             }
             catch (Exception ex)
             {
@@ -95,14 +89,9 @@ namespace D_KSRTC.Repositories.BusTypes
                 throw;
             }
         }
-
-         }
-
-      
-
-       
     }
-          
+}
 
-      
-    
+
+
+
