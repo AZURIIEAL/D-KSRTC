@@ -5,6 +5,7 @@ using D_KSRTC.Repositories.BusRoutes;
 using D_KSRTC.Repositories.BusTypeCategories;
 using D_KSRTC.Repositories.BusTypes;
 using D_KSRTC.Repositories.Location;
+using D_KSRTC.Repositories.Routes;
 using D_KSRTC.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -25,6 +26,7 @@ builder.Services.AddScoped<IBusCategoryRepository, BusCategoryRepository>();
 builder.Services.AddScoped<IBusTypeCategoryRepository,BusTypeCategoryRepository>();
 builder.Services.AddScoped<IBusRepository, BusRepository>();
 builder.Services.AddScoped<IBusRoutesRepository, BusRoutesRepository>();
+builder.Services.AddScoped<IRouteRepository, RouteRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 //Configuring for CORS.
 builder.Services.AddCors(options =>
