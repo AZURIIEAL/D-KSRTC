@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace D_KSRTC.Models
 {
@@ -9,7 +10,9 @@ namespace D_KSRTC.Models
 
         public int BookingId { get; set; }
 
-        [ForeignKey("BookingId")]public Booking? Booking { get; set; } 
+        [ForeignKey("BookingId")]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
+        public Booking? Booking { get; set; } 
 
         [Required][MaxLength(100)]public string FirstName { get; set; } = string.Empty;
         [Required][MaxLength(100)]public string LastName { get; set; } = string.Empty;
@@ -20,7 +23,9 @@ namespace D_KSRTC.Models
 
         public int SeatId { get; set; }
 
-        [ForeignKey("SeatId")]public Seat? Seat { get; set; }
+        [ForeignKey("SeatId")]
+        [DeleteBehavior(DeleteBehavior.Restrict)] 
+        public Seat? Seat { get; set; }
 
         [Required][MaxLength(20)]public string PhoneNumber { get; set; } = string.Empty;
 

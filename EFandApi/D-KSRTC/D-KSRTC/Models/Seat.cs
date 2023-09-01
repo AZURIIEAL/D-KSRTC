@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace D_KSRTC.Models
 {
@@ -8,7 +9,9 @@ namespace D_KSRTC.Models
         [Key]public int SeatID { get; set; }
         public int BusID { get; set; }
 
-        [ForeignKey("BusID")]public Bus? Bus { get; set; }
+        [ForeignKey("BusID")]
+        [DeleteBehavior(DeleteBehavior.Restrict)] 
+        public Bus? Bus { get; set; }
 
         [Required][MaxLength(10)]public string SeatNumber { get; set; } = string.Empty;
 

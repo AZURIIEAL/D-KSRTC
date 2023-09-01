@@ -1,19 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace D_KSRTC.Models
 {
     public class Booking
     {
-        [Key]public int BookingId { get; set; }
+        [Key] public int BookingId { get; set; }
 
         public int UserId { get; set; }
 
-        [ForeignKey("UserId")]public User? User { get; set; }
+        [ForeignKey("UserId")]
+        [DeleteBehavior(DeleteBehavior.Restrict)] 
+        public User? User { get; set; }
 
         public int BusRouteId { get; set; }
 
-        [ForeignKey("BusRouteId")]public BusRoute? BusRoute { get; set; }
+        [ForeignKey("BusRouteId")]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
+        public BusRoute? BusRoute { get; set; }
 
         [Required] public DateTime BookingDate { get; set; }
 
@@ -21,6 +26,6 @@ namespace D_KSRTC.Models
 
         [Required] public float TotalAmount { get; set; }
 
-        [MaxLength(50)]public string Status { get; set; } = string.Empty;
+        [MaxLength(50)] public string Status { get; set; } = string.Empty;
     }
 }

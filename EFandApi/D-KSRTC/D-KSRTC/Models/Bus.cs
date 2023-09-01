@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace D_KSRTC.Models;
 
@@ -13,6 +14,7 @@ public class Bus
     public int TCId { get; set; }
 
     [ForeignKey("TCId")]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public BusTypeCategory? TCIdNavigation { get; set; }
 
     public int TotalSeats { get; set; }

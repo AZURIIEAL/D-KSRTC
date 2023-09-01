@@ -13,7 +13,7 @@ namespace D_KSRTC.Models
         [MaxLength(100)]
         public string RouteName { get; set; } = string.Empty;
 
-        public int? SLId { get; set; } //Start locationId
+        public int SLId { get; set; } //Start locationId
 
         [ForeignKey("SLId")]
         [DeleteBehavior(DeleteBehavior.Restrict)]
@@ -23,6 +23,7 @@ namespace D_KSRTC.Models
         public int? ELId { get; set; } //End LocationId
 
         [ForeignKey("ELId")]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
         public LocationDetails? ELIdNavigation { get; set; }
 
         public float Distance { get; set; }
