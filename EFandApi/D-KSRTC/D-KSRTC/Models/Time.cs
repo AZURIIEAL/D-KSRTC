@@ -9,7 +9,7 @@ namespace D_KSRTC.Models
         public int TimeId { get; set; }
         //Hemce no need of configuration files
         [Required]
-        public DateTime BusName { get; set; }
+        public DateTime BusTime { get; set; }
 
     }
 }

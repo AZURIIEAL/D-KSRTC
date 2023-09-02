@@ -1,4 +1,5 @@
 using D_KSRTC.Data;
+using D_KSRTC.Repositories.Billings;
 using D_KSRTC.Repositories.Bookings;
 using D_KSRTC.Repositories.BusCategories;
 using D_KSRTC.Repositories.Buses;
@@ -7,7 +8,10 @@ using D_KSRTC.Repositories.BusTypeCategories;
 using D_KSRTC.Repositories.BusTypes;
 using D_KSRTC.Repositories.Location;
 using D_KSRTC.Repositories.Passengers;
+using D_KSRTC.Repositories.Payments;
 using D_KSRTC.Repositories.Routes;
+using D_KSRTC.Repositories.Seats;
+using D_KSRTC.Repositories.Times;
 using D_KSRTC.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -32,6 +36,11 @@ builder.Services.AddScoped<IRouteRepository, RouteRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IPassengerRepository, PassengerRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<ITimeRepository, TimeRepository>();
+builder.Services.AddScoped<IBillingRepository, BillingRepository>();
+builder.Services.AddScoped<ISeatRepository, SeatRepository>();
+
 //Configuring for CORS.
 builder.Services.AddCors(options =>
 {

@@ -7,10 +7,12 @@ namespace D_KSRTC.Models
     {
         [Key]public int BillingId { get; set; }
 
+        [Required]
         public int BookingId { get; set; }
 
         [ForeignKey("BookingId")]public Booking? Booking { get; set; }
 
+        [Required]
         public int UserId { get; set; }
 
         [ForeignKey("UserId")]public User? User { get; set; }
