@@ -4,10 +4,10 @@
     <section class="screen-home">
       <div class="screen-home__form-wrap">
         <div class="screen-home__form">
-          <form>
+          <form [formGroup]="busSearchForm" (ngSubmit)="searchBus()">
             <div id="formdetail">
               <div class="screen-home__location">
-                <div class="lable">
+                <div class="label">
                   <figure class="icon">
                     <img src="https://i.ibb.co/KwnYdXN/location.png" />
                   </figure>
@@ -21,23 +21,26 @@
                       </figure>
                     </div>
                     <div class="from">
-                      <span class="inside-lable">From</span>
+                      <span class="inside-label">From</span>
                       <input
                         class="input"
-                        type=""
-                        name=""
-                        value="Thiruvananthapuram"
+                        type="text"
+                        formControlName="fromLocation"
                       />
                     </div>
                     <div class="to">
-                      <span class="inside-lable">To</span>
-                      <input class="input" type="" name="" value="Kottayam" />
+                      <span class="inside-label">To</span>
+                      <input
+                        class="input"
+                        type="text"
+                        formControlName="toLocation"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div class="screen-home__date">
-                <div class="lable">
+                <div class="label">
                   <figure class="icon">
                     <img src="https://i.ibb.co/7N5zdnc/calendar.png" />
                   </figure>
@@ -45,17 +48,12 @@
                 </div>
                 <div class="input-wrap">
                   <div class="inside-wrap">
-                    <div class="onward">
-                      <input class="input" type="" name="" value="05" />
-                      <div class="mon-day">
-                        <span class="month">Sept</span>
-                        <span class="day">Tue</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="inside-lable-wrap">
-                    <div class="inside-lable-col">
-                      <span class="inside-lable">Onward</span>
+                    <div>
+                      <input
+                        class="input"
+                        type="date"
+                        formControlName="travelDate"
+                      />
                     </div>
                   </div>
                 </div>
@@ -64,11 +62,18 @@
             <div class="screen-home__submit-wrap">
               <span class="line"></span>
               <div class="screen-home__bus-page" id="buspage">
+                <button type="submit" class="search-button" style="background-color: #0088a9;color: #fff; border: none;">
+                    <figure
+                      class="screen-home__bus-arrow-wrap"
+                      type="submit"
+                      class="search-button"
+                    >
+                      <img src="https://i.ibb.co/nQ4khG8/arrow.png" />
+                    </figure>
+                  </button>
                 <div class="screen-home__inside-wave"></div>
-                <figure class="screen-home__bus-arrow-wrap">
-                  <img src="https://i.ibb.co/nQ4khG8/arrow.png" />
-                </figure>
               </div>
+              
             </div>
           </form>
         </div>
