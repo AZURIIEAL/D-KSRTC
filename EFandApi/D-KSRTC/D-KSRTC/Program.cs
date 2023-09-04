@@ -38,6 +38,7 @@ builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IPassengerRepository, PassengerRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<ITimeRepository, TimeRepository>();
+builder.Services.AddScoped<IRouteDetailsRepository, RouteDetailsRepository>();
 builder.Services.AddScoped<IBillingRepository, BillingRepository>();
 builder.Services.AddScoped<ISeatRepository, SeatRepository>();
 

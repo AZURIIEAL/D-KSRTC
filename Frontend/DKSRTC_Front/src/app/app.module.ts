@@ -7,6 +7,7 @@ import { UserRedirectionPageComponent } from './Components/user-redirection-page
 import { UserPageComponent } from './Components/user-page/user-page.component';
 import { AdminPageComponent } from './Components/admin-page/admin-page.component';
 import { AddNewUserComponent } from './Components/add-new-user/add-new-user.component';
+import { HomeComponent } from './Components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AddNewUserComponent } from './Components/add-new-user/add-new-user.comp
     UserRedirectionPageComponent,
     UserPageComponent,
     AdminPageComponent,
-    AddNewUserComponent
+    AddNewUserComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
