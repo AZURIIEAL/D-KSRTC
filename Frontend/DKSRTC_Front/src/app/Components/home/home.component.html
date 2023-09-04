@@ -1,15 +1,88 @@
-<header>
-    <nav>
-        <ul class="nav__links">
-            <li>
-                <a href="#">About</a>
-                <a href="#">Services</a>
-                <a href="#">Projects</a>
-            </li>
-        </ul>
-    </nav>
-    <a href="#" class="cta">
-        <button>CONTACT</button>
-    </a>
-</header>
-<Body></Body>
+<app-navbar></app-navbar>
+<div class="main">
+  <main class="app">
+    <section class="screen-home">
+      <div class="screen-home__form-wrap">
+        <div class="screen-home__form">
+          <form>
+            <div id="formdetail">
+              <div class="screen-home__location">
+                <div class="lable">
+                  <figure class="icon">
+                    <img src="https://i.ibb.co/KwnYdXN/location.png" />
+                  </figure>
+                  <span class="text">Location Details</span>
+                </div>
+                <div class="input-wrap">
+                  <div class="inside-wrap">
+                    <div class="rotate-btn">
+                      <figure>
+                        <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" />
+                      </figure>
+                    </div>
+                    <div class="from">
+                      <span class="inside-lable">From</span>
+                      <input
+                        class="input"
+                        type=""
+                        name=""
+                        value="Thiruvananthapuram"
+                      />
+                    </div>
+                    <div class="to">
+                      <span class="inside-lable">To</span>
+                      <input class="input" type="" name="" value="Kottayam" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="screen-home__date">
+                <div class="lable">
+                  <figure class="icon">
+                    <img src="https://i.ibb.co/7N5zdnc/calendar.png" />
+                  </figure>
+                  <span class="text">Date Details</span>
+                </div>
+                <div class="input-wrap">
+                  <div class="inside-wrap">
+                    <div class="onward">
+                      <input class="input" type="" name="" value="05" />
+                      <div class="mon-day">
+                        <span class="month">Sept</span>
+                        <span class="day">Tue</span>
+                      </div>
+                    </div>
+                    <div class="return">
+                      <input class="input" type="" name="" value="12" />
+                      <div class="mon-day">
+                        <span class="month">Dec</span>
+                        <span class="day">Fri</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="inside-lable-wrap">
+                    <div class="inside-lable-col">
+                      <span class="inside-lable">Onward</span>
+                    </div>
+                    <div class="inside-lable-col">
+                      <span class="inside-lable">Return</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="screen-home__submit-wrap">
+              <span class="line"></span>
+              <div class="screen-home__bus-page" id="buspage">
+                <div class="screen-home__inside-wave"></div>
+                <figure class="screen-home__bus-arrow-wrap">
+                  <img src="https://i.ibb.co/nQ4khG8/arrow.png" />
+                </figure>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
