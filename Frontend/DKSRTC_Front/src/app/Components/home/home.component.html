@@ -1,83 +1,49 @@
 <app-navbar></app-navbar>
-<div class="main">
-  <main class="app">
-    <section class="screen-home">
-      <div class="screen-home__form-wrap">
-        <div class="screen-home__form">
-          <form [formGroup]="busSearchForm" (ngSubmit)="searchBus()">
-            <div id="formdetail">
-              <div class="screen-home__location">
-                <div class="label">
-                  <figure class="icon">
-                    <img src="https://i.ibb.co/KwnYdXN/location.png" />
-                  </figure>
-                  <span class="text">Location Details</span>
-                </div>
-                <div class="input-wrap">
-                  <div class="inside-wrap">
-                    <div class="rotate-btn">
-                      <figure>
-                        <img src="https://i.ibb.co/HPBrQkn/rotate-btn.png" />
-                      </figure>
-                    </div>
-                    <div class="from">
-                      <span class="inside-label">From</span>
-                      <input
-                        class="input"
-                        type="text"
-                        formControlName="fromLocation"
-                      />
-                    </div>
-                    <div class="to">
-                      <span class="inside-label">To</span>
-                      <input
-                        class="input"
-                        type="text"
-                        formControlName="toLocation"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="screen-home__date">
-                <div class="label">
-                  <figure class="icon">
-                    <img src="https://i.ibb.co/7N5zdnc/calendar.png" />
-                  </figure>
-                  <span class="text">Date Details</span>
-                </div>
-                <div class="input-wrap">
-                  <div class="inside-wrap">
-                    <div>
-                      <input
-                        class="input"
-                        type="date"
-                        formControlName="travelDate"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="screen-home__submit-wrap">
-              <span class="line"></span>
-              <div class="screen-home__bus-page" id="buspage">
-                <button type="submit" class="search-button" style="background-color: #0088a9;color: #fff; border: none;">
-                    <figure
-                      class="screen-home__bus-arrow-wrap"
-                      type="submit"
-                      class="search-button"
-                    >
-                      <img src="https://i.ibb.co/nQ4khG8/arrow.png" />
-                    </figure>
-                  </button>
-                <div class="screen-home__inside-wave"></div>
-              </div>
-              
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
+<form [formGroup]="busSearchForm">
+  <mat-form-field class="example-full-width">
+    <mat-label>From Location</mat-label>
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="From Location"
+           matInput
+           [formControl]="busSearchForm.controls.fromLocation"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width">
+    <mat-label>To Location</mat-label>
+    <input type="text"
+           placeholder="Pick one"
+           aria-label="From Location"
+           matInput
+           [formControl]="busSearchForm.controls.fromLocation"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width">
+    <mat-label>On Date</mat-label>
+    <input type="date"
+           placeholder="Pick one"
+           aria-label="From Location"
+           matInput
+           [formControl]="busSearchForm.controls.fromLocation"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <button type="button" (click)="searchBus()">Search</button>
+</form>

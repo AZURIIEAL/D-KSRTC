@@ -68,6 +68,7 @@ namespace D_KSRTC.Controllers
 
         //Adding the get alldata api
         [HttpGet]
+        [Route("get-all")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<LocationDetails>>> GetLocationsAsync(CancellationToken cancellationToken = default)
@@ -99,6 +100,7 @@ namespace D_KSRTC.Controllers
             {
                 //incase the person tried to alter the id.
                 return BadRequest("ID mismatch between URL and request body.");
+
             }
 
             try
