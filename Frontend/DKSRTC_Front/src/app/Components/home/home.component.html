@@ -9,41 +9,37 @@
            [formControl]="busSearchForm.controls.fromLocation"
            [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
+      <mat-option *ngFor="let option of locationList " [value]="option">
+        {{option.locationName}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  
+
+
   <mat-form-field class="example-full-width">
     <mat-label>To Location</mat-label>
     <input type="text"
            placeholder="Pick one"
-           aria-label="From Location"
+           aria-label="To Location"
            matInput
-           [formControl]="busSearchForm.controls.fromLocation"
+           [formControl]="busSearchForm.controls.toLocation"
            [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      <mat-option *ngFor="let option of locationList" [value]="option">
         {{option}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  
-  <mat-form-field class="example-full-width">
-    <mat-label>On Date</mat-label>
-    <input type="date"
-           placeholder="Pick one"
-           aria-label="From Location"
-           matInput
-           [formControl]="busSearchForm.controls.fromLocation"
-           [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
+
+
+
+  <mat-form-field>
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  
+  <br>
   <button type="button" (click)="searchBus()">Search</button>
 </form>

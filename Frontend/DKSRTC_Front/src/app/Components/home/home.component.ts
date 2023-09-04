@@ -1,29 +1,34 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { ISearch } from 'src/app/Interfaces/Isearch';
 import { ILocationDetails } from 'src/app/Interfaces/ILocationDetails';
 import { dataLocationDetailsService } from 'src/app/Services/data-LocationDetails.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass']
+  styleUrls: ['./home.component.sass'],
 })
+
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private service: dataLocationDetailsService) {}
+  constructor(private router: Router, private service: dataLocationDetailsService) {
+    this.service.getLocationDetails().subscribe((data : Array<ILocationDetails>) =>{
+      this.filteredOptions=data;
+      this.locationList=this.filteredOptions.filter(x=>x.locationName.toLowerCase())
+    console.log(data)
+  });
+  }
 
   busSearchForm = new FormGroup({
-    fromLocation: new FormControl(''),
-    toLocation: new FormControl(''),
-    travelDate: new FormControl(''),
+    fromLocation: new FormControl(null),
+    toLocation: new FormControl(null),
+    travelDate: new FormControl(null),
   });
-
-  filteredOptions: Observable<string[]> | undefined;
-
-  options: string[] = []; // Initialize as an empty array of strings
+  
+  locationList: Array<ILocationDetails> = [];
+  filteredOptions: ILocationDetails[]=[];
 
   searchCriteria: ISearch = {
     FromLocation: '',
@@ -31,21 +36,14 @@ export class HomeComponent implements OnInit {
     JourneyDate: new Date(),
   };
 
-  ngOnInit(): void {
-    // Fetch location details and map them to location names
-    this.service.getLocationDetails().subscribe((locationDetails: ILocationDetails[]) => {
-      this.options = locationDetails.map((location: ILocationDetails) => location.locationName);
-      this.filteredOptions = this.busSearchForm.get('fromLocation')!.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value || '')),
-      );
-    });
+  ngOnInit() {
+    this.filteredOptions = this.busSearchForm.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
+  
   searchBus() {
     const fromLocationControl = this.busSearchForm.get('fromLocation');
     const toLocationControl = this.busSearchForm.get('toLocation');
