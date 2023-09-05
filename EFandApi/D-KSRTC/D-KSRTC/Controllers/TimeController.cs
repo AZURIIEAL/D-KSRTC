@@ -1,9 +1,12 @@
 ﻿using D_KSRTC.Models;
+using D_KSRTC.Requests.Commands.Times.AddTime;
+using D_KSRTC.Requests.Commands.Times.DeleteTime;
+using D_KSRTC.Requests.Commands.Times.UpdateTime;
 using D_KSRTC.Requests.Queries.Times.GetAllTimes;
 using D_KSRTC.Requests.Queries.Times.GetTimeById;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace D_KSRTC.Controllers
 {
@@ -16,6 +19,24 @@ namespace D_KSRTC.Controllers
         public TimeController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Time), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Time>> AddTimeAsync(AddTimeCommand command, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
         }
 
         [HttpGet]
@@ -58,6 +79,73 @@ namespace D_KSRTC.Controllers
                 }
 
                 return Ok(time);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+        [HttpPut]
+        [Route("{timeId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateSeatAsync(int timeId, UpdateTimeCommand command, CancellationToken cancellationToken = default)
+        {
+            if (timeId != command.TimeId)
+            {
+                return BadRequest("ID mismatch between URL and request body.");
+            }
+
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                if (result == 1)
+                {
+                    return NoContent();
+                }
+                else if (result == -1)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Failed to update the seat.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpDelete]
+        [Route("{timeId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> DeleteSeatAsync(int timeId, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var result = await _mediator.Send(new DeleteTimeCommand ( timeId ), cancellationToken);
+
+                if (result == 1)
+                {
+                    return NoContent();
+                }
+                else if (result == -1)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Failed to delete the seat.");
+                }
             }
             catch (Exception ex)
             {

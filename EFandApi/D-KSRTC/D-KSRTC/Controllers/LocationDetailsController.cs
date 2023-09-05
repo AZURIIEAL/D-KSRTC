@@ -23,7 +23,7 @@ namespace D_KSRTC.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<LocationDetails>> AddLocationAsync(LocationDetails location, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<LocationDetails>> AddLocationAsync(AddLocationCommand location, CancellationToken cancellationToken = default)
         {
             try
             {

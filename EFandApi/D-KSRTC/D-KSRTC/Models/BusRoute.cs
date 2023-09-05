@@ -24,5 +24,6 @@ namespace D_KSRTC.Models
         [ForeignKey("RouteId")]
         [DeleteBehavior(DeleteBehavior.Restrict)]
         public Time? TimeIdNavigation { get; set; }
+        public DateTime RouteDate { get; set; }
     }
 }

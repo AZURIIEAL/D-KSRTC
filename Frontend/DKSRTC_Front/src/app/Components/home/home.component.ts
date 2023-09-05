@@ -73,9 +73,6 @@ export class HomeComponent implements OnInit {
       console.log('From:', this.searchCriteria.FromLocation);
       console.log('To:', this.searchCriteria.ToLocation);
       console.log('Date:', this.searchCriteria.JourneyDate);
-
-      // Optionally, you can navigate to a new page using the router
-      // this.router.navigate(['/search-results']); // Replace with your route
     }
   }
 }

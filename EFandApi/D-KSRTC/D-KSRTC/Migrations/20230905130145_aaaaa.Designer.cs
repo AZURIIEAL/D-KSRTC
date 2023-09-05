@@ -4,6 +4,7 @@ using D_KSRTC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace D_KSRTC.Migrations
 {
     [DbContext(typeof(DKSRTCContext))]
-    partial class DKSRTCContextModelSnapshot : ModelSnapshot
+    [Migration("20230905130145_aaaaa")]
+    partial class aaaaa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -413,8 +416,8 @@ namespace D_KSRTC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TimeId"));
 
-                    b.Property<DateTime>("BusTime")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("BusTime")
+                        .HasColumnType("time");
 
                     b.HasKey("TimeId");
 

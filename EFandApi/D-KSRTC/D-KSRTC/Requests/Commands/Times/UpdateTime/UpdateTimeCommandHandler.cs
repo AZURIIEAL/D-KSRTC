@@ -16,7 +16,7 @@ namespace D_KSRTC.Requests.Commands.Times.UpdateTime
         {
             var time = await _timeRepository.GetTimeByIdAsync(command.TimeId);
 
-            if (time == null)
+            if (time is null)
             {
                 return default; // Time not found
             }

@@ -23,7 +23,7 @@ namespace D_KSRTC.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Bus>> AddBusAsync(Bus bus, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<Bus>> AddBusAsync(AddBusCommand bus, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace D_KSRTC.Controllers
                     TotalSeats = bus.TotalSeats
                 }, cancellationToken);
 
-                return CreatedAtAction(nameof(GetBusByIdAsync), new { busId = result.BusId }, result);
+                return Ok(result);
             }
             catch (Exception ex)
             {

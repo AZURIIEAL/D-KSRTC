@@ -24,7 +24,7 @@ namespace D_KSRTC.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Billing>> AddBillingAsync(Billing billing, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<Billing>> AddBillingAsync(AddBillingCommand billing, CancellationToken cancellationToken = default)
         {
             try
             {

@@ -20,7 +20,7 @@ namespace D_KSRTC.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<RouteDetails>> AddRouteDetailsAsync(RouteDetails routeDetails, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<RouteDetails>> AddRouteDetailsAsync(AddRouteDetailsCommand routeDetails, CancellationToken cancellationToken = default)
         {
             try
             {

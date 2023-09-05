@@ -1,7 +1,6 @@
 ﻿using D_KSRTC.Models;
 using D_KSRTC.Repositories.BusRoutes;
 using MediatR;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace D_KSRTC.Requests.Commands.BusRoutes.UpdateBusRoute
 {
@@ -21,7 +20,8 @@ namespace D_KSRTC.Requests.Commands.BusRoutes.UpdateBusRoute
                 BusRouteId = command.BusRouteId,
                 BusId = command.BusId,
                 RouteId = command.RouteId,
-                TimeId = command.TimeId
+                TimeId = command.TimeId,
+                RouteDate = command.RouteDate,
             };
 
             return await _busRouteRepository.UpdateBusRouteAsync(busRoute);

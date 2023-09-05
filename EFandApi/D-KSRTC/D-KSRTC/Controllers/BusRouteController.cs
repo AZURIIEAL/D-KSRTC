@@ -1,7 +1,7 @@
 ﻿using D_KSRTC.Models;
 using D_KSRTC.Requests.Commands.BusRoutes.AddBusRouteCommand;
 using D_KSRTC.Requests.Commands.BusRoutes.UpdateBusRoute;
-using D_KSRTC.Requests.Queries.BusRoutes.DeleteBusRoute;
+using D_KSRTC.Requests.Commands.BusRoutes.DeleteBusRoute;
 using D_KSRTC.Requests.Queries.BusRoutes.GetAllBusRoutes;
 using D_KSRTC.Requests.Queries.BusRoutes.GetBusRouteById;
 using MediatR;
@@ -25,11 +25,11 @@ namespace D_KSRTC.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<BusRoute>> AddBusRouteAsync(BusRoute busRoute, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<BusRoute>> AddBusRouteAsync(AddBusRouteCommand busRoute, CancellationToken cancellationToken = default)
         {
             try
             {
-                var result = await _mediator.Send(new AddBusRouteCommand(busRoute.BusId, busRoute.RouteId, busRoute.TimeId), cancellationToken);
+                var result = await _mediator.Send(new AddBusRouteCommand(busRoute.BusId, busRoute.RouteId, busRoute.TimeId,busRoute.RouteDate), cancellationToken);
                 return Ok(result);
             }
             catch (Exception ex)

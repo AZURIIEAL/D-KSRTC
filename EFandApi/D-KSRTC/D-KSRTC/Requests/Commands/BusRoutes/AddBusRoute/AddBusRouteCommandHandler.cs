@@ -19,7 +19,8 @@ namespace D_KSRTC.Requests.Commands.BusRoutes.AddBusRouteCommand
             {
                 BusId = command.BusId,
                 RouteId = command.RouteId,
-                TimeId = command.TimeId
+                TimeId = command.TimeId,
+                RouteDate = command.RouteDate,
             };
 
             return await _busRouteRepository.AddBusRouteAsync(busRoute);

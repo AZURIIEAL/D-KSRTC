@@ -23,12 +23,12 @@ namespace D_KSRTC.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<BusTypeCategory>> AddBusTypeCategoryAsync(BusTypeCategory tcDetails, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<BusTypeCategory>> AddBusTypeCategoryAsync(AddBusTypeCategoryCommand tcDetails, CancellationToken cancellationToken = default)
         {
             try
             {
                 var result = await _mediator.Send(new AddBusTypeCategoryCommand(tcDetails.CategoryId, tcDetails.TypeId), cancellationToken);
-                return CreatedAtAction(nameof(GetBusTypeCategoryByIdAsync), new { tcId = result.TCId }, result);
+                return Ok(result);
             }
             catch (Exception ex)
             {

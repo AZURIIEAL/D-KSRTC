@@ -1,7 +1,7 @@
 ﻿using D_KSRTC.Repositories.BusRoutes;
 using MediatR;
 
-namespace D_KSRTC.Requests.Queries.BusRoutes.DeleteBusRoute
+namespace D_KSRTC.Requests.Commands.BusRoutes.DeleteBusRoute
 {
     public class DeleteBusRouteCommandHandler : IRequestHandler<DeleteBusRouteCommand, int>
     {
