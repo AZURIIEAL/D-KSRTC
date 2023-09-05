@@ -1,45 +1,50 @@
 <app-navbar></app-navbar>
-<form [formGroup]="busSearchForm">
+
+<form [formGroup]="busSearchForm" (ngSubmit)="searchBus()">
   <mat-form-field class="example-full-width">
     <mat-label>From Location</mat-label>
-    <input type="text"
-           placeholder="Pick one"
-           aria-label="From Location"
-           matInput
-           [formControl]="busSearchForm.controls.fromLocation"
-           [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of locationList " [value]="option">
-        {{option.locationName}}
+    <input
+      type="text"
+      placeholder="Pick one"
+      aria-label="From Location"
+      matInput
+      [formControl]="busSearchForm.controls.fromLocation"
+      [matAutocomplete]="autoFrom"
+      (input)="filterLocations('fromLocation', $event)"
+    >
+    <mat-autocomplete #autoFrom="matAutocomplete">
+      <mat-option *ngFor="let option of filteredFromLocations" [value]="option.locationName">
+        {{ option.locationName }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-
 
   <mat-form-field class="example-full-width">
     <mat-label>To Location</mat-label>
-    <input type="text"
-           placeholder="Pick one"
-           aria-label="To Location"
-           matInput
-           [formControl]="busSearchForm.controls.toLocation"
-           [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of locationList" [value]="option">
-        {{option}}
+    <input
+      type="text"
+      placeholder="Pick one"
+      aria-label="To Location"
+      matInput
+      [formControl]="busSearchForm.controls.toLocation"
+      [matAutocomplete]="autoTo"
+      (input)="filterLocations('toLocation', $event)"
+    >
+    <mat-autocomplete #autoTo="matAutocomplete">
+      <mat-option *ngFor="let option of filteredToLocations" [value]="option.locationName">
+        {{ option.locationName }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
 
-
-
   <mat-form-field>
     <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <input matInput [matDatepicker]="picker" formControlName="travelDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+
   <br>
-  <button type="button" (click)="searchBus()">Search</button>
+
+  <button type="submit">Search</button>
 </form>

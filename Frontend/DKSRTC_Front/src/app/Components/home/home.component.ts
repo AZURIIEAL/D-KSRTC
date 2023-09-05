@@ -5,30 +5,23 @@ import { ISearch } from 'src/app/Interfaces/Isearch';
 import { ILocationDetails } from 'src/app/Interfaces/ILocationDetails';
 import { dataLocationDetailsService } from 'src/app/Services/data-LocationDetails.service';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass'],
 })
-
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private service: dataLocationDetailsService) {
-    this.service.getLocationDetails().subscribe((data : Array<ILocationDetails>) =>{
-      this.filteredOptions=data;
-      this.locationList=this.filteredOptions.filter(x=>x.locationName.toLowerCase())
-    console.log(data)
-  });
-  }
+  options: ILocationDetails[] = [];
+  filteredFromLocations: ILocationDetails[] = [];
+  filteredToLocations: ILocationDetails[] = [];
+
+  constructor(private router: Router, private service: dataLocationDetailsService) {}
 
   busSearchForm = new FormGroup({
-    fromLocation: new FormControl(null),
-    toLocation: new FormControl(null),
-    travelDate: new FormControl(null),
+    fromLocation: new FormControl(''),
+    toLocation: new FormControl(''),
+    travelDate: new FormControl(''),
   });
-  
-  locationList: Array<ILocationDetails> = [];
-  filteredOptions: ILocationDetails[]=[];
 
   searchCriteria: ISearch = {
     FromLocation: '',
@@ -37,13 +30,35 @@ export class HomeComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.filteredOptions = this.busSearchForm.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+    this.getLocationData();
   }
 
-  
+  getLocationData() {
+    this.service.getLocationDetails().subscribe((data: ILocationDetails[]) => {
+      this.options = data;
+    });
+  }
+
+  filterLocations(controlName: string, event: any) {
+    const inputValue = event.target.value;
+    const targetLocations =
+      controlName === 'fromLocation' ? this.filteredFromLocations : this.filteredToLocations;
+
+    targetLocations.length = 0; // Clear the array
+
+    if (inputValue.trim() === '') {
+      // If input is empty, show all options
+      targetLocations.push(...this.options);
+    } else {
+      // Filter the options based on the input value
+      targetLocations.push(
+        ...this.options.filter((option) =>
+          option.locationName.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      );
+    }
+  }
+
   searchBus() {
     const fromLocationControl = this.busSearchForm.get('fromLocation');
     const toLocationControl = this.busSearchForm.get('toLocation');
@@ -58,7 +73,7 @@ export class HomeComponent implements OnInit {
       console.log('From:', this.searchCriteria.FromLocation);
       console.log('To:', this.searchCriteria.ToLocation);
       console.log('Date:', this.searchCriteria.JourneyDate);
-      
+
       // Optionally, you can navigate to a new page using the router
       // this.router.navigate(['/search-results']); // Replace with your route
     }
