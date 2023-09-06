@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IBus } from '../Interfaces/IBus';
 
@@ -9,7 +9,12 @@ export class BusRouteService {
 
   constructor(private http: HttpClient) { }
   url: string = 'https://localhost:44386/api/BusRoute';
-  public getFilteredBuses() {
-    return this.http.get<IBus[]>(`${this.url}/available-bus-routes`);
+  public getFilteredBuses(from:number,to:number,onDate:Date) {
+    
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("FromId",from)
+    .append("ToId",to)
+    .append("Date",'2023-09-06');
+    return this.http.get<IBus[]>(`${this.url}/available-bus-routes`,{params:queryParams});
   }
 }

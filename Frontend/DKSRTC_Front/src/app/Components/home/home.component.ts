@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
   options: ILocationDetails[] = [];
   filteredFromLocations: ILocationDetails[] = [];
   filteredToLocations: ILocationDetails[] = [];
-  submitted : boolean = false;
 
   constructor(private router: Router, private service: dataLocationDetailsService) {}
 
@@ -74,21 +73,13 @@ export class HomeComponent implements OnInit {
       console.log('To:', this.searchCriteria.ToLocation);
       console.log('Date:', this.searchCriteria.JourneyDate);
     }
-    this.submitted=true;
-
-      //     // Make an API call to fetch available buses (Replace with your API call logic)
-      // this.service.searchAvailableBuses(this.searchCriteria).subscribe((response: any) => {
-      //   // Assuming 'response' contains the results from the API call
-  
-      //   // Navigate to the "available-buses" route with search criteria as a query parameter
-      //   this.router.navigate(['/available-buses'], {
-      //     queryParams: {
-      //       fromLocation: this.searchCriteria.FromLocation,
-      //       toLocation: this.searchCriteria.ToLocation,
-      //       journeyDate: this.searchCriteria.JourneyDate.toString(), // Convert Date to ISO string
-      //     },
-      //   });
-      // });
+        this.router.navigate(['/available-buses'], {
+          queryParams: {
+            fromLocation: this.searchCriteria.FromLocation,
+            toLocation: this.searchCriteria.ToLocation,
+            journeyDate: this.searchCriteria.JourneyDate, 
+          },
+        });
   }
 
 }

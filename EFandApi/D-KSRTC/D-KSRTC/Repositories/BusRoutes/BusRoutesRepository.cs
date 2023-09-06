@@ -110,7 +110,7 @@ namespace D_KSRTC.Repositories.BusRoutes
                         Duration = x.Route!.Duration,
                         Sequence = x.Route.RouteDetails.Where(y => y.StopId == toId).Select(x => x.Sequence).First(),
                         CategoryName = x.BusIdNavigation.TCIdNavigation!.CategoryIdNavigaton!.CategoryName,
-                        TypeName=x.BusIdNavigation.TCIdNavigation.TypeIdNavigaton!.TypeName,
+                        TypeName = x.BusIdNavigation.TCIdNavigation.TypeIdNavigaton!.TypeName,
                         BaseFare = x.BusIdNavigation.TCIdNavigation.CategoryIdNavigaton.BaseFare,
                         perDistanceFare = x.BusIdNavigation.TCIdNavigation.TypeIdNavigaton.PDF
 
