@@ -15,7 +15,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+<<<<<<< HEAD
 import { AvailableBusesComponent } from './Components/available-buses/available-buses.component';
+=======
+import { LoginComponent } from './Components/login/login.component';
+import { SignUpComponent } from './Components/sign-up/sign-up.component';
+>>>>>>> 802ac007ca931749df9706fe7484231a36a6cde0
 
 
 
@@ -25,7 +30,12 @@ import { AvailableBusesComponent } from './Components/available-buses/available-
     AppComponent,
     HomeComponent,
     HeaderComponent,
+<<<<<<< HEAD
     AvailableBusesComponent
+=======
+    LoginComponent,
+    SignUpComponent
+>>>>>>> 802ac007ca931749df9706fe7484231a36a6cde0
   ],
   imports: [
     MatSelectModule,
@@ -40,7 +50,8 @@ import { AvailableBusesComponent } from './Components/available-buses/available-
     AppRoutingModule,
     NavbarComponent,
     BrowserAnimationsModule,
-    HttpClientModule 
+    HttpClientModule ,
+    
   ],
   providers: [ MatDatepickerModule],
   bootstrap: [AppComponent]
