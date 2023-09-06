@@ -1,1 +1,19 @@
-<p>sign-up works!</p>
+<div>
+    <h1>Hello Welcome </h1>
+     <h3>Create An Account</h3>
+       <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+         <div>
+           <label>User Id </label>
+           <input type="text" id="userId" formControlName="userId"/><br><br>
+           <label for="email">Email</label>
+           <input formControlName="email"  type="email"  required>
+           <label>PhoneNo </label>
+           <input type="text" id="phoneNo" formControlName="phoneNo"/><br><br>
+           <label for="password">Password</label>
+           <input formControlName="password"  type="password">
+         </div>
+         <button>SignUp</button>
+         <span>Already have an account? 
+         <a routerLink="login" (click)="GoLogin()">signUp</a></span>
+       </form>
+   </div>
