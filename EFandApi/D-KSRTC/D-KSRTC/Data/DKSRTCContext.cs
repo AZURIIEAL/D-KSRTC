@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using D_KSRTC.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection;
 
@@ -27,6 +28,16 @@ namespace D_KSRTC.Data
         public DbSet<Models.Payment> Payment { get; set; }
         public DbSet<Models.Billing> Billing { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<BusTypeCategory>().HasOne(x => x.TypeIdNavigaton)
+            //    .WithMany(x => x.BusTypeCategories)
+            //    .HasForeignKey(x => x.TypeId);
+            //modelBuilder.Entity<BusTypeCategory>().HasOne(x => x.CategoryIdNavigaton)
+            //   .WithMany(x => x.BusTypeCategories)
+            //   .HasForeignKey(x => x.CategoryId);
+            base.OnModelCreating(modelBuilder);
+        }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

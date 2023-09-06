@@ -8,6 +8,8 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
+using D_KSRTC.DTO_s;
+using D_KSRTC.Requests.Queries.BusRoutes.GetAvailableBuses;
 
 namespace D_KSRTC.Controllers
 {
@@ -87,16 +89,15 @@ namespace D_KSRTC.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
-/*        [HttpGet]
+        [HttpGet]
         [Route("available-bus-routes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<List<BusRoute>>> GetAvailableBusesToUser(int from,int to,CancellationToken cancellationToken = default)
+        public async Task<ActionResult<List<AvailableBuses>>> GetAvailableBusesAsync([FromQuery]GetAvailableBusesQuery reqest ,CancellationToken cancellationToken = default)
         {
             try
             {
-                var routes = await 
-                var busRoutes = await _mediator.Send(new GetAllBusRoutesQuery(), cancellationToken);
+                var busRoutes = await _mediator.Send(new GetAvailableBusesQuery(reqest.FromId,reqest.ToId,reqest.Date), cancellationToken);
 
                 if (busRoutes == null || busRoutes.Count == 0)
                 {
@@ -110,7 +111,7 @@ namespace D_KSRTC.Controllers
                 Console.WriteLine(ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
-        }*/
+        }
 
         [HttpPut]
         [Route("{id}")]

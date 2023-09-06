@@ -11,8 +11,7 @@ namespace D_KSRTC.Models
         public int BusId { get; set; }
         [ForeignKey("BusId")]
         [DeleteBehavior(DeleteBehavior.Restrict)]
-
-        public Bus? BusIdNavigation { get; set; }
+        public virtual Bus? BusIdNavigation { get; set; }
 
          public int RouteId { get; set; }
         [ForeignKey("RouteId")]

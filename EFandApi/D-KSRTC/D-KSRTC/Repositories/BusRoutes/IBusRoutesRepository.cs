@@ -10,6 +10,6 @@ namespace D_KSRTC.Repositories.BusRoutes
         Task<int> DeleteBusRouteAsync(int busRouteId);
         Task<List<BusRoute>> GetAllBusRoutesAsync();
         Task<BusRoute?> GetBusRouteByIdAsync(int busRouteId);
-        Task<List<AvailableBuses>> GetAvailableBusesAsync(int fromId,int toId);
+        Task<List<AvailableBuses>> GetAvailableBusesAsync(int fromId,int toId,DateTime dateTime);
     }
 }

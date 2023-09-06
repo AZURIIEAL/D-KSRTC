@@ -7,5 +7,6 @@ namespace D_KSRTC.Models
         [Key]public int CategoryId { get; set; }
         [Required][MaxLength(100)] public string CategoryName { get; set; } = string.Empty;
         [Required] public float BaseFare { get; set; }
+        public virtual List<BusTypeCategory> BusTypeCategories { get; set; } = new();
     }
 }

@@ -2,6 +2,8 @@
 using D_KSRTC.DTO_s;
 using D_KSRTC.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Linq;
 
 namespace D_KSRTC.Repositories.BusRoutes
 {
@@ -88,18 +90,34 @@ namespace D_KSRTC.Repositories.BusRoutes
             }
         }
 
-        public async Task<List<AvailableBuses>> GetAvailableBusesAsync(int fromId, int toId)
+        public async Task<List<AvailableBuses>> GetAvailableBusesAsync(int fromId, int toId ,DateTime Ondate)
         {
             try
             {
-                return await _dbContext.BusRoute.Include(x => x.Route)
-                    .ThenInclude(x => x.RouteDetails)
-                    .Where(x => x.Route.SLId == fromId && x.Route.RouteDetails.Any(y => y.StopId == toId))
+                var res = await _dbContext.BusRoute
+                    .Include(x => x.Route)
+                    .ThenInclude(x => x!.RouteDetails)
+                    .Include(x => x.BusIdNavigation)
+                    .ThenInclude(x => x!.TCIdNavigation).ThenInclude(x => x!.CategoryIdNavigaton)
+                    .ThenInclude(x => x!.BusTypeCategories)
+                    .Where(x => x.Route!.SLId == fromId && x.Route.RouteDetails.Any(y => y.StopId == toId) && x.RouteDate.Date == Ondate.Date)
                     .Select(x => new AvailableBuses
                     {
+                        BusName = x.BusIdNavigation!.BusName,
+                        Time = x.RouteDate.Date,
+                        Distance = x.Route!.Distance,
+                        SeatAvailability = 0,
+                        Duration = x.Route!.Duration,
+                        Sequence = x.Route.RouteDetails.Where(y => y.StopId == toId).Select(x => x.Sequence).First(),
+                        CategoryName = x.BusIdNavigation.TCIdNavigation!.CategoryIdNavigaton!.CategoryName,
+                        TypeName=x.BusIdNavigation.TCIdNavigation.TypeIdNavigaton!.TypeName,
+                        BaseFare = x.BusIdNavigation.TCIdNavigation.CategoryIdNavigaton.BaseFare,
+                        perDistanceFare = x.BusIdNavigation.TCIdNavigation.TypeIdNavigaton.PDF
 
                     })
                     .ToListAsync();
+
+                return res;
 
             }
             catch (Exception ex)

@@ -13,5 +13,8 @@ namespace D_KSRTC.Models
 
         [Required]
         public float PDF { get; set; }
+
+        public virtual List<BusTypeCategory> BusTypeCategories { get; set; } = new();
+
     }
 }
