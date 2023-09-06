@@ -1,4 +1,5 @@
 ﻿using D_KSRTC.Data;
+using D_KSRTC.DTO_s;
 using D_KSRTC.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -79,6 +80,27 @@ namespace D_KSRTC.Repositories.BusRoutes
             try
             {
                 return await _dbContext.BusRoute.FindAsync(busRouteId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+
+        public async Task<List<AvailableBuses>> GetAvailableBusesAsync(int fromId, int toId)
+        {
+            try
+            {
+                return await _dbContext.BusRoute.Include(x => x.Route)
+                    .ThenInclude(x => x.RouteDetails)
+                    .Where(x => x.Route.SLId == fromId && x.Route.RouteDetails.Any(y => y.StopId == toId))
+                    .Select(x => new AvailableBuses
+                    {
+
+                    })
+                    .ToListAsync();
+
             }
             catch (Exception ex)
             {

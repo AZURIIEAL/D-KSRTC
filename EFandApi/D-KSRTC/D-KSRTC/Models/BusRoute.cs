@@ -17,7 +17,7 @@ namespace D_KSRTC.Models
          public int RouteId { get; set; }
         [ForeignKey("RouteId")]
         [DeleteBehavior(DeleteBehavior.Restrict)]
-        public Route? RouteIdNavigation { get; set; }
+        public virtual Route? Route { get; set; }
 
 
         public int TimeId { get; set; }

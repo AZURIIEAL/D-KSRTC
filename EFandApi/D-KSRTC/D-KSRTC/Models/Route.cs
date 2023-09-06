@@ -26,6 +26,8 @@ namespace D_KSRTC.Models
         [DeleteBehavior(DeleteBehavior.Restrict)]
         public LocationDetails? ELIdNavigation { get; set; }
 
+        public virtual List<RouteDetails> RouteDetails { get; set; } = new();
+
         public float Distance { get; set; }
         public DateTime Duration { get; set; }
     }

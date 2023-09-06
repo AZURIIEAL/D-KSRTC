@@ -17,9 +17,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AvailableBusesComponent } from './Components/available-buses/available-buses.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

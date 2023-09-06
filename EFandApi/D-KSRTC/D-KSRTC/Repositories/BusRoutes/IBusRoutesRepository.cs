@@ -1,4 +1,5 @@
-﻿using D_KSRTC.Models;
+﻿using D_KSRTC.DTO_s;
+using D_KSRTC.Models;
 
 namespace D_KSRTC.Repositories.BusRoutes
 {
@@ -9,5 +10,6 @@ namespace D_KSRTC.Repositories.BusRoutes
         Task<int> DeleteBusRouteAsync(int busRouteId);
         Task<List<BusRoute>> GetAllBusRoutesAsync();
         Task<BusRoute?> GetBusRouteByIdAsync(int busRouteId);
+        Task<List<AvailableBuses>> GetAvailableBusesAsync(int fromId,int toId);
     }
 }
