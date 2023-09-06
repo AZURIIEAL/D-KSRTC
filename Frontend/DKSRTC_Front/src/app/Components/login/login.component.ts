@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ILogin } from 'src/app/Interfaces/ilogin';
 import { UserServiceService } from 'src/app/Services/user-service.service';
@@ -13,8 +13,7 @@ export class LoginComponent {
   loginForm!:FormGroup;
   login?:ILogin;
   user:Array<ILogin>=[]
-  constructor(private userService:UserServiceService,private fb:FormBuilder,private router:Router,
-    private activatedRoute: ActivatedRoute)
+  constructor(private userService:UserServiceService,private fb:FormBuilder,private router:Router)
   {
    this.userService.getLoginDetails().subscribe((data:Array<ILogin>)=>{this.user=data;
    console.log(this.user)})
@@ -22,8 +21,8 @@ export class LoginComponent {
  
   ngOnInit(){
    this.loginForm=this.fb.group({
-     userName:new FormControl(''),
-     password:new FormControl('')
+     userId:new FormControl(''),
+     password:new FormControl('',Validators.required)
    })
  }
  GoSignUp(){
@@ -39,6 +38,8 @@ export class LoginComponent {
       {
         if(userDetails.password===this.login?.password)
         {
+          alert('Login Succesful');
+        this.loginForm.reset()
           this.router.navigate(['']);
           
         }
@@ -48,7 +49,7 @@ export class LoginComponent {
         
       }
       else{
-        alert("Wrong Username")
+        alert("user not found")
  }
 
 }

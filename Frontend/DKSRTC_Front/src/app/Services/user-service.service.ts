@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ILogin } from '../Interfaces/ilogin';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceService {
+  
   
 
   
@@ -14,5 +16,10 @@ export class UserServiceService {
   url: string = 'https://localhost:44386/api/User';
    getLoginDetails() {
     return this.http.get<ILogin[]>(`${this.url}/get-all`);
+  }
+
+  public addUser(user:ILogin):Observable<ILogin>
+  {
+    return this.http.post<ILogin>(this.url+"AddUser",user);
   }
 }
