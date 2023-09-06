@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ILogin } from '../Interfaces/ilogin';
+import { ILogin } from '../Interfaces/Ilogin';
 import { Observable } from 'rxjs';
 
 @Injectable({

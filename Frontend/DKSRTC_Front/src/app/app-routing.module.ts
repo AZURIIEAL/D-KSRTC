@@ -15,6 +15,8 @@ const routes: Routes = [
     component: AvailableBusesComponent,
     title: 'Available Buses',
   },
+  // {path: 'notfound', component: NotFoundComponent},
+  // {path: '**', component: NotFoundComponent}
 ]
 
 @NgModule({

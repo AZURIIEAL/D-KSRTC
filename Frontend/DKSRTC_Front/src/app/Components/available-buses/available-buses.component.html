@@ -1,1 +1,39 @@
-<p>available-buses works!</p>
+<!-- <ng-container *ngIf="availableBuses;else endpointsmissing"> -->
+<div>
+<table>
+    <thead>
+      <tr>
+        <th *ngFor="let key of keys">{{key}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bus of availableBuses | async">
+        <td>
+            {{bus.busName}}
+        </td>
+        <td>
+            {{bus.time}}
+        </td>
+        <td>
+            {{bus.distance}}
+        </td>
+        <td>
+            {{bus.typeName}}
+        </td>
+        <td>
+            {{bus.categoryName}}
+        </td>
+        <td>
+            {{bus.seatAvailability}}
+        </td>
+        <td>
+            {{bus.baseFare}}
+        </td>
+        <td>
+          <button type="button" [routerLink]='[]' >View Seats</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

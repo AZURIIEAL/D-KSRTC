@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   options: ILocationDetails[] = [];
   filteredFromLocations: ILocationDetails[] = [];
   filteredToLocations: ILocationDetails[] = [];
+  submitted : boolean = false;
 
   constructor(private router: Router, private service: dataLocationDetailsService) {}
 
@@ -43,7 +44,6 @@ export class HomeComponent implements OnInit {
     const inputValue = event.target.value;
     const targetLocations =
       controlName === 'fromLocation' ? this.filteredFromLocations : this.filteredToLocations;
-
     targetLocations.length = 0; // Clear the array
 
     if (inputValue.trim() === '') {
@@ -74,7 +74,9 @@ export class HomeComponent implements OnInit {
       console.log('To:', this.searchCriteria.ToLocation);
       console.log('Date:', this.searchCriteria.JourneyDate);
     }
-          // // Make an API call to fetch available buses (Replace with your API call logic)
+    this.submitted=true;
+
+      //     // Make an API call to fetch available buses (Replace with your API call logic)
       // this.service.searchAvailableBuses(this.searchCriteria).subscribe((response: any) => {
       //   // Assuming 'response' contains the results from the API call
   
