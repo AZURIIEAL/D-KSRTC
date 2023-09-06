@@ -15,8 +15,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { LoginComponent } from './Components/login/login.component';
-import { SignUpComponent } from './Components/sign-up/sign-up.component';
 
 
 
@@ -25,9 +23,7 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
-    LoginComponent,
-    SignUpComponent
+    HeaderComponent
   ],
   imports: [
     MatSelectModule,
@@ -42,8 +38,7 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
     AppRoutingModule,
     NavbarComponent,
     BrowserAnimationsModule,
-    HttpClientModule ,
-    
+    HttpClientModule 
   ],
   providers: [ MatDatepickerModule],
   bootstrap: [AppComponent]
