@@ -63,16 +63,24 @@ export class HomeComponent implements OnInit {
     const fromLocationControl = this.busSearchForm.get('fromLocation');
     const toLocationControl = this.busSearchForm.get('toLocation');
     const travelDateControl = this.busSearchForm.get('travelDate');
-
+  
     if (fromLocationControl && toLocationControl && travelDateControl) {
       this.searchCriteria.FromLocation = fromLocationControl.value || '';
       this.searchCriteria.ToLocation = toLocationControl.value || '';
       this.searchCriteria.JourneyDate = travelDateControl.value || new Date();
-
-      console.log('Searching for buses...');
-      console.log('From:', this.searchCriteria.FromLocation);
-      console.log('To:', this.searchCriteria.ToLocation);
-      console.log('Date:', this.searchCriteria.JourneyDate);
+  
+      // // Make an API call to fetch available buses (Replace with your API call logic)
+      // this.service.searchAvailableBuses(this.searchCriteria).subscribe((response: any) => {
+      //   // Assuming 'response' contains the results from the API call
+  
+      //   // Navigate to the "available-buses" route with search criteria as a query parameter
+      //   this.router.navigate(['/available-buses'], {
+      //     queryParams: {
+      //       fromLocation: this.searchCriteria.FromLocation,
+      //       toLocation: this.searchCriteria.ToLocation,
+      //       journeyDate: this.searchCriteria.JourneyDate.toString(), // Convert Date to ISO string
+      //     },
+      //   });
+      // });
     }
-  }
-}
+  }}

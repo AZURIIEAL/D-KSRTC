@@ -15,6 +15,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AvailableBusesComponent } from './Components/available-buses/available-buses.component';
 
 
 
@@ -23,7 +24,8 @@ import { MatNativeDateModule } from '@angular/material/core';
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    AvailableBusesComponent
   ],
   imports: [
     MatSelectModule,

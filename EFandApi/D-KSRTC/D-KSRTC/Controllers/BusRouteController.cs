@@ -87,6 +87,30 @@ namespace D_KSRTC.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
+        [HttpGet]
+        [Route("available-bus-routes")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<List<BusRoute>>> GetAvailableBusesToUser(int from,int to,CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var routes = await _mediator.Send()
+                var busRoutes = await _mediator.Send(new GetAllBusRoutesQuery(), cancellationToken);
+
+                if (busRoutes == null || busRoutes.Count == 0)
+                {
+                    return NoContent();
+                }
+
+                return Ok(busRoutes);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
 
         [HttpPut]
         [Route("{id}")]
