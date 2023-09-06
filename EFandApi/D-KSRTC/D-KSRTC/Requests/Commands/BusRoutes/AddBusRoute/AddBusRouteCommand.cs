@@ -11,6 +11,7 @@ namespace D_KSRTC.Requests.Commands.BusRoutes.AddBusRouteCommand
 
         public DateTime RouteDate { get; set; }
 
+        public AddBusRouteCommand() { }
         public AddBusRouteCommand(int busId, int routeId, int timeId,DateTime dateTime)
         {
             BusId = busId;

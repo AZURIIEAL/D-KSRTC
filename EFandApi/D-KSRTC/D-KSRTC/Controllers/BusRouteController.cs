@@ -29,7 +29,7 @@ namespace D_KSRTC.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new AddBusRouteCommand(busRoute.BusId, busRoute.RouteId, busRoute.TimeId,busRoute.RouteDate), cancellationToken);
+                var result = await _mediator.Send(busRoute, cancellationToken);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -1,7 +1,6 @@
 ﻿using D_KSRTC.Models;
 using D_KSRTC.Repositories.BusRoutes;
 using MediatR;
-
 namespace D_KSRTC.Requests.Commands.BusRoutes.AddBusRouteCommand
 {
     public class AddBusRouteCommandHandler : IRequestHandler<AddBusRouteCommand, BusRoute>
@@ -15,7 +14,7 @@ namespace D_KSRTC.Requests.Commands.BusRoutes.AddBusRouteCommand
 
         public async Task<BusRoute> Handle(AddBusRouteCommand command, CancellationToken cancellationToken)
         {
-            var busRoute = new BusRoute
+            var busRoute = new BusRoute()
             {
                 BusId = command.BusId,
                 RouteId = command.RouteId,

@@ -11,19 +11,21 @@ namespace D_KSRTC.Models
         public int BusId { get; set; }
         [ForeignKey("BusId")]
         [DeleteBehavior(DeleteBehavior.Restrict)]
+
         public Bus? BusIdNavigation { get; set; }
 
          public int RouteId { get; set; }
-
         [ForeignKey("RouteId")]
         [DeleteBehavior(DeleteBehavior.Restrict)]
         public Route? RouteIdNavigation { get; set; }
 
-        public int TimeId { get; set; }
 
-        [ForeignKey("RouteId")]
+        public int TimeId { get; set; }
+        [ForeignKey("TimeId")]
         [DeleteBehavior(DeleteBehavior.Restrict)]
         public Time? TimeIdNavigation { get; set; }
+
+
         public DateTime RouteDate { get; set; }
     }
 }
