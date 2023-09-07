@@ -14,6 +14,9 @@ export class HomeComponent implements OnInit {
   options: ILocationDetails[] = [];
   filteredFromLocations: ILocationDetails[] = [];
   filteredToLocations: ILocationDetails[] = [];
+  ToLocation!:string;
+  FromLocation!:string;
+  journeyDate!:string | Date
 
   constructor(private router: Router, private service: dataLocationDetailsService) {}
 
@@ -54,7 +57,7 @@ export class HomeComponent implements OnInit {
         ...this.options.filter((option) =>
           option.locationName.toLowerCase().includes(inputValue.toLowerCase())
         )
-      );
+      ); 
     }
   }
 
@@ -67,17 +70,20 @@ export class HomeComponent implements OnInit {
       this.searchCriteria.FromLocation = fromLocationControl.value || '';
       this.searchCriteria.ToLocation = toLocationControl.value || '';
       this.searchCriteria.JourneyDate = travelDateControl.value || new Date();
-
-      console.log('Searching for buses...');
-      console.log('From:', this.searchCriteria.FromLocation);
-      console.log('To:', this.searchCriteria.ToLocation);
-      console.log('Date:', this.searchCriteria.JourneyDate);
     }
+    this.ToLocation= this.searchCriteria.ToLocation;
+    this.FromLocation=this.searchCriteria.FromLocation;
+    this.journeyDate=this.searchCriteria.JourneyDate
+    const toLocationDetails = this.options.find(location => location.locationName === this.ToLocation);
+    const fromLocationDetails = this.options.find(location => location.locationName === this.FromLocation);
+    
         this.router.navigate(['/available-buses'], {
           queryParams: {
-            fromLocation: this.searchCriteria.FromLocation,
-            toLocation: this.searchCriteria.ToLocation,
-            journeyDate: this.searchCriteria.JourneyDate, 
+            fromLocation:this.FromLocation,
+            fromLocationId:fromLocationDetails?.locationId,
+            toLocation:this.ToLocation,
+            toLocationId:toLocationDetails?.locationId,
+            journeyDate:this.journeyDate, 
           },
         });
   }

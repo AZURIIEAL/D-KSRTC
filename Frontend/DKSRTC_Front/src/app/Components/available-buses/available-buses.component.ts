@@ -52,7 +52,6 @@ export class AvailableBusesComponent implements OnInit {
     });
 
     this.availableBuses = this.busRouteService.getFilteredBuses(1 ,1003,this.onDate);  
-    ;
     console.log(this.availableBuses)
   }
 
