@@ -5,10 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { ILogin } from 'src/app/Interfaces/Ilogin';
 import { AuthCheckService } from 'src/app/Services/auth-check.service';
-import { UserServiceService } from 'src/app/Services/user-service.service';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +15,11 @@ import { UserServiceService } from 'src/app/Services/user-service.service';
   styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
+  haserror: boolean = false;
   loginForm!: FormGroup;
   login?: ILogin;
   user: Array<ILogin> = [];
-  constructor(
-    private authService: AuthCheckService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthCheckService, private router: Router) {}
   CreateForm() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -33,7 +30,7 @@ export class LoginComponent implements OnInit {
     });
   }
   ngOnInit() {
-  this.CreateForm()
+    this.CreateForm();
   }
   GoSignUp() {
     this.router.navigate(['/user-signup']);
@@ -42,7 +39,11 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-      this.authService.login(email, password).subscribe();
+      this.authService.login(email, password).subscribe((val) => {
+        if (val) {
+          this.haserror = true;
+        }
+      });
     }
-  }    
+  }
 }

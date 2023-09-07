@@ -1,7 +1,8 @@
 <app-navbar></app-navbar>
 <div class="login-container">
   <h1>Hi, Welcome back✨</h1>
-  <h3>Enter your login credentials</h3>
+  <h3 *ngIf="!haserror">Enter your login credentials</h3>
+  <h3 *ngIf="haserror">Login failed ,Try again</h3>
   <form [formGroup]="loginForm" (submit)="onLogin()">
         <label for="email">Email </label>
         <div style="color: red; font-size: 12px;" *ngIf="loginForm?.get('email')?.invalid && (loginForm?.get('email')?.dirty || loginForm?.get('email')?.touched)">
@@ -19,7 +20,7 @@
         <input type="password" id="password" formControlName="password">  
       </div>
  
-    <button type="submit" routerLink="" (click)="onLogin()">Login</button>
+    <button type="submit"  (click)="onLogin()">Login</button>
     <br><br>
     <a routerLink="SignUp" (click)="GoSignUp()">Don't have an account?🤭</a>
     <br><br>

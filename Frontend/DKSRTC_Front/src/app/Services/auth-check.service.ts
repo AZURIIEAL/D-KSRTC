@@ -10,13 +10,11 @@ export class AuthCheckService implements OnInit {
   private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
   url: string = 'https://localhost:44386/api/User';
 
   public LoggedUser: IUser = {
-    userId:0,
+    userId: 0,
     firstName: '',
     lastName: '',
     email: '',
@@ -42,14 +40,14 @@ export class AuthCheckService implements OnInit {
                 lastName: x.lastName,
                 email: x.email,
                 password: x.password,
-                phoneNumber:x.phoneNumber,
+                phoneNumber: x.phoneNumber,
                 address: x.address,
-              }
+              };
             }
           },
-          error: (err) => {
-            debugger;
-          }
+          error: () => {
+            this.loggedIn.next(false);
+          },
         })
       );
   }
