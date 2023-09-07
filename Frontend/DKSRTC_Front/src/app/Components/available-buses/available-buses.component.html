@@ -1,38 +1,27 @@
-<!-- <ng-container *ngIf="availableBuses;else endpointsmissing"> -->
-<div>
-<table>
+<app-navbar></app-navbar>
+
+<div class="table-container">
+  <h1>Explore Available Buses</h1>
+  <p>Discover a wide range of buses for your journey.</p>
+
+  <table>
     <thead>
-      <tr>
-        <th *ngFor="let key of keys">{{key}}</th>
+      <tr class="table-header">
+        <th *ngFor="let key of keys">{{ key }}</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-
       <tr *ngFor="let bus of availableBuses | async">
+        <td>{{ bus.busName }}</td>
+        <td>{{ bus.time | date : "shortTime" }}</td>
+        <td>{{ bus.distance }} km</td>
+        <td>{{ bus.categoryName }}</td>
+        <td>{{ bus.typeName }}</td>
+        <td>{{ bus.seatAvailability }}</td>
+        <td>₹ {{ bus.baseFare }}</td>
         <td>
-            {{bus.busName}}
-        </td>
-        <td>
-            {{bus.time}}
-        </td>
-        <td>
-            {{bus.distance}}
-        </td>
-        <td>
-            {{bus.typeName}}
-        </td>
-        <td>
-            {{bus.categoryName}}
-        </td>
-        <td>
-            {{bus.seatAvailability}}
-        </td>
-        <td>
-            {{bus.baseFare}}
-        </td>
-        <td>
-          <button type="button" [routerLink]='[]' >View Seats</button>
+          <button type="button" [routerLink]="[]" class="view-seats-button">View Seats</button>
         </td>
       </tr>
     </tbody>

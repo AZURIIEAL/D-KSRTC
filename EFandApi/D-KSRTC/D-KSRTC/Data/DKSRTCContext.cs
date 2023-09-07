@@ -30,14 +30,15 @@ namespace D_KSRTC.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<BusTypeCategory>().HasOne(x => x.TypeIdNavigaton)
-            //    .WithMany(x => x.BusTypeCategories)
-            //    .HasForeignKey(x => x.TypeId);
-            //modelBuilder.Entity<BusTypeCategory>().HasOne(x => x.CategoryIdNavigaton)
-            //   .WithMany(x => x.BusTypeCategories)
-            //   .HasForeignKey(x => x.CategoryId);
             base.OnModelCreating(modelBuilder);
+
+            // Use Fluent API to specify that the Email property should be unique
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
         }
+    }
+}
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
@@ -46,6 +47,3 @@ namespace D_KSRTC.Data
         //    foreach (IMutableEntityType entity in modelBuilder.Model.GetEntityTypes())
         //    { entity.GetForeignKeys().Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade).ToList().ForEach(fk => fk.DeleteBehavior = DeleteBehavior.Restrict); }
         //}
-
-    }
-}

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BusRouteService } from '../../Services/bus-route.service';
 import { IBus } from 'src/app/Interfaces/IBus';
-import { Observable, map } from 'rxjs';
-import { dataLocationDetailsService } from '../../Services/data-LocationDetails.service';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,7 +12,6 @@ import { ActivatedRoute } from '@angular/router';
 export class AvailableBusesComponent implements OnInit {
   constructor(
     private busRouteService: BusRouteService,
-    private locationDataService: dataLocationDetailsService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -31,6 +29,7 @@ export class AvailableBusesComponent implements OnInit {
     'Accomodation Class',
     'Seats Available',
     'Fare',
+    'For Booking'
   ];
 
   ngOnInit(): void {
@@ -39,19 +38,25 @@ export class AvailableBusesComponent implements OnInit {
       if (fromLocationParam) {
         this.fromLocationName = fromLocationParam;
       }
-
+      const fromLocationIdParam = x.get('fromLocationId');
+      if (fromLocationIdParam) {
+        this.fromLocationId = parseInt(fromLocationIdParam, 10);
+      }
       const toLocationParam = x.get('toLocation');
       if (toLocationParam) {
         this.toLocationName = toLocationParam;
       }
-
+      const toLocationIdParam = x.get('toLocationId');
+      if (toLocationIdParam) {
+        this.toLocationId = parseInt(toLocationIdParam, 10);
+      }
       const journeyDateParam = x.get('journeyDate');
       if (journeyDateParam) {
         this.onDate = new Date(journeyDateParam);
       }
     });
 
-    this.availableBuses = this.busRouteService.getFilteredBuses(1 ,1003,this.onDate);  
+    this.availableBuses = this.busRouteService.getFilteredBuses(this.fromLocationId ,this.toLocationId,this.onDate);  
     console.log(this.availableBuses)
   }
 

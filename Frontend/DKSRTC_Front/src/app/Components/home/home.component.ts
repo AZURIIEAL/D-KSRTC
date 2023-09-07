@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ISearch } from 'src/app/Interfaces/Isearch';
 import { ILocationDetails } from 'src/app/Interfaces/ILocationDetails';
 import { dataLocationDetailsService } from 'src/app/Services/data-LocationDetails.service';
+import { AuthCheckService } from 'src/app/Services/auth-check.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,7 @@ import { dataLocationDetailsService } from 'src/app/Services/data-LocationDetail
   styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
+  isLoggedIn = false;
   options: ILocationDetails[] = [];
   filteredFromLocations: ILocationDetails[] = [];
   filteredToLocations: ILocationDetails[] = [];
@@ -18,7 +20,7 @@ export class HomeComponent implements OnInit {
   FromLocation!:string;
   journeyDate!:string | Date
 
-  constructor(private router: Router, private service: dataLocationDetailsService) {}
+  constructor(private router: Router, private service: dataLocationDetailsService,private authService: AuthCheckService) {}
 
   busSearchForm = new FormGroup({
     fromLocation: new FormControl(''),
@@ -33,6 +35,8 @@ export class HomeComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.authService.isLoggedIn().subscribe((status) => {
+      this.isLoggedIn = status;})
     this.getLocationData();
   }
 

@@ -16,12 +16,16 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AvailableBusesComponent } from './Components/available-buses/available-buses.component';
+import { LoginComponent } from './Components/login/login.component';
+import { SignUpComponent } from './Components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    LoginComponent,
     HeaderComponent,
+    SignUpComponent,
     AvailableBusesComponent
   ],
   imports: [

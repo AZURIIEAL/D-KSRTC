@@ -11,9 +11,9 @@ export class NavbarComponent {
   constructor(private router:Router){
 
   }
-GoLOgin() {
+GoLogin() {
 
-  this.router.navigate(['Login'])
+  this.router.navigate(['/user-login'])
 }
 
 }

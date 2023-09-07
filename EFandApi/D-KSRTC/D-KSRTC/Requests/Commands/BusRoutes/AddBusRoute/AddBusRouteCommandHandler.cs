@@ -18,7 +18,7 @@ namespace D_KSRTC.Requests.Commands.BusRoutes.AddBusRouteCommand
             {
                 BusId = command.BusId,
                 RouteId = command.RouteId,
-                TimeId = command.TimeId,
+                Time = command.Time,
                 RouteDate = command.RouteDate,
             };
 

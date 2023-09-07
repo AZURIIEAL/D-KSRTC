@@ -14,7 +14,7 @@ export class BusRouteService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("FromId",from)
     .append("ToId",to)
-    .append("Date",'2023-09-06');
+    .append("Date",onDate.toLocaleTimeString());
     return this.http.get<IBus[]>(`${this.url}/available-bus-routes`,{params:queryParams});
   }
 }

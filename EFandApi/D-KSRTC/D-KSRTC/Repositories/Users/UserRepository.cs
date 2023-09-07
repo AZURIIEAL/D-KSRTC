@@ -1,6 +1,7 @@
 ﻿using D_KSRTC.Data;
 using D_KSRTC.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Any;
 
 namespace D_KSRTC.Repositories.Users
 {
@@ -65,6 +66,19 @@ namespace D_KSRTC.Repositories.Users
             try
             {
                 return await _dbContext.User.FindAsync(userId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+
+        public bool HasEmail(string email)
+        {
+            try
+            {
+                return _dbContext.User.Any(x => x.Email == email);
             }
             catch (Exception ex)
             {

@@ -1,20 +1,28 @@
-<div>
-    <h1>Hi Welcome Back</h1>
-     <h3>Login Here</h3>
-      <form [formGroup]="loginForm"   (ngSubmit)="onLogin()">
-        <div>
-          <label for="email">Email</label>
-          <input formControlName="email"  required  type="email">
-          <br><br>
-          <label for="password">Password</label>
-          <input formControlName="password"  type="password">
-          <br><br>
+<app-navbar></app-navbar>
+<div class="login-container">
+  <h1>Hi, Welcome back✨</h1>
+  <h3>Enter your login credentials</h3>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <label for="email">Email </label>
+        <div style="color: red; font-size: 12px;" *ngIf="loginForm?.get('email')?.invalid && (loginForm?.get('email')?.dirty || loginForm?.get('email')?.touched)">
+          <div *ngIf="loginForm?.get('email')?.hasError('required')">Email required.</div>
+          <div *ngIf="loginForm.get('email')?.hasError('email')">Invalid email format.</div>
         </div>
-        <button  routerLink=""  >Login</button>
-        <br><br>
-        <span>Don't have an account? 
-            <br><br>
-        <a routerLink="SignUp" (click)="GoSignUp()">SignUp</a></span>
-      </form>
-  </div>
-
+        <input type="text" id="email" formControlName="email">  
+      <br><br>
+      <div>
+        <label for="password">Password</label>
+        <div style="color: red; font-size: 12px;" *ngIf="loginForm?.get('password')?.invalid && (loginForm?.get('password')?.dirty || loginForm?.get('password')?.touched)">
+          <div *ngIf="loginForm?.get('password')?.hasError('required')">Password required.</div>
+          <div *ngIf="loginForm?.get('password')?.hasError('minlength')">Password must be at least 8 characters long.</div>
+        </div>
+        <input type="text" id="password" formControlName="password">  
+      </div>
+ 
+    <button type="submit" routerLink="">Login</button>
+    <br><br>
+    <a routerLink="SignUp" (click)="GoSignUp()">Don't have an account?🤭</a>
+    <br><br>
+    
+  </form>
+</div>

@@ -1,56 +1,44 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ILogin } from 'src/app/Interfaces/Ilogin';
+import { AuthCheckService } from 'src/app/Services/auth-check.service';
 import { UserServiceService } from 'src/app/Services/user-service.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./login.component.sass'],
 })
-export class LoginComponent {
-  loginForm!:FormGroup;
-  login?:ILogin;
-  user:Array<ILogin>=[]
-  constructor(private userService:UserServiceService,private fb:FormBuilder,private router:Router)
-  {
-   this.userService.getLoginDetails().subscribe((data:Array<ILogin>)=>{this.user=data;
-   console.log(this.user)})
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  login?: ILogin;
+  user: Array<ILogin> = [];
+  constructor(
+    private authService: AuthCheckService,
+    private router: Router
+  ) {}
+  CreateForm() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+    });
   }
- 
-  ngOnInit(){
-   this.loginForm=this.fb.group({
-     userId:new FormControl(''),
-     password:new FormControl('',Validators.required)
-   })
- }
- GoSignUp(){
- this.router.navigate(['SignUp']);
- }
- 
- onLogin(){
-   let userDetails=this.loginForm.value;
-   this.login=this.user.find(x=>x.userId===userDetails.userId)
-   console.log(this.login?.userId)
-
-   if(userDetails.userId===this.login?.userId)
-      {
-        if(userDetails.password===this.login?.password)
-        {
-          alert('Login Succesful');
-        this.loginForm.reset()
-          this.router.navigate(['']);
-          
-        }
-        else{
-          alert("Wrong Password")
-        }
-        
-      }
-      else{
-        alert("user not found")
- }
-
-}
+  ngOnInit() {
+  this.CreateForm()
+  }
+  GoSignUp() {
+    this.router.navigate(['/user-signup']);
+  }
+  onLogin() {
+    this.authService.login();
+  }
 }

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace D_KSRTC.Models
 {
@@ -17,7 +19,6 @@ namespace D_KSRTC.Models
 
         [Required]
         [MaxLength(100)]
-        //EmailAddressAtteribute
         public string Email { get; set; } = string.Empty;
 
         [Required]
@@ -27,6 +28,7 @@ namespace D_KSRTC.Models
         [Required]
         [MaxLength(20)]
         public string PhoneNumber { get; set; } = string.Empty;
+
         [Required]
         [MaxLength(200)]
         public string Address { get; set; } = string.Empty;

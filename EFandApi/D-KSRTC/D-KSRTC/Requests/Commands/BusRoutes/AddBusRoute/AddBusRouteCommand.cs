@@ -7,16 +7,16 @@ namespace D_KSRTC.Requests.Commands.BusRoutes.AddBusRouteCommand
     {
         public int BusId { get; set; }
         public int RouteId { get; set; }
-        public int TimeId { get; set; }
+        public DateTime Time { get; set; }
 
         public DateTime RouteDate { get; set; }
 
         public AddBusRouteCommand() { }
-        public AddBusRouteCommand(int busId, int routeId, int timeId,DateTime dateTime)
+        public AddBusRouteCommand(int busId, int routeId, DateTime time,DateTime dateTime)
         {
             BusId = busId;
             RouteId = routeId;
-            TimeId = timeId;
+            Time = time;
             RouteDate = dateTime;
         }
     }

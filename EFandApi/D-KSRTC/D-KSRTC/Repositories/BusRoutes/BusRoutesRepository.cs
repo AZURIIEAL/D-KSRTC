@@ -104,7 +104,7 @@ namespace D_KSRTC.Repositories.BusRoutes
                     .Select(x => new AvailableBuses
                     {
                         BusName = x.BusIdNavigation!.BusName,
-                        Time = x.RouteDate.Date,
+                        Time = x.Time,
                         Distance = x.Route!.Distance,
                         SeatAvailability = 0,
                         Duration = x.Route!.Duration,
