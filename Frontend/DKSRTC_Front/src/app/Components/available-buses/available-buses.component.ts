@@ -29,8 +29,7 @@ export class AvailableBusesComponent implements OnInit {
     'Accomodation Class',
     'Seats Available',
     'Fare',
-    'For Booking'
-  ];
+    'For Booking'];
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe((x) => {

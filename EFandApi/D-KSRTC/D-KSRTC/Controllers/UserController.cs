@@ -4,6 +4,7 @@ using D_KSRTC.Requests.Commands.Users.DeleteUser;
 using D_KSRTC.Requests.Commands.Users.UpdateUser;
 using D_KSRTC.Requests.Queries.Users.GetAllUsers;
 using D_KSRTC.Requests.Queries.Users.GetUserById;
+using D_KSRTC.Requests.Queries.Users.ValidateUserLogin;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace D_KSRTC.Controllers
@@ -79,6 +80,30 @@ namespace D_KSRTC.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
+
+        [HttpGet]
+        [Route("validate-user-login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<User>> ValidateUserAsync([FromQuery]ValidateUserLoginQuery request,CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var userDetails = await _mediator.Send(request, cancellationToken);
+                if (userDetails == null)
+                {
+                    return NoContent(); // 204 No Content
+                }
+                return Ok(userDetails);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
+
         [HttpPut]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -10,7 +10,8 @@
             <a href="#">About Us</a>
             <a href="#">Contact Us</a>
             <a routerlink = "Login" class="cta">
-              <button (click)="GoLogin()">Login / Sign up</button>
+              <button (click)="GoLogOut()" *ngIf="isLoggedIn">LogOut</button>
+              <button (click)="GoLogin()" *ngIf="!isLoggedIn">Login / Sign up</button>
             </a>
           </li>
         </ul>

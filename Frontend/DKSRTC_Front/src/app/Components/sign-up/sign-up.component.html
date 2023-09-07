@@ -8,8 +8,8 @@
       <div>
         <label for="firstName">First Name </label>
         <div style="color: red; font-size: 12px;" *ngIf="addUserForm?.get('firstName')?.invalid && (addUserForm?.get('firstName')?.dirty || addUserForm?.get('firstName')?.touched)">
-          <div *ngIf="addUserForm?.get('firstName')?.hasError('required')">First Name required.</div>
-          <div *ngIf="addUserForm?.get('firstName')?.hasError('minlength')">First Name must be at least 2 characters long.</div>
+          <div *ngIf="addUserForm?.get('firstName')?.hasError('required')">* First Name required.</div>
+          <div *ngIf="addUserForm?.get('firstName')?.hasError('minlength')">* First Name must be at least 2 characters long.</div>
         </div>
         <input type="text" id="firstName" formControlName="firstName">
       </div>
@@ -17,8 +17,8 @@
       <div>
         <label for="lastName">Last Name </label>
         <div style="color: red; font-size: 12px;" *ngIf="addUserForm?.get('lastName')?.invalid && (addUserForm?.get('lastName')?.dirty || addUserForm?.get('lastName')?.touched)">
-          <div *ngIf="addUserForm?.get('lastName')?.hasError('required')">Last Name required.</div>
-          <div *ngIf="addUserForm?.get('lastName')?.hasError('minlength')">Last Name must be at least 2 characters long.</div>
+          <div *ngIf="addUserForm?.get('lastName')?.hasError('required')">* Last Name required.</div>
+          <div *ngIf="addUserForm?.get('lastName')?.hasError('minlength')">* Last Name must be at least 2 characters long.</div>
         </div>
         <input type="text" id="lastName" formControlName="lastName">  
       </div>
@@ -26,8 +26,8 @@
       <div>
         <label for="email">Email </label>
         <div style="color: red; font-size: 12px;" *ngIf="addUserForm?.get('email')?.invalid && (addUserForm?.get('email')?.dirty || addUserForm?.get('email')?.touched)">
-          <div *ngIf="addUserForm?.get('email')?.hasError('required')">Email required.</div>
-          <div *ngIf="addUserForm.get('email')?.hasError('email')">Invalid email format.</div>
+          <div *ngIf="addUserForm?.get('email')?.hasError('required')">* Email required.</div>
+          <div *ngIf="addUserForm.get('email')?.hasError('email')">* Invalid email format.</div>
         </div>
         <input type="text" id="email" formControlName="email">  
       </div>
@@ -35,8 +35,8 @@
       <div>
         <label for="password">Password</label>
         <div style="color: red; font-size: 12px;" *ngIf="addUserForm?.get('password')?.invalid && (addUserForm?.get('password')?.dirty || addUserForm?.get('password')?.touched)">
-          <div *ngIf="addUserForm?.get('password')?.hasError('required')">Password required.</div>
-          <div *ngIf="addUserForm?.get('password')?.hasError('minlength')">Password must be at least 8 characters long.</div>
+          <div *ngIf="addUserForm?.get('password')?.hasError('required')">* Password required.</div>
+          <div *ngIf="addUserForm?.get('password')?.hasError('minlength')">* Password must be at least 8 characters long.</div>
         </div>
         <input type="text" id="password" formControlName="password">  
       </div>
@@ -44,8 +44,8 @@
       <div>
         <label for="phoneNumber">Phone Number</label>
         <div style="color: red; font-size: 12px;" *ngIf="addUserForm?.get('phoneNumber')?.invalid && (addUserForm?.get('phoneNumber')?.dirty || addUserForm?.get('phoneNumber')?.touched)">
-          <div *ngIf="addUserForm?.get('phoneNumber')?.hasError('required')">Phone Number required.</div>
-          <div *ngIf="addUserForm?.get('phoneNumber')?.hasError('minlength')">Phone Number must be 10 characters long.</div>
+          <div *ngIf="addUserForm?.get('phoneNumber')?.hasError('required')">* Phone Number required.</div>
+          <div *ngIf="addUserForm?.get('phoneNumber')?.hasError('minlength')">* Phone Number must be 10 characters long.</div>
         </div>
         <input type="text" id="phoneNumber" formControlName="phoneNumber">  
       </div>
@@ -53,7 +53,7 @@
       <div>
         <label for="address">Address</label>
         <div style="color: red; font-size: 12px;" *ngIf="addUserForm?.get('address')?.invalid && (addUserForm?.get('address')?.dirty || addUserForm?.get('address')?.touched)">
-          <div *ngIf="addUserForm?.get('address')?.hasError('required')">Address required.</div> 
+          <div *ngIf="addUserForm?.get('address')?.hasError('required')">* Address required.</div> 
         </div>
         <input type="text" id="address" formControlName="address">  
       </div>

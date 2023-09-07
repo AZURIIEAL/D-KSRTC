@@ -1,28 +1,62 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { IUser } from '../Interfaces/IUser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthCheckService {
+export class AuthCheckService implements OnInit {
   private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) { }
-  url: string = 'https://localhost:44386/api/LocationDetails';
-
-  login() {
-    this.loggedIn.next(true);
+  constructor(private http: HttpClient) {}
+  ngOnInit() {
+    
   }
+  url: string = 'https://localhost:44386/api/User';
 
-  // Logout the user
+  public LoggedUser: IUser = {
+    userId:0,
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phoneNumber: '',
+    address: '',
+  };
+
+  public login(email: string, password: string) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams
+      .append('Email', email)
+      .append('Password', password);
+    return this.http
+      .get<IUser>(`${this.url}/validate-user-login`, { params: queryParams })
+      .pipe(
+        tap({
+          next: (x) => {
+            if (x.email === email) {
+              this.LoggedUser = {
+                userId: x.userId,
+                firstName: x.firstName,
+                lastName: x.lastName,
+                email: x.email,
+                password: x.password,
+                phoneNumber:x.phoneNumber,
+                address: x.address,
+              }
+            }
+          },
+          error: (err) => {
+            debugger;
+          }
+        })
+      );
+  }
   logout() {
-    // Implement logout logic here
-    // After logout, set loggedIn to false
     this.loggedIn.next(false);
   }
 
-  // Observable to subscribe to login status
   isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }

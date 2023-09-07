@@ -10,6 +10,7 @@ namespace D_KSRTC.Repositories.Users
         public Task<User> UpdateUserAsync(User userId);
         public Task<User?> DeleteUserAsync(int userId);
         public bool HasEmail(string email);
+        public Task<User?>ValidateLoginAsync(string email , string password);
 
     }
 }
