@@ -17,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AvailableBusesComponent } from './Components/available-buses/available-buses.component';
 import { LoginComponent } from './Components/login/login.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
+import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
     HomeComponent,
     LoginComponent,
     SignUpComponent,
-    AvailableBusesComponent
+    AvailableBusesComponent,
+    SeatBookingComponent
   ],
   imports: [
     MatSelectModule,

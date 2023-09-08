@@ -103,6 +103,7 @@ namespace D_KSRTC.Repositories.BusRoutes
                     .Where(x => x.Route!.SLId == fromId && x.Route.RouteDetails.Any(y => y.StopId == toId) && x.RouteDate.Date == Ondate.Date)
                     .Select(x => new AvailableBuses
                     {
+                        BusId = x.BusId,
                         BusName = x.BusIdNavigation!.BusName,
                         Time = x.Time,
                         Distance = x.Route!.Distance,
@@ -118,7 +119,6 @@ namespace D_KSRTC.Repositories.BusRoutes
                     .ToListAsync();
 
                 return res;
-
             }
             catch (Exception ex)
             {

@@ -6,11 +6,10 @@ import { IUser } from '../Interfaces/IUser';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthCheckService implements OnInit {
+export class AuthCheckService {
   private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
-  ngOnInit() {}
   url: string = 'https://localhost:44386/api/User';
 
   public LoggedUser: IUser = {

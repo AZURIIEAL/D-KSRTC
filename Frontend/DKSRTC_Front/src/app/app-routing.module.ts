@@ -4,6 +4,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { AvailableBusesComponent } from './Components/available-buses/available-buses.component';
 import { LoginComponent } from './Components/login/login.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
+import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
 
 const routes: Routes = [
   {
@@ -27,10 +28,15 @@ const routes: Routes = [
     component: SignUpComponent,
     title: 'SignUp Page',
   },
+  {
+    path: 'book-seats',
+    component: SeatBookingComponent,
+    title: 'Book Seats',
+  },
+
   // {path: 'notfound', component: NotFoundComponent},
   // {path: '**', component: NotFoundComponent}
 ]
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

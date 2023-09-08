@@ -1,4 +1,5 @@
 export interface IBus{
+    busId:number,
     busName:string,
     time: Date,
     distance: number,

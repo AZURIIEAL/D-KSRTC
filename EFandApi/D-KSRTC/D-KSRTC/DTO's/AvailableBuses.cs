@@ -4,6 +4,7 @@ namespace D_KSRTC.DTO_s
 {
     public class AvailableBuses
     {
+        public int BusId { get; set; }
         public string BusName { get; set; } = string.Empty;
         public DateTime Time { get; set; }
         public float Distance { get; set; }
