@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let bus of availableBuses | async">
+      <tr *ngFor="let bus of (availableBuses | async)">
         <td>{{ bus.busName }}</td>
         <td>{{ bus.time | date : "shortTime" }}</td>
         <td>{{ bus.distance }} km</td>
@@ -20,8 +20,7 @@
         <td>{{ bus.seatAvailability }}</td>
         <td>₹ {{ bus.baseFare }}</td>
         <td>
-          <button type="button" [routerLink]="['/book-seats']"
-          [queryParams]="{ selectedBusId: bus.busId}" class="view-seats-button">View Seats</button>
+          <button type="button" [routerLink]="['/book-seats']" [queryParams]="{selectedBusId:bus.busId}" class="view-seats-button">View Seats</button>
         </td>
       </tr>
     </tbody>
