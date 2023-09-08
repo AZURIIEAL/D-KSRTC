@@ -92,7 +92,7 @@ namespace D_KSRTC.Controllers
                 var userDetails = await _mediator.Send(request, cancellationToken);
                 if (userDetails == null)
                 {
-                    return NoContent(); // 204 No Content
+                    return null!; // 204 No Content
                 }
                 return Ok(userDetails);
             }

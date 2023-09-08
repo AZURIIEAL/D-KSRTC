@@ -5,7 +5,7 @@ using MediatR;
 
 namespace D_KSRTC.Requests.Queries.Users.ValidateUserLogin
 {
-    public class ValidateUserLoginQueryHandler : IRequestHandler<ValidateUserLoginQuery, User>
+    public class ValidateUserLoginQueryHandler : IRequestHandler<ValidateUserLoginQuery, User?>
     {
         private readonly IUserRepository _userRepository;
         public ValidateUserLoginQueryHandler(IUserRepository userRepository)
@@ -13,12 +13,12 @@ namespace D_KSRTC.Requests.Queries.Users.ValidateUserLogin
             _userRepository = userRepository;
         }
 
-        public async Task<User> Handle(ValidateUserLoginQuery request, CancellationToken cancellationToken)
+        public async Task<User?> Handle(ValidateUserLoginQuery request, CancellationToken cancellationToken)
         {
             User? toOut = await _userRepository.ValidateLoginAsync(request.Email,request.Password);
             if (toOut == null)
             {
-                throw new Exception(nameof(toOut));
+                return null;
             }
             return toOut;
         }

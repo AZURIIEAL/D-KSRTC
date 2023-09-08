@@ -3,7 +3,7 @@ using MediatR;
 
 namespace D_KSRTC.Requests.Queries.Users.ValidateUserLogin
 {
-    public class ValidateUserLoginQuery :IRequest<User>
+    public class ValidateUserLoginQuery :IRequest<User?>
     {
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;

@@ -109,7 +109,7 @@ namespace D_KSRTC.Repositories.Users
         public async Task<User?> ValidateLoginAsync(string email, string password)
         {
             var res = await _dbContext.User.FirstOrDefaultAsync(x => x.Email == email);
-            if(res!.Password == password)
+            if(res?.Password == password)
             {
                 return res;
             }

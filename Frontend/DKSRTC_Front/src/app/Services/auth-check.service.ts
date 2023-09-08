@@ -33,7 +33,8 @@ export class AuthCheckService implements OnInit {
       .pipe(
         tap({
           next: (x) => {
-            if (x.email === email) {
+            if (x?.email === email) {
+              this.loggedIn.next(true);
               this.LoggedUser = {
                 userId: x.userId,
                 firstName: x.firstName,
@@ -43,16 +44,22 @@ export class AuthCheckService implements OnInit {
                 phoneNumber: x.phoneNumber,
                 address: x.address,
               };
+              return this.LoggedUser;
             }
+            return null;
           },
           error: () => {
             this.loggedIn.next(false);
+            return null;
           },
         })
       );
   }
-  logout() {
+  logOut() {
     this.loggedIn.next(false);
+  }
+  currentUserSession(){
+    return this.LoggedUser;
   }
 
   isLoggedIn(): Observable<boolean> {

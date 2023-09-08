@@ -10,7 +10,7 @@ const routes: Routes = [
     //Hence my default route will be the home component.
     path: '',
     component: HomeComponent,
-    title: 'Home page',
+    title: 'DKSRTC - Your Next Adventure',
   },
   {
     path: 'available-buses',

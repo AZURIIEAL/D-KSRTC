@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './Components/home/home.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
-import { HeaderComponent } from './Components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
@@ -24,7 +23,6 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    HeaderComponent,
     SignUpComponent,
     AvailableBusesComponent
   ],

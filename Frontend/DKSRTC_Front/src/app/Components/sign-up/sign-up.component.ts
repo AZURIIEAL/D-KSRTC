@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ILogin } from 'src/app/Interfaces/Ilogin';
-import { UserServiceService } from 'src/app/Services/user-service.service';
 
 @Component({
   selector: 'app-sign-up',
