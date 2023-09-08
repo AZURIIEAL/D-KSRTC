@@ -24,7 +24,11 @@ GoLogin() {
   this.router.navigate(['/user-login'])
 }
 GoLogOut(){
-  alert("Do you want to log out?")
-}
+  const text="Do you want to log out?";
+  if (confirm(text) == true) {
+    this.authService.logOut()
+  } else {
 
+  }
+}
 }

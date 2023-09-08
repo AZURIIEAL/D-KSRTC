@@ -1,11 +1,9 @@
 <app-navbar></app-navbar>
 <div class="login-container">
   <h1>Hi, Welcome back✨</h1>
-  <!-- <h3 *ngIf="!(hasClinkedLogin && !currentUser)">Enter your login credentials</h3>
-  <h3 *ngIf="hasClinkedLogin && !currentUser">Login failed ,Try again</h3> -->
   <h3 *ngIf="!hasError">Enter your login credentials</h3>
   <h3 *ngIf="hasError">Login failed ,Try again</h3>
-  <form [formGroup]="loginForm" (submit)="onLogin()">
+  <form [formGroup]="loginForm">
         <label for="email">Email </label>
         <div style="color: red; font-size: 12px;" *ngIf="loginForm?.get('email')?.invalid && (loginForm?.get('email')?.dirty || loginForm?.get('email')?.touched)">
           <div *ngIf="loginForm?.get('email')?.hasError('required')">* Email required.</div>
