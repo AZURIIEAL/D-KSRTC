@@ -11,10 +11,17 @@
   text
     fill: #FFF
 
+
+.seats-container
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  margin-top: 50px
 /* CSS for the catchy heading
 
 .catchy-heading
-  font-family: 'Montserrat', sans-serif
+  font-family: 'Montserrat'
   font-size: 24px
   font-weight: bold
   margin-bottom: 10px
@@ -25,7 +32,7 @@
 /* CSS for the subtitle
 
 .subtitle
-  font-family: 'Montserrat', sans-serif
+  font-family: 'Montserrat'
   font-size: 16px
   margin-bottom: 20px
   color: #1d1c1cfe
@@ -74,6 +81,74 @@
     background-color: #b61616fe
 
 
+/* CSS for the catchy heading
+/* CSS for the table
+
+.seat-table
+  width: 80%
+  border-collapse: collapse
+/* Styles for the bus table component
+
+.table-container
+  padding: 20px
+  margin: 20px auto
+  width: 90%
+
+  h1
+    font-family: 'Montserrat'
+    font-size: 24px
+    font-weight: bold
+    margin-bottom: 10px
+    color: #fa1b1bfe
+
+  p
+    font-family: 'Montserrat'
+    font-size: 16px
+    margin-bottom: 20px
+    color: #1d1c1cfe
+
+table
+  border-collapse: collapse
+  font-family: 'Montserrat'
+  width: 100%
+
+.table-header th
+  padding: 8px
+  
+  text-align: center
+
+table tbody
+  tr
+    border: 1px solid #ddd
+
+  td
+    border: 1px solid #ddd
+    padding: 8px
+    text-align: center
+
+  input
+    &[type="text"], &[type="number"], &[type="email"]
+      width: 100px
+      padding: 8px
+      border: 1px solid #ccc
+      border-radius: 4px
+      transition: border-color 0.3s ease
+
+    &[type="text"]:focus, &[type="number"]:focus, &[type="email"]:focus
+      border-color: #e61212fe
+
+      /* Red color
+      outline: none
+
+/* CSS for the main container
+
+.container
+  display: flex
+  justify-content: space-between
+
+.left-section
+  flex: 4
 
 
-
+.right-section
+  flex: 6

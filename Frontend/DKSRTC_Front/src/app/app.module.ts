@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -19,6 +18,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +26,7 @@ import { SeatBookingComponent } from './Components/seat-booking/seat-booking.com
     LoginComponent,
     SignUpComponent,
     AvailableBusesComponent,
-    SeatBookingComponent
+    SeatBookingComponent,
   ],
   imports: [
     MatSelectModule,

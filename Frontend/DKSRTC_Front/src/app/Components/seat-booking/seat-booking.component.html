@@ -1,31 +1,82 @@
 <app-navbar></app-navbar>
 
-<div class="bus-search-container">
-  <h1 class="catchy-heading">Discover Your Dream Seats</h1>
-  <p class="subtitle">Choose the perfect seats for your journey</p>
-  <div>
-    <table>
-      <tr *ngFor="let row of seatRows; let rowIndex = index">
-        <ng-container *ngFor="let seat of row; let seatIndex = index">
-          <td style="background-color: white;">
-            <button
-              
-              (click)="selectSeat(rowIndex, seatIndex)"
-              style="border: none; cursor: pointer; background-color: transparent;"
-            >
-              <div class="svg-container" [ngClass]="{'inner-glow': seat.selected}">
-                <svg width="64" height="30" viewBox="0 0 60 30" style="z-index: 1;">
-                  <rect x="0.5" y="0.5" width="59" height="29" rx="3.5" fill="transparent" stroke="#BDBDBD"></rect>
-                  <rect x="56.5" y="5.5" width="3" height="19" rx="1.5" fill="white" stroke="#BDBDBD"></rect>
-                  <text x="32" y="20" text-anchor="middle" fill="#000" font-size="14" font-weight="bold" font-family="Montserrat">
-                    {{rowIndex + 1}}{{seatIndex + 1}}
-                  </text>
-                </svg>
-              </div>
-            </button>
-          </td>
-        </ng-container>
-      </tr>
-    </table>
+
+<div class="container">
+  <div class="left-section seats-container">
+    <h1 class="catchy-heading">Discover Your Dream Seats</h1>
+    <p class="subtitle">Choose the perfect seats for your journey</p>
+    <div>
+      <table>
+        <tr *ngFor="let row of seatRows; let rowIndex = index">
+          <ng-container *ngFor="let seat of row; let seatIndex = index">
+            <td style="background-color: white;">
+              <button
+                (click)="selectSeat(rowIndex, seatIndex)"
+                style="border: none; cursor: pointer; background-color: transparent;"
+              >
+                <div class="svg-container" [ngClass]="{'inner-glow': seat.selected}">
+                  <svg width="64" height="30" viewBox="0 0 60 30" style="z-index: 1;">
+                    <rect x="0.5" y="0.5" width="59" height="29" rx="3.5" fill="transparent" stroke="#BDBDBD"></rect>
+                    <rect x="56.5" y="5.5" width="3" height="19" rx="1.5" fill="white" stroke="#BDBDBD"></rect>
+                    <text x="32" y="20" text-anchor="middle" fill="#000" font-size="14" font-weight="bold" font-family="Montserrat">
+                      {{ getSeatName(rowIndex, seatIndex) }}
+                    </text>
+                  </svg>
+                </div>
+              </button>
+            </td>
+          </ng-container>
+        </tr>
+      </table>
+    </div>
+    </div>
+  <div class="right-section">
+    <div *ngIf="selectedSeatsData.length > 0" class="selected-seats " style="padding-top: 3.6%;">
+      <!-- <p>Selected Seats:</p> -->
+      <h2 class="catchy-heading" style="font-size: 18px;">Selected Seats</h2>
+      <table class="seat-table" >
+        <thead  style="background-color: #f2f2f2; " >
+          <tr >
+            <th style="font-weight: normal" >Seat</th>
+            <th style="font-weight: normal">First Name</th>
+            <th style="font-weight: normal">Last Name</th>
+            <th style="font-weight: normal">Age</th>
+            <th style="font-weight: normal">Gender</th>
+            <th style="font-weight: normal">Phone Number</th>
+            <th style="font-weight: normal">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let seatReservation of selectedSeatsData">
+            <td>{{ seatReservation.SeatId }}</td>
+            <td>
+              <input type="text" [(ngModel)]="seatReservation.FirstName" name="firstName">
+            </td>
+            <td>
+              <input type="text" [(ngModel)]="seatReservation.LastName" name="lastName">
+            </td>
+            <td>
+              <input type="number" [(ngModel)]="seatReservation.Age" name="age">
+            </td>
+            <td>
+              <input type="text" list="mylist" [(ngModel)]="seatReservation.Gender" name="gender">
+              <datalist id="mylist">
+                <option value="Male">
+                <option value="Female">
+                <option value="Other">
+             </datalist>
+            </td>
+            <td>
+              <input type="text" [(ngModel)]="seatReservation.PhoneNumber" name="phoneNumber">
+            </td>
+            <td>
+              <input type="email" [(ngModel)]="seatReservation.Email" name="email">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+    
+   
 </div>

@@ -19,8 +19,11 @@
         <td>{{ bus.typeName }}</td>
         <td>{{ bus.seatAvailability }}</td>
         <td>₹ {{ bus.baseFare }}</td>
-        <td>
-          <button type="button" [routerLink]="['/book-seats']" [queryParams]="{selectedBusId:bus.busId}" class="view-seats-button">View Seats</button>
+        <td  *ngIf="isLoggedIn">
+          <button type="button" [routerLink]="['/book-seats']" [queryParams]="{selectedBusId:bus.busId}"  class="view-seats-button">View Seats</button>
+        </td>
+        <td  *ngIf="!isLoggedIn">
+          <button type="button" (click)="AlertLogin()" class="view-seats-button">View Seats</button>
         </td>
       </tr>
     </tbody>
