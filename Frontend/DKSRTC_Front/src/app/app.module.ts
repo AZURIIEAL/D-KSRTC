@@ -7,17 +7,18 @@ import { HomeComponent } from './Components/home/home.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { HttpClientModule } from '@angular/common/http';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AvailableBusesComponent } from './Components/available-buses/available-buses.component';
 import { LoginComponent } from './Components/login/login.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
-
+import { LoadingComponent } from './Components/loading/loading.component';
+import { LoadingInterceptor } from './Interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,12 +28,13 @@ import { SeatBookingComponent } from './Components/seat-booking/seat-booking.com
     SignUpComponent,
     AvailableBusesComponent,
     SeatBookingComponent,
+    LoadingComponent,
   ],
   imports: [
     MatSelectModule,
     FormsModule,
     MatDatepickerModule,
-    MatNativeDateModule, 
+    MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -41,10 +43,18 @@ import { SeatBookingComponent } from './Components/seat-booking/seat-booking.com
     AppRoutingModule,
     NavbarComponent,
     BrowserAnimationsModule,
-    HttpClientModule ,
-    
+    HttpClientModule,
   ],
-  providers: [ MatDatepickerModule],
-  bootstrap: [AppComponent]
+  providers: [
+    MatDatepickerModule,
+    {
+      //loading interceptor
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
+  ],
+
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -6,6 +6,8 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ILogin } from 'src/app/Interfaces/Ilogin';
+import { AuthCheckService } from 'src/app/Services/auth-check.service';
+import { UserAddService } from 'src/app/Services/user-add.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,6 +16,7 @@ import { ILogin } from 'src/app/Interfaces/Ilogin';
 })
 export class SignUpComponent implements OnInit {
   addUserForm!: FormGroup;
+  isLoggedIn = false;
   public newUser: ILogin = {
     firstName: '',
     lastName: '',
@@ -22,7 +25,7 @@ export class SignUpComponent implements OnInit {
     phoneNumber: '',
     address: '',
   };
-  constructor(private router: Router) {}
+  constructor(private router: Router,private authService:AuthCheckService,private userService:UserAddService) {}
   CreateForm() {
     this.addUserForm = new FormGroup({
       firstName: new FormControl('', [
@@ -47,12 +50,29 @@ export class SignUpComponent implements OnInit {
   }
   ngOnInit() {
     this.CreateForm();
+    this.authService.isLoggedIn().subscribe((status) => {
+      this.isLoggedIn = status;
+    })
   }
   
   GoLogin() {
     this.router.navigate(['Login']);
   }
   signUp() {
-    this.router.navigate([''])
+    if (!this.isLoggedIn) {
+      const newUser: ILogin = this.addUserForm.value;
+      this.userService.AddNewUser(newUser).subscribe(
+        (res) => {
+          if (res) {
+            alert("User created successfully");
+            this.router.navigate(['user-login']);
+          } else {
+            alert("User creation failed");
+          }
+        }
+    )}
+    
+
+    
   }
 }

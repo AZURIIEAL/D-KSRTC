@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ISearch } from 'src/app/Interfaces/Isearch';
 import { ILocationDetails } from 'src/app/Interfaces/ILocationDetails';
 import { dataLocationDetailsService } from 'src/app/Services/data-LocationDetails.service';
@@ -16,16 +16,20 @@ export class HomeComponent implements OnInit {
   options: ILocationDetails[] = [];
   filteredFromLocations: ILocationDetails[] = [];
   filteredToLocations: ILocationDetails[] = [];
-  ToLocation!:string;
-  FromLocation!:string;
-  journeyDate!:string | Date
+  ToLocation!: string;
+  FromLocation!: string;
+  journeyDate!: string | Date;
 
-  constructor(private router: Router, private service: dataLocationDetailsService,private authService: AuthCheckService) {}
+  constructor(
+    private router: Router,
+    private service: dataLocationDetailsService,
+    private authService: AuthCheckService
+  ) {}
 
   busSearchForm = new FormGroup({
-    fromLocation: new FormControl(''),
-    toLocation: new FormControl(''),
-    travelDate: new FormControl(''),
+    fromLocation: new FormControl('', [Validators.required]),
+    toLocation: new FormControl('' , [Validators.required]),
+    travelDate: new FormControl('', [Validators.required]),
   });
 
   searchCriteria: ISearch = {
@@ -36,7 +40,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.authService.isLoggedIn().subscribe((status) => {
-      this.isLoggedIn = status;})
+      this.isLoggedIn = status;
+    });
     this.getLocationData();
   }
 
@@ -49,7 +54,9 @@ export class HomeComponent implements OnInit {
   filterLocations(controlName: string, event: any) {
     const inputValue = event.target.value;
     const targetLocations =
-      controlName === 'fromLocation' ? this.filteredFromLocations : this.filteredToLocations;
+      controlName === 'fromLocation'
+        ? this.filteredFromLocations
+        : this.filteredToLocations;
     targetLocations.length = 0; // Clear the array
 
     if (inputValue.trim() === '') {
@@ -61,7 +68,7 @@ export class HomeComponent implements OnInit {
         ...this.options.filter((option) =>
           option.locationName.toLowerCase().includes(inputValue.toLowerCase())
         )
-      ); 
+      );
     }
   }
 
@@ -70,26 +77,35 @@ export class HomeComponent implements OnInit {
     const toLocationControl = this.busSearchForm.get('toLocation');
     const travelDateControl = this.busSearchForm.get('travelDate');
 
-    if (fromLocationControl && toLocationControl && travelDateControl) {
+    if (
+      fromLocationControl?.valid &&
+      toLocationControl?.valid &&
+      travelDateControl?.valid
+    ) {
       this.searchCriteria.FromLocation = fromLocationControl.value || '';
       this.searchCriteria.ToLocation = toLocationControl.value || '';
       this.searchCriteria.JourneyDate = travelDateControl.value || new Date();
-    }
-    this.ToLocation= this.searchCriteria.ToLocation;
-    this.FromLocation=this.searchCriteria.FromLocation;
-    this.journeyDate=this.searchCriteria.JourneyDate
-    const toLocationDetails = this.options.find(location => location.locationName === this.ToLocation);
-    const fromLocationDetails = this.options.find(location => location.locationName === this.FromLocation);
-    
-        this.router.navigate(['/available-buses'], {
-          queryParams: {
-            fromLocation:this.FromLocation,
-            fromLocationId:fromLocationDetails?.locationId,
-            toLocation:this.ToLocation,
-            toLocationId:toLocationDetails?.locationId,
-            journeyDate:this.journeyDate, 
-          },
-        });
-  }
+      this.ToLocation = this.searchCriteria.ToLocation;
+      this.FromLocation = this.searchCriteria.FromLocation;
+      this.journeyDate = this.searchCriteria.JourneyDate;
+      const toLocationDetails = this.options.find(
+        (location) => location.locationName === this.ToLocation
+      );
+      const fromLocationDetails = this.options.find(
+        (location) => location.locationName === this.FromLocation
+      );
 
+      this.router.navigate(['/available-buses'], {
+        queryParams: {
+          fromLocation: this.FromLocation,
+          fromLocationId: fromLocationDetails?.locationId,
+          toLocation: this.ToLocation,
+          toLocationId: toLocationDetails?.locationId,
+          journeyDate: this.journeyDate,
+        },
+      });
+    } else {
+      alert('Please enter valid details');
+    }
+  }
 }
