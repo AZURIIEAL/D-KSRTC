@@ -1,16 +1,54 @@
+/* Apply a fixed background image to the body or a container
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap')
+.background-image
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background-image: url('../../../assets/ReqImages/Cloudy\ \(1\).svg')
+  background-size: cover
+  z-index: -1
 
+  /* Move the background image behind the content
 
-.bus-search-container
+/* Styles for the form container
+
+.bus-search-form
+  position: fixed
+  top: 50%
+
+  /* Center vertically at 50% from the top of the screen
+  left: 50%
+
+  /* Center horizontally at 50% from the left of the screen
+  transform: translate(-50%, -50%)
+
+  /* Center precisely
   padding: 20px
-  margin: 20px auto
-  width: 80%
-  max-width: 600px
+  width: 56.25%
+
+  /* Reduce the width to 75% of what it is now (75% of 75%)
+  max-width: 450px
   border: 1px solid #ccc
   border-radius: 5px
-  background-color: #fff
+  background-color: rgba(255, 255, 255, 0.7)
+
+  /* Adjust the background color and opacity
+  backdrop-filter: blur(5px)
+
+  /* Adjust the blur value as needed
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1)
+  z-index: 1
+
+  /* Move the container in front of the background image
+
+  /* Center the form elements vertically
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  text-align: center
 
   h1
     font-family: 'Montserrat', sans-serif
@@ -25,23 +63,27 @@
     margin-bottom: 20px
     color: #1d1c1cfe
 
-.search-form
-  display: flex
-  flex-direction: column
+  .full-width
+    width: 100%
+    margin-bottom: 20px
 
-.full-width
-  width: 100%
-  margin-bottom: 20px
+  .search-button
+    margin-top: 20px
 
-.search-button
-  background-color: #e61212fe
-  color: #fff
-  border: none
-  padding: 10px 20px
-  border-radius: 5px
-  cursor: pointer
-  font-size: 16px
-  transition: all 0.3s ease 0s
+    /* Add margin to push the button to the bottom
+    align-self: center
 
-  &:hover
-    background-color: #b61616fe
+    /* Center the button horizontally
+    background-color: #e61212fe
+    color: #fff
+    border: none
+    padding: 10px 20px
+    border-radius: 5px
+    cursor: pointer
+    font-size: 16px
+    transition: all 0.3s ease 0s
+
+    &:hover
+      background-color: #b61616fe
+
+/* Styles for form elements
