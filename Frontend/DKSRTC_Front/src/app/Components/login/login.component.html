@@ -1,29 +1,36 @@
 <app-navbar></app-navbar>
-<div class="login-container">
-  <h1>Hi, Welcome back✨</h1>
-  <h3 *ngIf="!hasError">Enter your login credentials</h3>
-  <h3 *ngIf="hasError">Login failed ,Try again</h3>
-  <form [formGroup]="loginForm">
-        <label for="email">Email </label>
-        <div style="color: red; font-size: 12px;" *ngIf="loginForm?.get('email')?.invalid && (loginForm?.get('email')?.dirty || loginForm?.get('email')?.touched)">
-          <div *ngIf="loginForm?.get('email')?.hasError('required')">* Email required.</div>
-          <div *ngIf="loginForm.get('email')?.hasError('email')">* Invalid email format.</div>
+<div style="width: 100%; height: 100%; background-image: url('../../../assets/ReqImages/dddepth-321.jpg'); background-size: cover;" class="background">
+
+  <div class="login-container">
+    <h1>Hi, Welcome back✨</h1>
+    <h3 *ngIf="!hasError">Enter your login credentials</h3>
+    <h3 *ngIf="hasError">Login failed ,Try again</h3>
+    <form [formGroup]="loginForm">
+          <label for="email">Email </label>
+          <div style="color: red; font-size: 12px;" *ngIf="loginForm?.get('email')?.invalid && (loginForm?.get('email')?.dirty || loginForm?.get('email')?.touched)">
+            <div *ngIf="loginForm?.get('email')?.hasError('required')">* Email required.</div>
+            <div *ngIf="loginForm.get('email')?.hasError('email')">* Invalid email format.</div>
+          </div>
+          <input type="text" id="email" formControlName="email">  
+        <br><br>
+        <div>
+          <label for="password">Password</label>
+          <div style="color: red; font-size: 12px;" *ngIf="loginForm?.get('password')?.invalid && (loginForm?.get('password')?.dirty || loginForm?.get('password')?.touched)">
+            <div *ngIf="loginForm?.get('password')?.hasError('required')">* Password required.</div>
+            <div *ngIf="loginForm?.get('password')?.hasError('minlength')">* Password must be at least 8 characters long.</div>
+          </div>
+          <input type="password" id="password" formControlName="password">  
         </div>
-        <input type="text" id="email" formControlName="email">  
+   
+      <button type="submit"  (click)="onLogin()">Login</button>
       <br><br>
-      <div>
-        <label for="password">Password</label>
-        <div style="color: red; font-size: 12px;" *ngIf="loginForm?.get('password')?.invalid && (loginForm?.get('password')?.dirty || loginForm?.get('password')?.touched)">
-          <div *ngIf="loginForm?.get('password')?.hasError('required')">* Password required.</div>
-          <div *ngIf="loginForm?.get('password')?.hasError('minlength')">* Password must be at least 8 characters long.</div>
-        </div>
-        <input type="password" id="password" formControlName="password">  
-      </div>
- 
-    <button type="submit"  (click)="onLogin()">Login</button>
-    <br><br>
-    <a routerLink="SignUp" (click)="GoSignUp()">Don't have an account?🤭</a>
-    <br><br>
-    
-  </form>
+      <a routerLink="SignUp" (click)="GoSignUp()">Don't have an account?🤭</a>
+      <br><br>
+      
+    </form>
+  </div>
+  
+
+
+
 </div>

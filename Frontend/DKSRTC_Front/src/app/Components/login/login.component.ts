@@ -5,7 +5,7 @@ import {
   Validators,
 } from '@angular/forms';
 import {  Router } from '@angular/router';
-import { ILogin } from 'src/app/Interfaces/Ilogin';
+import { ILogin } from '../../Interfaces/ilogin';
 import { AuthCheckService } from 'src/app/Services/auth-check.service';
 import { IUser } from '../../Interfaces/IUser';
 
