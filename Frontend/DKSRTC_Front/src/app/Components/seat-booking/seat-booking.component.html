@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-  <div class="left-section seats-container">
+  <div class="seats-container">
     <h1 class="catchy-heading">Discover Your Dream Seats</h1>
     <p class="subtitle">Choose the perfect seats for your journey</p>
     <div>
@@ -28,8 +28,9 @@
     </div>
   </div>
   <div class="right-section">
-    <div *ngIf="selectedSeatsData.length > 0" class="selected-seats" style="padding-top: 3.6%">
-      <h2 class="catchy-heading" style="font-size: 18px">Selected Seats</h2>
+    <div *ngIf="selectedSeatsData.length > 0" class="selected-seats" style="padding-left: 20px;">
+      <form [formGroup]="seatReservationForm" (ngSubmit)="AddToCheckOut()">   
+      <h2 class="catchy-heading" style="font-size: 18px;padding-top: 5%;color: #fb0000fe">Selected Seats</h2>
       <table class="seat-table">
         <thead style="background-color: #f2f2f2">
           <tr>
@@ -51,7 +52,7 @@
                   <div *ngIf="seatReservationForm?.get('FirstName')?.hasError('required')">* First Name required.</div>
                   <div *ngIf="seatReservationForm?.get('FirstName')?.hasError('minlength')">* First Name must be at least 2 characters long.</div>
                 </div>
-                <input type="text" id="firstName" formControlName="FirstName" />
+                <input type="text" id="FirstName" formControlName="FirstName" />
               </div>
             </td>
             <td>
@@ -60,7 +61,7 @@
                   <div *ngIf="seatReservationForm?.get('LastName')?.hasError('required')">* Last Name required.</div>
                   <div *ngIf="seatReservationForm?.get('LastName')?.hasError('minlength')">* Last Name must be at least 2 characters long.</div>
                 </div>
-                <input type="text" id="lastName" formControlName="LastName" />
+                <input type="text" id="LastName" formControlName="LastName" />
               </div>
             </td>
             <td>
@@ -69,7 +70,7 @@
                   <div *ngIf="seatReservationForm?.get('Age')?.hasError('required')">* Age required.</div>
                   <div *ngIf="seatReservationForm?.get('Age')?.hasError('min')">* Age must be 0 or greater.</div>
                 </div>
-                <input type="number" id="age" formControlName="Age" />
+                <input type="number" id="Age" formControlName="Age" />
               </div>
             </td>
             <td>
@@ -77,7 +78,7 @@
                 <div style="color: red; font-size: 12px" *ngIf="seatReservationForm?.get('Gender')?.invalid && (seatReservationForm?.get('Gender')?.dirty || seatReservationForm?.get('Gender')?.touched)">
                   <div *ngIf="seatReservationForm?.get('Gender')?.hasError('required')">* Gender required.</div>
                 </div>
-                <input type="text" list="mylist" id="gender" formControlName="Gender" />
+                <input type="text" list="mylist" id="Gender" formControlName="Gender" />
                 <datalist id="mylist">
                   <option value="Male"></option>
                   <option value="Female"></option>
@@ -91,7 +92,7 @@
                   <div *ngIf="seatReservationForm?.get('PhoneNumber')?.hasError('required')">* Phone Number required.</div>
                   <div *ngIf="seatReservationForm?.get('PhoneNumber')?.hasError('pattern')">* Phone Number must be 10 digits.</div>
                 </div>
-                <input type="text" id="phoneNumber" formControlName="PhoneNumber" />
+                <input type="text" id="PhoneNumber" formControlName="PhoneNumber" />
               </div>
             </td>
             <td>
@@ -100,12 +101,16 @@
                   <div *ngIf="seatReservationForm?.get('Email')?.hasError('required')">* Email required.</div>
                   <div *ngIf="seatReservationForm?.get('Email')?.hasError('email')">* Invalid email format.</div>
                 </div>
-                <input type="email" id="email" formControlName="Email" />
+                <input type="email" id="Email" formControlName="Email" />
               </div>
             </td>
           </tr>
         </tbody>
       </table>
+      <div style="padding-left:66%;padding-top: 3%;">
+        <button class="button-class" (click)="AddToCheckOut()">Add To CheckOut</button>
+      </div>
+      </form>  
     </div>
   </div>
 </div>

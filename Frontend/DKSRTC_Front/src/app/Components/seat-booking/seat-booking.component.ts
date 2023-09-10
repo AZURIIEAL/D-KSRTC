@@ -52,6 +52,9 @@ export class SeatBookingComponent implements OnInit {
     }
   }
 
+
+  AddToCheckOut(){}
+
   getSeatName(row: number, column: number): string {
     return String.fromCharCode(65 + column) + (row + 1);
   }
