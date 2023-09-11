@@ -5,6 +5,7 @@ import { AvailableBusesComponent } from './Components/available-buses/available-
 import { LoginComponent } from './Components/login/login.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
+import { CheckOutComponent } from './Components/check-out/check-out.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
     path: 'user-signup',
     component: SignUpComponent,
     title: 'SignUp Page',
+  },
+  {
+    path: 'confirm-checkout',
+    component: CheckOutComponent,
+    title: 'Confirm Booking',
   },
   {
     path: 'book-seats',

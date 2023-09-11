@@ -19,6 +19,7 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
 import { LoadingComponent } from './Components/loading/loading.component';
 import { LoadingInterceptor } from './Interceptors/loading.interceptor';
+import { CheckOutComponent } from './Components/check-out/check-out.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LoadingInterceptor } from './Interceptors/loading.interceptor';
     AvailableBusesComponent,
     SeatBookingComponent,
     LoadingComponent,
+    CheckOutComponent,
   ],
   imports: [
     MatSelectModule,

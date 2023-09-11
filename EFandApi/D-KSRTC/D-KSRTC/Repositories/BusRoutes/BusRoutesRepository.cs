@@ -104,9 +104,10 @@ namespace D_KSRTC.Repositories.BusRoutes
                     .Select(x => new AvailableBuses
                     {
                         BusId = x.BusId,
+                        BusRouteCurrent=x.RouteId,
                         BusName = x.BusIdNavigation!.BusName,
                         Time = x.Time,
-                        Distance = x.Route!.Distance,
+                        Distance = x.Route.RouteDetails.FirstOrDefault(rd => rd.StopId == toId).Distance,
                         SeatAvailability = 0,
                         Duration = x.Route!.Duration,
                         Sequence = x.Route.RouteDetails.Where(y => y.StopId == toId).Select(x => x.Sequence).First(),

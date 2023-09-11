@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import Validators and FormBuilder
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ISeatReservation } from 'src/app/Interfaces/ISeatReservation';
+import { BookingService } from 'src/app/Services/booking.service';
+import { Ipassenger } from '../../Interfaces/ipassenger';
+import { AuthCheckService } from 'src/app/Services/auth-check.service';
+import { ISeats } from 'src/app/Interfaces/iseats';
 
 @Component({
   selector: 'app-seat-booking',
@@ -10,46 +20,119 @@ import { ISeatReservation } from 'src/app/Interfaces/ISeatReservation';
 })
 export class SeatBookingComponent implements OnInit {
   selectedBusId!: number;
-  seatRows: { selected: boolean }[][] = [];
-  maxSelections = 4
+  seatRows: { selected: boolean; booked: boolean }[][] = [];
+  maxSelections = 4;
   selectedSeats: string[] = [];
   selectedSeatsData: ISeatReservation[] = [];
-  seatReservationForm!: FormGroup; // Define a form group for seat reservations
+  seatReservationForm!: FormGroup;
+  passengersToPush!: Ipassenger[];
+  onRoute!: number;
+  isLoggedIn = false;
+  allSeats :ISeats[] = [];
+  onDate!:Date;
+  totalAmount!:number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router:Router,
+    private SeatService: BookingService,
+    private authService: AuthCheckService
   ) {
-    // Initialize the form group with validators
+    const x = '2023-09-20';
+    this.SeatService.getSeatAvailability(this.selectedBusId,new Date(this.onDate)).subscribe((data) => {
+      for (const seatData of data) {
+        const transformedSeat = {
+          seatID: seatData.seatID,
+          busID: seatData.busID,
+          date: seatData.date,
+          seatNumber: seatData.seatNumber,
+          availability: seatData.availability,
+        };
+        this.allSeats.push(transformedSeat);
+      }
+      console.log(this.allSeats)
+      this.updateSeatRows(data);
+    });
   }
+
   CreateForm() {
     const formArray = this.formBuilder.array([]);
     this.seatReservationForm = this.formBuilder.group({
-      passengers: formArray
+      passengers: formArray,
     });
   }
 
   ngOnInit() {
-    this.CreateForm();
+    this.authService.isLoggedIn().subscribe((status) => {
+      this.isLoggedIn = status;
+    });
+
     this.activatedRoute.queryParamMap.subscribe((x) => {
+      const busRouteParam = x.get('busRouteId');
+      if (busRouteParam) {
+        this.onRoute = parseInt(busRouteParam, 10);
+      }
+      const onDateParam = x.get('journeyDate');
+      if (onDateParam) {
+        this.onDate = new Date(onDateParam);
+      }
       const selectedBusIdParam = x.get('selectedBusId');
       if (selectedBusIdParam) {
         this.selectedBusId = parseInt(selectedBusIdParam, 10);
       }
-    }); 
-
-    // Initialize the seatRows (same as your previous code)
-    for (let i = 0; i < 5; i++) {
-      const row: { selected: boolean }[] = [];
-      for (let j = 0; j < 6; j++) {
-        row.push({ selected: false });
+      const fareParam = x.get('perTicketPrice');
+      if (fareParam) {
+        this.totalAmount = parseInt((+fareParam).toFixed(2));
       }
-      this.seatRows.push(row);
+
+    });
+    this.CreateForm();
+  }
+  AddToCheckOut() {
+    if (this.isLoggedIn) {
+      const passengersArray = this.seatReservationForm.get(
+        'passengers'
+      ) as FormArray;
+      const passengerObjects: Ipassenger[] = [];
+
+      passengersArray.controls.forEach((passengerForm: AbstractControl) => {
+        if (passengerForm instanceof FormGroup && passengerForm.valid) {
+          const seatName = passengerForm.get('SeatName')?.value
+          const passenger: Ipassenger = {
+            bookingId: 0, // You can set the appropriate booking ID here
+            firstName: passengerForm.get('FirstName')?.value,
+            lastName: passengerForm.get('LastName')?.value,
+            age: passengerForm.get('Age')?.value,
+            gender: passengerForm.get('Gender')?.value,
+            seatId: this.allSeats.find(x=>x.seatNumber=seatName)?.seatID, // Use SeatName instead of Seat
+            phoneNumber: passengerForm.get('PhoneNumber')?.value,
+            email: passengerForm.get('Email')?.value,
+          };
+          passengerObjects.push(passenger);
+          const user= this.authService.currentUserSession()
+          const booking = {
+            userId: user.userId, 
+            busRoute:this.onRoute , 
+            bookingDate: new Date(), // Current date
+            journeyDate: this.onDate, // Set the journey date accordingly
+            amount: (this.selectedSeatsData.length)*this.totalAmount, // Set the booking amount accordingly
+            passengers: passengerObjects,
+          };
+          // Add the booking to the BookingService
+          this.SeatService.addBooking(booking);
+
+          // Now, the booking data is stored in the BookingService
+          console.log(booking);
+        }
+      });
+      console.log(passengerObjects);
+      this.router.navigate(['/confirm-checkout'])
+    
+    } else {
+      alert('Please login to continue');
     }
   }
-
-
-  AddToCheckOut(){}
 
   getSeatName(row: number, column: number): string {
     return String.fromCharCode(65 + column) + (row + 1);
@@ -57,11 +140,17 @@ export class SeatBookingComponent implements OnInit {
 
   selectSeat(row: number, column: number) {
     const seat = `${String.fromCharCode(65 + column)}${row + 1}`;
-
     const isSelected = this.seatRows[row][column].selected;
+    const isBooked = this.seatRows[row][column].booked; // Check if the seat is booked
+
     const selectedCount = this.seatRows
       .map((row) => row.filter((seat) => seat.selected))
       .reduce((total, row) => total + row.length, 0);
+
+    if (isBooked) {
+      // If the seat is booked, do nothing
+      return;
+    }
 
     if (isSelected) {
       this.seatRows[row][column].selected = false;
@@ -77,7 +166,11 @@ export class SeatBookingComponent implements OnInit {
       if (selectedCount >= this.maxSelections) {
         return;
       }
-      this.formArray.push(this.getControlGroup());
+      const temp = this.getControlGroup();
+      temp.patchValue({
+        SeatName: seat,
+      });
+      this.formArray.push(temp);
       this.seatRows[row][column].selected = true;
       this.selectedSeats.push(seat);
       this.selectedSeatsData.push({
@@ -98,7 +191,7 @@ export class SeatBookingComponent implements OnInit {
 
   private getControlGroup() {
     return this.formBuilder.group({
-      Seat:['',[Validators.required]],
+      SeatName: ['', [Validators.required]],
       FirstName: ['', [Validators.required, Validators.minLength(2)]],
       LastName: ['', [Validators.required, Validators.minLength(2)]],
       Age: ['', [Validators.required, Validators.min(0)]],
@@ -111,4 +204,18 @@ export class SeatBookingComponent implements OnInit {
   get formArray() {
     return this.seatReservationForm.get('passengers') as FormArray;
   }
-} 
+
+  updateSeatRows(seatAvailabilityData: any) {
+    for (let i = 0; i < 5; i++) {
+      const row: { selected: boolean; booked: boolean }[] = [];
+      for (let j = 0; j < 6; j++) {
+        const seatId = `${String.fromCharCode(65 + j)}${i + 1}`;
+        const availability = seatAvailabilityData[seatId];
+
+        // Set the selected property based on availability
+        row.push({ selected: false, booked: availability === 'BOOKED' });
+      }
+      this.seatRows.push(row);
+    }
+  }
+}

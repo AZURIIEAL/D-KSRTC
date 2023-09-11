@@ -11,19 +11,37 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let bus of (availableBuses | async)">
+      <tr *ngFor="let bus of availableBuses | async">
         <td>{{ bus.busName }}</td>
         <td>{{ bus.time | date : "shortTime" }}</td>
         <td>{{ bus.distance }} km</td>
         <td>{{ bus.categoryName }}</td>
         <td>{{ bus.typeName }}</td>
         <td>{{ bus.seatAvailability }}</td>
-        <td>₹ {{ bus.baseFare }}</td>
-        <td  *ngIf="isLoggedIn">
-          <button type="button" [routerLink]="['/book-seats']" [queryParams]="{selectedBusId:bus.busId}"  class="view-seats-button">View Seats</button>
+        <td>₹ {{ bus.perDistanceFare * bus.distance + bus.baseFare }}</td>
+        <td *ngIf="isLoggedIn">
+          <button
+            type="button"
+            [routerLink]="['/book-seats']"
+            [queryParams]="{
+              selectedBusId: bus.busId,
+              perTicketPrice: (bus.perDistanceFare * bus.distance) + bus.baseFare,
+              busRouteId:bus.busRouteCurrent,
+              journeyDate:onDate
+            }"
+            class="view-seats-button"
+          >
+            View Seats
+          </button>
         </td>
-        <td  *ngIf="!isLoggedIn">
-          <button type="button" (click)="AlertLogin()" class="view-seats-button">View Seats</button>
+        <td *ngIf="!isLoggedIn">
+          <button
+            type="button"
+            (click)="AlertLogin()"
+            class="view-seats-button"
+          >
+            View Seats
+          </button>
         </td>
       </tr>
     </tbody>

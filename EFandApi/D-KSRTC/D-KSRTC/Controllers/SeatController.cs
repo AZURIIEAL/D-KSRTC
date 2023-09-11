@@ -3,6 +3,7 @@ using D_KSRTC.Requests.Commands.Seats.AddSeat;
 using D_KSRTC.Requests.Commands.Seats.DeleteSeat;
 using D_KSRTC.Requests.Commands.Seats.UpdateSeat;
 using D_KSRTC.Requests.Queries.Seats.GetAllSeats;
+using D_KSRTC.Requests.Queries.Seats.GetSeatAvailability;
 using D_KSRTC.Requests.Queries.Seats.GetSeatById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,6 @@ namespace D_KSRTC.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Seat), (int)HttpStatusCode.Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Seat>> AddSeatAsync(AddSeatCommand command, CancellationToken cancellationToken = default)
         {
@@ -30,7 +30,7 @@ namespace D_KSRTC.Controllers
             {
                 var result = await _mediator.Send(command, cancellationToken);
 
-                return CreatedAtAction(nameof(GetSeatByIdAsync), new { SeatID = result.SeatID }, result);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -63,6 +63,35 @@ namespace D_KSRTC.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
+
+
+        [HttpGet]
+        [Route("seat-availability")]
+        [ProducesResponseType(typeof(Seat), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<List<Seat>>> GetSeatAvailabilityAsync([FromQuery] GetSeatAvailabilityQuery request , CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var seat = await _mediator.Send(request, cancellationToken);
+
+                if (seat == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(seat);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
+
+
 
         [HttpGet]
         [ProducesResponseType(typeof(List<Seat>), (int)HttpStatusCode.OK)]
