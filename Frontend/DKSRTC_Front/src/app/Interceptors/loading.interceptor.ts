@@ -9,7 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { LoadingService } from '../Services/loading.service';
 import { NavigationStart, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
@@ -23,7 +23,7 @@ export class LoadingInterceptor implements HttpInterceptor {
 
         setTimeout(() => {
           this.loadingService.stopLoading();
-        }, 1500); // Show loading screen for 2 seconds
+        }, 1000); // Show loading screen for 2 seconds
       }
     });
   }
@@ -33,7 +33,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // You can also handle HTTP requests here if needed.
-    return next.handle(request).pipe(
+    return next.handle(request).pipe(delay(1000),
       tap(() => {
         // Stop loading when the response is received.
         this.loadingService.stopLoading();
