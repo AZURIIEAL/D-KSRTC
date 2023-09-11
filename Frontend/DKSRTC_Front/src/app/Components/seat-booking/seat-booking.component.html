@@ -31,7 +31,7 @@
     <div *ngIf="selectedSeatsData.length > 0" class="selected-seats" style="padding-left: 20px;">
       <form [formGroup]="seatReservationForm" (ngSubmit)="AddToCheckOut()">   
       <h2 class="catchy-heading" style="font-size: 18px;padding-top: 5%;color: #fb0000fe">Selected Seats</h2>
-      <table class="seat-table">
+      <table class="seat-table" formArrayName="passengers">
         <thead style="background-color: #f2f2f2">
           <tr>
             <th style="font-weight: normal">Seat</th>
@@ -44,39 +44,39 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let seatReservation of selectedSeatsData; let i = index">
+          <tr *ngFor="let seatReservation of selectedSeatsData; let i = index" [formGroup]="getPassengersGroup(i)">
             <td>{{ seatReservation.SeatId }}</td>
             <td>
               <div>
-                <div style="color: red; font-size: 12px" *ngIf="seatReservationForm?.get('FirstName')?.invalid && (seatReservationForm?.get('FirstName')?.dirty || seatReservationForm?.get('FirstName')?.touched)">
-                  <div *ngIf="seatReservationForm?.get('FirstName')?.hasError('required')">* First Name required.</div>
-                  <div *ngIf="seatReservationForm?.get('FirstName')?.hasError('minlength')">* First Name must be at least 2 characters long.</div>
+                <div style="color: red; font-size: 12px" *ngIf="formArray.at(i)?.get('FirstName')?.invalid && (formArray.at(i)?.get('FirstName')?.dirty || formArray.at(i)?.get('FirstName')?.touched)">
+                  <div *ngIf="formArray.at(i)?.get('FirstName')?.hasError('required')">* First Name required.</div>
+                  <div *ngIf="formArray.at(i)?.get('FirstName')?.hasError('minlength')">* First Name must be at least 2 characters long.</div>
                 </div>
                 <input type="text" id="FirstName" formControlName="FirstName" />
               </div>
             </td>
             <td>
               <div>
-                <div style="color: red; font-size: 12px" *ngIf="seatReservationForm?.get('LastName')?.invalid && (seatReservationForm?.get('LastName')?.dirty || seatReservationForm?.get('LastName')?.touched)">
-                  <div *ngIf="seatReservationForm?.get('LastName')?.hasError('required')">* Last Name required.</div>
-                  <div *ngIf="seatReservationForm?.get('LastName')?.hasError('minlength')">* Last Name must be at least 2 characters long.</div>
+                <div style="color: red; font-size: 12px" *ngIf="formArray.at(i)?.get('LastName')?.invalid && (formArray.at(i)?.get('LastName')?.dirty || formArray.at(i)?.get('LastName')?.touched)">
+                  <div *ngIf="formArray.at(i)?.get('LastName')?.hasError('required')">* Last Name required.</div>
+                  <div *ngIf="formArray.at(i)?.get('LastName')?.hasError('minlength')">* Last Name must be at least 2 characters long.</div>
                 </div>
                 <input type="text" id="LastName" formControlName="LastName" />
               </div>
             </td>
             <td>
               <div>
-                <div style="color: red; font-size: 12px" *ngIf="seatReservationForm?.get('Age')?.invalid && (seatReservationForm?.get('Age')?.dirty || seatReservationForm?.get('Age')?.touched)">
-                  <div *ngIf="seatReservationForm?.get('Age')?.hasError('required')">* Age required.</div>
-                  <div *ngIf="seatReservationForm?.get('Age')?.hasError('min')">* Age must be 0 or greater.</div>
+                <div style="color: red; font-size: 12px" *ngIf="formArray.at(i)?.get('Age')?.invalid && (formArray.at(i)?.get('Age')?.dirty || formArray.at(i)?.get('Age')?.touched)">
+                  <div *ngIf="formArray.at(i)?.get('Age')?.hasError('required')">* Age required.</div>
+                  <div *ngIf="formArray.at(i)?.get('Age')?.hasError('min')">* Age must be 0 or greater.</div>
                 </div>
                 <input type="number" id="Age" formControlName="Age" />
               </div>
             </td>
             <td>
               <div>
-                <div style="color: red; font-size: 12px" *ngIf="seatReservationForm?.get('Gender')?.invalid && (seatReservationForm?.get('Gender')?.dirty || seatReservationForm?.get('Gender')?.touched)">
-                  <div *ngIf="seatReservationForm?.get('Gender')?.hasError('required')">* Gender required.</div>
+                <div style="color: red; font-size: 12px" *ngIf="formArray.at(i)?.get('Gender')?.invalid && (formArray.at(i)?.get('Gender')?.dirty || formArray.at(i)?.get('Gender')?.touched)">
+                  <div *ngIf="formArray.at(i)?.get('Gender')?.hasError('required')">* Gender required.</div>
                 </div>
                 <input type="text" list="mylist" id="Gender" formControlName="Gender" />
                 <datalist id="mylist">
@@ -88,18 +88,18 @@
             </td>
             <td>
               <div>
-                <div style="color: red; font-size: 12px" *ngIf="seatReservationForm?.get('PhoneNumber')?.invalid && (seatReservationForm?.get('PhoneNumber')?.dirty || seatReservationForm?.get('PhoneNumber')?.touched)">
-                  <div *ngIf="seatReservationForm?.get('PhoneNumber')?.hasError('required')">* Phone Number required.</div>
-                  <div *ngIf="seatReservationForm?.get('PhoneNumber')?.hasError('pattern')">* Phone Number must be 10 digits.</div>
+                <div style="color: red; font-size: 12px" *ngIf="formArray.at(i)?.get('PhoneNumber')?.invalid && (formArray.at(i)?.get('PhoneNumber')?.dirty || formArray.at(i)?.get('PhoneNumber')?.touched)">
+                  <div *ngIf="formArray.at(i)?.get('PhoneNumber')?.hasError('required')">* Phone Number required.</div>
+                  <div *ngIf="formArray.at(i)?.get('PhoneNumber')?.hasError('pattern')">* Phone Number must be 10 digits.</div>
                 </div>
                 <input type="text" id="PhoneNumber" formControlName="PhoneNumber" />
               </div>
             </td>
             <td>
               <div>
-                <div style="color: red; font-size: 12px" *ngIf="seatReservationForm?.get('Email')?.invalid && (seatReservationForm?.get('Email')?.dirty || seatReservationForm?.get('Email')?.touched)">
-                  <div *ngIf="seatReservationForm?.get('Email')?.hasError('required')">* Email required.</div>
-                  <div *ngIf="seatReservationForm?.get('Email')?.hasError('email')">* Invalid email format.</div>
+                <div style="color: red; font-size: 12px" *ngIf="formArray.at(i)?.get('Email')?.invalid && (formArray.at(i)?.get('Email')?.dirty || formArray.at(i)?.get('Email')?.touched)">
+                  <div *ngIf="formArray.at(i)?.get('Email')?.hasError('required')">* Email required.</div>
+                  <div *ngIf="formArray.at(i)?.get('Email')?.hasError('email')">* Invalid email format.</div>
                 </div>
                 <input type="email" id="Email" formControlName="Email" />
               </div>
