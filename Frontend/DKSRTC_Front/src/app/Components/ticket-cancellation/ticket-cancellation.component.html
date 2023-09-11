@@ -1,1 +1,24 @@
-<p>ticket-cancellation works!</p>
+
+
+<table>
+    <tr>
+      <th >PassengerId</th>
+        <th >First Name</th>
+        
+        
+       
+    </tr>
+    <tbody>
+        <tr *ngFor="let passenger of bookingDetails">
+          <td>{{ passenger.passengerId }}</td>
+          
+          <td>{{ passenger.firstName}}</td>
+            <button (click)="cancelTickets(passenger.passengerId)">Cancel Ticket </button>
+            
+       </tbody>
+       
+       
+</table>
+
+
+
