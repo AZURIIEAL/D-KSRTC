@@ -109,7 +109,6 @@ export class SeatBookingComponent implements OnInit {
             phoneNumber: passengerForm.get('PhoneNumber')?.value,
             email: passengerForm.get('Email')?.value,
           };
-          passengerObjects.push(passenger);
           this.SeatService.addPassengers(passenger)
           const user= this.authService.currentUserSession()
           const booking = {
@@ -118,10 +117,7 @@ export class SeatBookingComponent implements OnInit {
             bookingDate: new Date(), // Current date
             journeyDate: this.onDate, // Set the journey date accordingly
             amount: (this.selectedSeatsData.length)*this.totalAmount, // Set the booking amount accordingly
-            passengers: passengerObjects,
           };
-          
-          // Add the booking to the BookingService
           this.SeatService.addBooking(booking);
         }
       });

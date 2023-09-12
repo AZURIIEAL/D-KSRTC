@@ -1,33 +1,57 @@
 <app-navbar></app-navbar>
+
 <div class="table-container">
-    <table>
-        <thead>
-          <tr class="table-header">
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Seat Name</th>
-            <th>Seat ID</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let passenger of passengers">
-                <tr>
-                    <td>{{ passenger.firstName }}</td>
-                    <td>{{ passenger.lastName }}</td>
-                    <td>{{ passenger.age }}</td>
-                    <td>{{ passenger.gender }}</td>
-                    <td>{{ passenger.seatName }}</td>
-                    <td>{{ passenger.seatId }}</td>
-                    <td>{{ passenger.phoneNumber }}</td>
-                    <td>{{ passenger.email }}</td>
-                  </tr>
-    
-            </ng-container>
-        </tbody>
-      </table>
-      
+  <div>
+    <h3 class="order-summary-heading">Order Summary</h3>
+    <p class="order-summary-subheading">
+      Review Your Booking Details and Total Amount
+    </p>
+  </div>
+  <table>
+    <thead>
+      <tr class="table-header">
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Seat Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let passenger of passengers">
+        <tr>
+          <td>{{ passenger.firstName }}</td>
+          <td>{{ passenger.lastName }}</td>
+          <td>{{ passenger.age }}</td>
+          <td>{{ passenger.gender }}</td>
+          <td>{{ passenger.seatName }}</td>
+          <td>{{ passenger.phoneNumber }}</td>
+          <td>{{ passenger.email }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div>
+    <h4 class="order-summary-heading" style="font-size: 18px">Bill Summary</h4>
+    <div>
+      <p class="order-summary-subheading">
+        Bill To : {{ currentUser.firstName }} {{ currentUser.lastName }}
+      </p>
+      <p class="order-summary-subheading">
+        Invoice Date : {{ booking["bookingDate"].toLocaleDateString() }}
+      </p>
+      <p class="order-summary-subheading">
+        Total Amount : ₹ {{ booking["amount"] }} [ {{ passengers.length }} Qty x {{
+          booking["amount"] / passengers.length
+        }} ]
+      </p>
+    </div>
+  </div>
+  <div class="proceed-button-container">
+    <button class="proceed-to-button" (click)="ProceedToPayment()">
+      Proceed to Payment
+    </button>
+  </div>
 </div>

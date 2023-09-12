@@ -20,6 +20,7 @@ import { SeatBookingComponent } from './Components/seat-booking/seat-booking.com
 import { LoadingComponent } from './Components/loading/loading.component';
 import { LoadingInterceptor } from './Interceptors/loading.interceptor';
 import { CheckOutComponent } from './Components/check-out/check-out.component';
+import { PaymentGatewayComponent } from './Components/payment-gateway/payment-gateway.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CheckOutComponent } from './Components/check-out/check-out.component';
     SeatBookingComponent,
     LoadingComponent,
     CheckOutComponent,
+    PaymentGatewayComponent,
   ],
   imports: [
     MatSelectModule,

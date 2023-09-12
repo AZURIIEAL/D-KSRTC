@@ -10,7 +10,7 @@ import { Ipassenger } from '../Interfaces/ipassenger';
 })
 export class BookingService {
   public bookings: any[] = []; // Replace 'any[]' with your specific booking data type
-  public bookingDataSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  public bookingDataSubject: BehaviorSubject<any> = new BehaviorSubject<any>({});
   public passengerDataSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public bookingData: Observable<any[]> = this.bookingDataSubject.asObservable();
   passengerObjectsServiceObject: Ipassenger[] = [];
@@ -26,7 +26,7 @@ export class BookingService {
   }
   public addBooking(booking: any) {
     this.bookings.push(booking);
-    this.bookingDataSubject.next(this.bookings);
+    this.bookingDataSubject.next(booking);
   }
   public addPassengers(passenger:any){
     this.passengerObjectsServiceObject.push(passenger);
