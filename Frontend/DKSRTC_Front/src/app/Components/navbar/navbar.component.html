@@ -1,4 +1,4 @@
-<div class="sticky" style="z-index: 9999;">
+<div class="sticky" style="z-index: 9999; " class="footer-dark fixed-bottom">
     <nav style="justify-content: space-between;font-family: 'Montserrat', sans-serif;color: #edf0f1">
       <div>
           <h1>DKSRTC</h1>
@@ -6,9 +6,9 @@
       <div>
         <ul class="nav__links">
           <li>
-            <a href="#">Home</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
+            <a href=" ">Home</a>
+            <!-- <a href="#">About Us</a>
+            <a href="#">Contact Us</a> -->
             <a routerlink = "Login" class="cta">
               <button (click)="GoLogOut()" *ngIf="isLoggedIn">LogOut</button>
               <button (click)="GoLogin()" *ngIf="!isLoggedIn">Login / Sign up</button>

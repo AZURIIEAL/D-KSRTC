@@ -19,6 +19,9 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
 import { LoadingComponent } from './Components/loading/loading.component';
 import { LoadingInterceptor } from './Interceptors/loading.interceptor';
+import { TicketCancellationComponent } from './Components/ticket-cancellation/ticket-cancellation.component';
+import { FooterComponent } from './Components/footer/footer.component';
+import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { CheckOutComponent } from './Components/check-out/check-out.component';
 
 @NgModule({
@@ -30,7 +33,10 @@ import { CheckOutComponent } from './Components/check-out/check-out.component';
     AvailableBusesComponent,
     SeatBookingComponent,
     LoadingComponent,
-    CheckOutComponent,
+    TicketCancellationComponent,
+    FooterComponent,
+    NotFoundComponent,
+    CheckOutComponent
   ],
   imports: [
     MatSelectModule,
