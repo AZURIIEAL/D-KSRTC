@@ -80,7 +80,7 @@
                 <div style="color: red; font-size: 12px" *ngIf="formArray.at(i)?.get('Gender')?.invalid && (formArray.at(i)?.get('Gender')?.dirty || formArray.at(i)?.get('Gender')?.touched)">
                   <div *ngIf="formArray.at(i)?.get('Gender')?.hasError('required')">* Gender required.</div>
                 </div>
-                <input type="text" list="mylist" id="Gender" formControlName="Gender" />
+                <input type="text" list="mylist" id="Gender" placeholder=" --Select one--" formControlName="Gender" />
                 <datalist id="mylist">
                   <option value="Male"></option>
                   <option value="Female"></option>

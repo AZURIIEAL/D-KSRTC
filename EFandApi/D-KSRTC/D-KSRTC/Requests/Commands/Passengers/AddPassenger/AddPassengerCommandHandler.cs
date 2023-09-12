@@ -15,8 +15,9 @@ namespace D_KSRTC.Requests.Commands.Passengers.AddPassenger
 
         public async Task<Passenger> Handle(AddPassengerCommand command, CancellationToken cancellationToken)
         {
-            var passenger = new Passenger
+            var passenger = new Passenger()
             {
+                BookingId = command.BookingId,
                 FirstName = command.FirstName,
                 LastName = command.LastName,
                 Age = command.Age,

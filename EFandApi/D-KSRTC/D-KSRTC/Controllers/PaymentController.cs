@@ -29,7 +29,7 @@ namespace D_KSRTC.Controllers
             {
                 var result = await _mediator.Send(new AddPaymentCommand(payment.BookingId, payment.Amount, payment.PaymentDate, payment.PaymentStatus), cancellationToken);
 
-                return CreatedAtAction(nameof(GetPaymentByIdAsync), new { paymentId = result.PaymentId }, result);
+                return Ok(result);
             }
             catch (Exception ex)
             {

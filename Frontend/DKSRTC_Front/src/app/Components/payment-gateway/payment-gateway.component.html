@@ -1,1 +1,18 @@
-<p>payment-gateway works!</p>
+<div style="height: 100%;">
+  <!-- Payment gateway section -->
+  <div class="payment-container">
+    <h3>Secure Payment</h3>
+    <form >
+        <label for="expiryDate">Payment Method</label>
+        <input type="text" list="mylist" id="payment" placeholder=" --Select one--" />
+        <datalist id="mylist">
+          <option value="UPI Payment"></option>
+          <option value="Online Banking"></option>
+          <option value="Crypto"></option>
+        </datalist>
+
+      <button class="payment-button" onclick="submitPayment()">Pay Now</button>
+    </form>
+  </div>
+
+</div>
