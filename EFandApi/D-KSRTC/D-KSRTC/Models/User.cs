@@ -14,7 +14,7 @@ namespace D_KSRTC.Models
         public string FirstName { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(100, ErrorMessage ="test")]
         public string LastName { get; set; } = string.Empty;
 
         [Required]

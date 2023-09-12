@@ -31,7 +31,7 @@ namespace D_KSRTC.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
         }
 

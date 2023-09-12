@@ -60,19 +60,21 @@ export class SignUpComponent implements OnInit {
   }
   signUp() {
     if (!this.isLoggedIn) {
-      const newUser: ILogin = this.addUserForm.value;
-      this.userService.AddNewUser(newUser).subscribe(
-        (res) => {
-          if (res) {
-            alert("User created successfully");
-            this.router.navigate(['user-login']);
-          } else {
-            alert("User creation failed");
+      try{
+        const newUser: ILogin = this.addUserForm.value;
+        this.userService.AddNewUser(newUser).subscribe(
+          (res) => {
+            if (res) {
+              alert("User created successfully");
+              this.router.navigate(['user-login']);
+            } else {
+              alert("User creation failed");
+            }
           }
-        }
-    )}
-    
-
-    
-  }
-}
+      )
+      }
+      catch(ex){
+        console.log(ex)
+      }
+    }
+}}
