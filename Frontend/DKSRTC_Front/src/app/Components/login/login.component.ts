@@ -5,8 +5,8 @@ import {
   Validators,
 } from '@angular/forms';
 import {  Router } from '@angular/router';
-import { ILogin } from 'src/app/Interfaces/Ilogin';
-import { AuthCheckService } from 'src/app/Services/auth-check.service';
+import { ILogin } from '../../Interfaces/Ilogin';
+import { AuthCheckService } from '../../Services/auth-check.service';
 import { IUser } from '../../Interfaces/IUser';
 
 @Component({

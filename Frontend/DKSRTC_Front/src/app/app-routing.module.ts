@@ -9,6 +9,7 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { TicketCancellationComponent } from './Components/ticket-cancellation/ticket-cancellation.component';
 import { CheckOutComponent } from './Components/check-out/check-out.component';
 import { PaymentGatewayComponent } from './Components/payment-gateway/payment-gateway.component';
+import { ViewTicketComponent } from './Components/view-ticket/view-ticket.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,16 @@ const routes: Routes = [
     title: 'ticket-cancellation',
   },
   {
+    path: 'payment-gateway',
+    component: PaymentGatewayComponent,
+    title: 'Payment Gateway',
+  },
+  {
+    path: 'View-Ticket',
+    component: ViewTicketComponent,
+    title: 'View Ticket',
+  },
+  {
     path: 'notfound',
     component: NotFoundComponent,
     title: 'Not Found',
@@ -57,11 +68,7 @@ const routes: Routes = [
     component: NotFoundComponent,
     title: 'Not Found',
   },
-    {
-    path: 'payment-gateway',
-    component: PaymentGatewayComponent,
-    title: 'Payment Gateway',
-  },
+   
 
 
 
