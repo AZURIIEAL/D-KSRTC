@@ -12,7 +12,6 @@ import { AuthCheckService } from 'src/app/Services/auth-check.service';
 })
 export class AvailableBusesComponent implements OnInit {
   constructor(
-    private router: Router, 
     private authService: AuthCheckService,
     private busRouteService: BusRouteService,
     private activatedRoute: ActivatedRoute

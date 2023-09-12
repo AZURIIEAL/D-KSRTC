@@ -19,6 +19,7 @@ namespace D_KSRTC.Requests.Commands.Seats.AddSeat
             {
                 BusID = request.BusID,
                 SeatNumber = request.SeatNumber,
+                Date = request.Date,
                 Availability = request.Availability
             };
 

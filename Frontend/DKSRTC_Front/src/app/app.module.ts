@@ -22,6 +22,7 @@ import { LoadingInterceptor } from './Interceptors/loading.interceptor';
 import { TicketCancellationComponent } from './Components/ticket-cancellation/ticket-cancellation.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
+import { CheckOutComponent } from './Components/check-out/check-out.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
     TicketCancellationComponent,
     FooterComponent,
     NotFoundComponent,
+    CheckOutComponent
   ],
   imports: [
     MatSelectModule,

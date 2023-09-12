@@ -61,6 +61,24 @@ namespace D_KSRTC.Repositories.Seats
             }
         }
 
+        public async Task<List<Seat>> GetSeatAvailability(int busId, DateTime date)
+        {
+            try
+            {
+                var availableSeats = await _dbContext.Seat
+                    .Where(seat => seat.BusID == busId && seat.Date == date)
+                    .ToListAsync(); // Use ToListAsync to execute the query asynchronously
+
+                return availableSeats;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+
+
         public async Task<Seat?> GetSeatByIdAsync(int seatId)
         {
             try

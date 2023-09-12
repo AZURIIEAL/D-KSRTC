@@ -7,6 +7,8 @@ namespace D_KSRTC.Requests.Commands.Seats.AddSeat
     {
         public int BusID { get; set; }
         public string SeatNumber { get; set; } = string.Empty;
+
+        public DateTime Date { get; set; }
         public string Availability { get; set; } = string.Empty;
     }
 }

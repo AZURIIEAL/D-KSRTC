@@ -7,6 +7,7 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { TicketCancellationComponent } from './Components/ticket-cancellation/ticket-cancellation.component';
+import { CheckOutComponent } from './Components/check-out/check-out.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'user-signup',
     component: SignUpComponent,
     title: 'SignUp Page',
+  },
+  {
+    path: 'confirm-checkout',
+    component: CheckOutComponent,
+    title: 'Confirm Booking',
   },
   {
     path: 'book-seats',
