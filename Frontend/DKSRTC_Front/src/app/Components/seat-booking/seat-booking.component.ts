@@ -39,7 +39,6 @@ export class SeatBookingComponent implements OnInit {
     private SeatService: BookingService,
     private authService: AuthCheckService
   ) {
-    const x = '2023-09-20';
     this.SeatService.getSeatAvailability(this.selectedBusId,new Date(this.onDate)).subscribe((data) => {
       for (const seatData of data) {
         const transformedSeat = {
@@ -105,11 +104,13 @@ export class SeatBookingComponent implements OnInit {
             lastName: passengerForm.get('LastName')?.value,
             age: passengerForm.get('Age')?.value,
             gender: passengerForm.get('Gender')?.value,
+            seatName:seatName,
             seatId: this.allSeats.find(x=>x.seatNumber=seatName)?.seatID, // Use SeatName instead of Seat
             phoneNumber: passengerForm.get('PhoneNumber')?.value,
             email: passengerForm.get('Email')?.value,
           };
           passengerObjects.push(passenger);
+          this.SeatService.addPassengers(passenger)
           const user= this.authService.currentUserSession()
           const booking = {
             userId: user.userId, 
@@ -119,14 +120,13 @@ export class SeatBookingComponent implements OnInit {
             amount: (this.selectedSeatsData.length)*this.totalAmount, // Set the booking amount accordingly
             passengers: passengerObjects,
           };
+          
           // Add the booking to the BookingService
           this.SeatService.addBooking(booking);
-
-          // Now, the booking data is stored in the BookingService
-          console.log(booking);
         }
       });
-      console.log(passengerObjects);
+      
+    
       this.router.navigate(['/confirm-checkout'])
     
     } else {
