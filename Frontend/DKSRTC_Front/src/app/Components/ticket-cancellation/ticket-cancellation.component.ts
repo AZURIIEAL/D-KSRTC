@@ -25,17 +25,24 @@ export class TicketCancellationComponent {
       }
     );
   }
-
-  ngOnInit(){
-    this.fetchPassengerDetails
-  }
-
-   cancelTickets(passengerId:Number) {
+  cancelTickets(passengerId:Number) {
     this.ticketCancellation.cancelTicket(passengerId).subscribe((res: any)=>{
       alert('ticket cancelled'+res)
       this.fetchPassengerDetails();
     });
    }
+
+  ngOnInit(){
+    this.fetchPassengerDetails
+
+    // const currentTime = new Date();
+
+    
+    
+
+  }
+
+  
    
 
 }

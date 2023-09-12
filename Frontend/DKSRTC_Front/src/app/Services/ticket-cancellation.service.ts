@@ -25,4 +25,9 @@ cancelTicket(passengerId:Number) {
   return this.http.get<Array<IBookingDetails>>
   (`${this.url}`)
 }
+
+findById(id:number){
+  return this.http.get<IBookingDetails>
+  (`${this.url}/GetById?id=${id}`)
+}
 }
