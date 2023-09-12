@@ -22,7 +22,7 @@ namespace D_KSRTC.Requests.Commands.Bookings.CreateBooking
                 BookingDate = command.BookingDate,
                 JourneyDate = command.JourneyDate,
                 TotalAmount = command.TotalAmount,
-                Status = command.Status
+
             };
 
             return await _bookingRepository.AddBookingAsync(booking);

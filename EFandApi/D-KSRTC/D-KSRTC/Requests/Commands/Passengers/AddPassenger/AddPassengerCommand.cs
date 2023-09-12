@@ -14,7 +14,9 @@ namespace D_KSRTC.Requests.Commands.Passengers.AddPassenger
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-        public AddPassengerCommand(int bookingId, string firstName, string lastName, int age, string gender, int seatId, string phoneNumber, string email)
+        public string Status { get; set; }
+
+        public AddPassengerCommand(int bookingId, string firstName, string lastName, int age, string gender, int seatId, string phoneNumber, string email, string status)
         {
             BookingId = bookingId;
             FirstName = firstName;
@@ -24,6 +26,7 @@ namespace D_KSRTC.Requests.Commands.Passengers.AddPassenger
             SeatId = seatId;
             PhoneNumber = phoneNumber;
             Email = email;
+            Status = status;
         }
     }
 }

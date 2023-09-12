@@ -24,7 +24,8 @@ namespace D_KSRTC.Requests.Commands.Passengers.AddPassenger
                 Gender = command.Gender,
                 SeatId = command.SeatId,
                 PhoneNumber = command.PhoneNumber,
-                Email = command.Email
+                Email = command.Email,
+                Status = command.Status,
             };
 
             return await _passengerRepository.AddPassengerAsync(passenger);

@@ -25,7 +25,6 @@ namespace D_KSRTC.Requests.Commands.Bookings.UpdateBooking
             booking.BookingDate = command.BookingDate;
             booking.JourneyDate = command.JourneyDate;
             booking.TotalAmount = command.TotalAmount;
-            booking.Status = command.Status;
 
             return 1;
         }
