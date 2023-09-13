@@ -38,6 +38,8 @@
           <div style="color: red; font-size: 12px;" *ngIf="addUserForm?.get('password')?.invalid && (addUserForm?.get('password')?.dirty || addUserForm?.get('password')?.touched)">
             <div *ngIf="addUserForm?.get('password')?.hasError('required')">* Password required.</div>
             <div *ngIf="addUserForm?.get('password')?.hasError('minlength')">* Password must be at least 8 characters long.</div>
+            <!-- <div *ngIf="addUserForm?.get('password')?.hasError('pattern')">*Password must contain at least one number, one uppercase and a lowercase letter 
+              and at least 8 characters<br>Password cannot contain whitespace</div> -->
           </div>
           <input type="text" id="password" formControlName="password">  
         </div>

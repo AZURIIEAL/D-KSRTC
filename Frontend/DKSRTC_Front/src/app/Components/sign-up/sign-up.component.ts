@@ -40,6 +40,7 @@ export class SignUpComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
+        Validators.pattern('^((?!.*[s])(?=.*[A-Z])(?=.*d).{8,99})')
       ]),
       phoneNumber: new FormControl('', [
         Validators.required,
@@ -70,6 +71,7 @@ export class SignUpComponent implements OnInit {
               this.router.navigate(['user-login']);
             } else {
               alert("User creation failed");
+              
             }
           }
       )
@@ -77,8 +79,10 @@ export class SignUpComponent implements OnInit {
       console.log(json);
       }
       catch(ex){
-        console.log(ex)
+        alert(ex)
       }
     }
+    
   }
+  
 }
