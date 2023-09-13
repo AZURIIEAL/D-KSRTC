@@ -15,7 +15,7 @@ namespace D_KSRTC.Requests.Commands.Payments.AddPayment
 
         public async Task<Payment> Handle(AddPaymentCommand command, CancellationToken cancellationToken)
         {
-            var payment = new Payment
+            var payment = new Payment()
             {
                 BookingId = command.BookingId,
                 Amount = command.Amount,

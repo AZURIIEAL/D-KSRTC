@@ -10,6 +10,10 @@ namespace D_KSRTC.Requests.Commands.Payments.AddPayment
         public DateTime PaymentDate { get; set; }
         public string PaymentStatus { get; set; }
 
+        public AddPaymentCommand()
+        {
+                
+        }
         public AddPaymentCommand(int bookingId, float amount, DateTime paymentDate, string paymentStatus)
         {
             BookingId = bookingId;

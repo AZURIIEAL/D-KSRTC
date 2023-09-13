@@ -48,7 +48,18 @@ const routes: Routes = [
     component: TicketCancellationComponent,
     title: 'ticket-cancellation',
   },
-  {
+  
+  // {
+  //   path: 'notfound',
+  //   component: NotFoundComponent,
+  //   title: 'Not Found',
+  // },
+  // {
+  //   path: '**',
+  //   component: NotFoundComponent,
+  //   title: 'Not Found',
+  // },
+    {
     path: 'payment-gateway',
     component: PaymentGatewayComponent,
     title: 'Payment Gateway',

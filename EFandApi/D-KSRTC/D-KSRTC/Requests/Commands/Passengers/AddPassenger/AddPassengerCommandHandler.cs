@@ -15,15 +15,17 @@ namespace D_KSRTC.Requests.Commands.Passengers.AddPassenger
 
         public async Task<Passenger> Handle(AddPassengerCommand command, CancellationToken cancellationToken)
         {
-            var passenger = new Passenger
+            var passenger = new Passenger()
             {
+                BookingId = command.BookingId,
                 FirstName = command.FirstName,
                 LastName = command.LastName,
                 Age = command.Age,
                 Gender = command.Gender,
                 SeatId = command.SeatId,
                 PhoneNumber = command.PhoneNumber,
-                Email = command.Email
+                Email = command.Email,
+                Status = command.Status,
             };
 
             return await _passengerRepository.AddPassengerAsync(passenger);

@@ -29,12 +29,12 @@ namespace D_KSRTC.Controllers
             {
                 var result = await _mediator.Send(command, cancellationToken);
 
-                return CreatedAtAction(nameof(GetPassengerByIdAsync), new { Id = result.PassengerId }, result);
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex); // Log the exception to the console.
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+                return StatusCode(StatusCodes.Status400BadRequest, "An error occurred while processing your request.");
             }
         }
 

@@ -30,5 +30,6 @@ namespace D_KSRTC.Models
         [Required][MaxLength(20)]public string PhoneNumber { get; set; } = string.Empty;
 
         [Required][MaxLength(100)]public string Email { get; set; } = string.Empty;
+        [Required][MaxLength(50)] public string Status { get; set; } = string.Empty;
     }
 }

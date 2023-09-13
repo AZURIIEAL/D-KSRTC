@@ -1,6 +1,5 @@
-<app-navbar></app-navbar>
 
-<div class="table-container">
+<div class="table-container" style="height: 100%;">
   <div>
     <h3 class="order-summary-heading">Order Summary</h3>
     <p class="order-summary-subheading">
@@ -43,7 +42,7 @@
         Invoice Date : {{ booking["bookingDate"].toLocaleDateString() }}
       </p>
       <p class="order-summary-subheading">
-        Total Amount : ₹ {{ booking["amount"] }} [ {{ passengers.length }} Qty x {{
+        Total Amount : ₹ {{ booking["amount"] }} [ {{ passengers.length }} Qty x ₹ {{
           booking["amount"] / passengers.length
         }} ]
       </p>
