@@ -10,7 +10,7 @@ import { IPayload } from '../Interfaces/ipayload';
   providedIn: 'root'
 })
 export class BookingService {
-  public bookings: any[] = []; // Replace 'any[]' with your specific booking data type
+  public bookings: any[] = [];
   public bookingDataSubject: BehaviorSubject<any> = new BehaviorSubject<any>({});
   public passengerDataSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public bookingData: Observable<any[]> = this.bookingDataSubject.asObservable();

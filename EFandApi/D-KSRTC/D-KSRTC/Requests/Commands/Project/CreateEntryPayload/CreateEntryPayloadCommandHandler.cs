@@ -61,7 +61,7 @@ namespace D_KSRTC.Requests.Commands.Project.CreateEntryPayload
                         Status = passengerItem.Status,
                     };
                     var resultPassenger = await _passengerRepository.AddPassengerAsync(passMan);
-                    var res = await _seatRepository.GetSeatByIdAsync(passMan.SeatId);
+                    var res = await _seatRepository.GetSeatByIdAsync(passengerItem.SeatId);
 
                     res.UpdateSeatAvailabltity(passMan.Status);
                     var resultSeat =  await _seatRepository.UpdateSeatAsync(res);
