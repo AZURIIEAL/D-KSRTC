@@ -28,7 +28,7 @@ namespace D_KSRTC.Controllers
             try
             {
                 var result = await _mediator.Send(command, cancellationToken);
-                return Ok(result);
+                return Ok(result.BookingId);
             }
             catch (Exception ex)
             {

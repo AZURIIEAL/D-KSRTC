@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ISeats } from '../Interfaces/iseats';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Ipassenger } from '../Interfaces/ipassenger';
+import { IPayload } from '../Interfaces/ipayload';
 
 
 @Injectable({
@@ -32,8 +33,10 @@ export class BookingService {
     this.passengerObjectsServiceObject.push(passenger);
     this.passengerDataSubject.next(this.passengerObjectsServiceObject);
   }
-  public createReservation(toAdd:any){
-    return this.http.post(`${this.url}`,toAdd)
+  public createReservation(toAdd:IPayload){
+    return this.http.post(`${this.url}/Project/booking-data`,toAdd)
 
   }
+
+
 }

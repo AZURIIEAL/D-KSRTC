@@ -1,6 +1,7 @@
 ﻿using D_KSRTC.Models;
 using D_KSRTC.Requests.Commands.Seats.AddSeat;
 using D_KSRTC.Requests.Commands.Seats.DeleteSeat;
+using D_KSRTC.Requests.Commands.Seats.PatchSeatAvailability;
 using D_KSRTC.Requests.Commands.Seats.UpdateSeat;
 using D_KSRTC.Requests.Queries.Seats.GetAllSeats;
 using D_KSRTC.Requests.Queries.Seats.GetSeatAvailability;
@@ -70,7 +71,7 @@ namespace D_KSRTC.Controllers
         [ProducesResponseType(typeof(Seat), (int)HttpStatusCode.OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<List<Seat>>> GetSeatAvailabilityAsync([FromQuery] GetSeatAvailabilityQuery request , CancellationToken cancellationToken = default)
+        public async Task<ActionResult<List<Seat>>> GetSeatAvailabilityAsync([FromQuery] GetSeatAvailabilityQuery request, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -149,9 +150,41 @@ namespace D_KSRTC.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status400BadRequest, "An error occurred while processing your request.");
+            }
+        }
+
+
+        [HttpPatch]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> UpdateSeatAvailability(PatchSeatAvailabilityCommand command, CancellationToken cancellationToken = default)
+        {
+
+            try
+            {
+                var result = await _mediator.Send(command, cancellationToken);
+
+                if (result == 1)
+                {
+                    return Ok(result);
+                }
+                else if (result == -1)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Failed to update the seat.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
+
 
         [HttpDelete]
         [Route("{SeatID}")]

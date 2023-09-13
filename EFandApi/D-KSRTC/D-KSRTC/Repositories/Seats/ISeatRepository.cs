@@ -10,7 +10,6 @@ namespace D_KSRTC.Repositories.Seats
         Task<List<Seat>> GetAllSeatsAsync();
         Task<Seat?> GetSeatByIdAsync(int seatId);
         Task<int> UpdateSeatAsync(Seat seat);
-
         Task<List<Seat?>> GetSeatAvailability(int BusId, DateTime Date);
     }
 }
