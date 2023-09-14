@@ -24,7 +24,7 @@ import { FooterComponent } from './Components/footer/footer.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { CheckOutComponent } from './Components/check-out/check-out.component';
 import { PaymentGatewayComponent } from './Components/payment-gateway/payment-gateway.component';
-// import { ViewTicketComponent } from './Components/view-ticket/view-ticket.component';
+import { ViewTicketComponent } from './Components/view-ticket/view-ticket.component';
 
 
 
@@ -43,6 +43,7 @@ import { PaymentGatewayComponent } from './Components/payment-gateway/payment-ga
     FooterComponent,
     NotFoundComponent,
     CheckOutComponent,
+    ViewTicketComponent
   ],
   imports: [
     MatSelectModule,
