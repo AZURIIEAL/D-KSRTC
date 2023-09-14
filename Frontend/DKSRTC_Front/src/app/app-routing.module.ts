@@ -10,6 +10,7 @@ import { TicketCancellationComponent } from './Components/ticket-cancellation/ti
 import { CheckOutComponent } from './Components/check-out/check-out.component';
 import { PaymentGatewayComponent } from './Components/payment-gateway/payment-gateway.component';
 
+
 const routes: Routes = [
   {
     //Hence my default route will be the home component.
@@ -47,6 +48,7 @@ const routes: Routes = [
     component: TicketCancellationComponent,
     title: 'ticket-cancellation',
   },
+
   // {
   //   path: 'notfound',
   //   component: NotFoundComponent,
@@ -57,20 +59,14 @@ const routes: Routes = [
   //   component: NotFoundComponent,
   //   title: 'Not Found',
   // },
-    {
+  {
     path: 'payment-gateway',
     component: PaymentGatewayComponent,
     title: 'Payment Gateway',
   },
-
-
-
-
-
-]
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}
