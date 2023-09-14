@@ -1,1 +1,33 @@
-<p>view-ticket works!</p>
+<!-- busid
+from
+to
+departure time
+reaching time
+
+
+
+
+name 
+age 
+gender
+seatno
+
+total amount -->
+
+
+
+
+<h1>your ticket</h1>
+<h3>BookingId:{{BookingId}}</h3>
+
+<table *ngFor="let i of bookedBus">
+    <tr>
+        <td> Name:{{i.busName}}({{i.busId}})</td>
+    </tr>
+    <tr>
+        <td>From Station:{{i.fromName}}</td>
+        <td>To Station:{{i.toName}}</td>  
+    </tr>
+    
+   
+</table>
