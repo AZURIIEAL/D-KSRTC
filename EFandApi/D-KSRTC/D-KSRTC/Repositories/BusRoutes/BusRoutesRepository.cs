@@ -108,7 +108,7 @@ namespace D_KSRTC.Repositories.BusRoutes
                         BusName = x.BusIdNavigation!.BusName,
                         Time = x.Time,
                         Distance = x.Route.RouteDetails.FirstOrDefault(rd => rd.StopId == toId).Distance,
-                        SeatAvailability = 0,
+                        //SeatAvailability = 0,
                         Duration = x.Route!.Duration,
                         Sequence = x.Route.RouteDetails.Where(y => y.StopId == toId).Select(x => x.Sequence).First(),
                         CategoryName = x.BusIdNavigation.TCIdNavigation!.CategoryIdNavigaton!.CategoryName,
@@ -119,6 +119,10 @@ namespace D_KSRTC.Repositories.BusRoutes
                     })
                     .ToListAsync();
 
+                foreach(var bus in res)
+                {
+                    bus.SeatAvailability = await _dbContext.Seat.Where(x => x.BusID == bus.BusId && x.Availability == "AVAILABLE").Select(x => x.Availability).CountAsync();
+                }
                 return res;
             }
             catch (Exception ex)
