@@ -27,6 +27,7 @@ export class SeatBookingComponent implements OnInit {
   seatReservationForm!: FormGroup;
   passengersToPush!: Ipassenger[];
   onRoute!: number;
+
   isLoggedIn = false;
   allSeats :ISeats[] = [];
   onDate!:Date;
@@ -40,7 +41,7 @@ export class SeatBookingComponent implements OnInit {
     private authService: AuthCheckService
   ) {
     //a for each loop is attached to the subscribe to observe the changes in the seats.
-    this.SeatService.getSeatAvailability(this.selectedBusId,new Date(this.onDate)).subscribe((data) => {
+    this.SeatService.getSeatAvailability(this.selectedBusId,new Date(this.onDate)).subscribe((data:ISeats[]) => {
       for (const seatData of data) {
         const transformedSeat = {
           seatID: seatData.seatID,
@@ -172,7 +173,9 @@ export class SeatBookingComponent implements OnInit {
       this.selectedSeatsData = this.selectedSeatsData.filter(
         (reservation) => reservation.SeatId !== seat
       );
-    } else {
+    }
+    //setting the max selection
+     else {
       if (selectedCount >= this.maxSelections) {
         return;
       }
@@ -199,6 +202,7 @@ export class SeatBookingComponent implements OnInit {
     return this.formArray.at(index) as FormGroup;
   }
 
+  //Used in select
   private getControlGroup() {
     return this.formBuilder.group({
       SeatName: ['', [Validators.required]],
@@ -215,17 +219,24 @@ export class SeatBookingComponent implements OnInit {
     return this.seatReservationForm.get('passengers') as FormArray;
   }
 
-  //The Grid Driver
-  updateSeatRows(seatAvailabilityData: any) {
-
-    //First there will be row allocation
+  //The Grid Driver.
+  updateSeatRows(seatAvailabilityData: ISeats[]) {
+    //First there will be row allocation.
     for (let i = 0; i < 5; i++) {
-      //Then a row variable is declared (an array of objects)
+      //Then a row variable is declared (an array of objects).
       const row: { selected: boolean; booked: boolean }[] = [];
       for (let j = 0; j < 6; j++) {
-        row.push({ selected: false, booked: false });
+
+        //Using i and j to get the seatName.
+        const seatName = this.getSeatName(i, j);
+        //Using the seatName to get the availability
+        const availability = seatAvailabilityData.find(x => x.seatNumber.toLowerCase() === seatName.toLowerCase())?.availability
+        row.push({ selected: false, booked: availability?.toLowerCase() === 'booked' });
       }
+
+      //pushing it to seatRows now we will have 5 rows and 6 coloumn.
       this.seatRows.push(row);
     }
+
   }
 }
