@@ -7,6 +7,7 @@ namespace D_KSRTC.Models
     public class Booking
     {
         [Key] public int BookingId { get; set; }
+        public virtual List<Passenger> PassengerNav { get; set; } = null!;
 
         public int UserId { get; set; }
 

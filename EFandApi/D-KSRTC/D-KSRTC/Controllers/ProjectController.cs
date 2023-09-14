@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using D_KSRTC.Requests.Commands.Project.CreateEntryPayload;
+using D_KSRTC.Requests.Queries.Project.Ticket;
 
 namespace D_KSRTC.DTO_s;
 
@@ -31,11 +32,30 @@ public class ProjectController : ControllerBase
             return Ok(result);
 
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex);
-             return StatusCode(StatusCodes.Status400BadRequest, "An error occurred while processing your request.");
+            return StatusCode(StatusCodes.Status400BadRequest, "An error occurred while processing your request.");
 
+        }
+    }
+
+    [HttpGet]
+    [Route("get-tickets")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<bool>> GetTicketsAsync([FromQuery] int request, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var result = await _mediator.Send(new TicketQuery { UserId = request }, cancellationToken);
+            return Ok(result);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            return StatusCode(StatusCodes.Status400BadRequest, "An error occurred while processing your request.");
         }
     }
 }
