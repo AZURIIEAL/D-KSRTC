@@ -39,6 +39,7 @@ export class SeatBookingComponent implements OnInit {
     private SeatService: BookingService,
     private authService: AuthCheckService
   ) {
+    //a for each loop is attached to the subscribe to observe the changes in the seats.
     this.SeatService.getSeatAvailability(this.selectedBusId,new Date(this.onDate)).subscribe((data) => {
       for (const seatData of data) {
         const transformedSeat = {
@@ -50,12 +51,14 @@ export class SeatBookingComponent implements OnInit {
         };
         this.allSeats.push(transformedSeat);
       }
-      console.log(this.allSeats)
+      //A method called UpdateSeatRows is called here.
       this.updateSeatRows(data);
     });
   }
 
+  //a method to create forms and it is called in the NgOnit.
   CreateForm() {
+    //Using formarray
     const formArray = this.formBuilder.array([]);
     this.seatReservationForm = this.formBuilder.group({
       passengers: formArray,
@@ -63,10 +66,12 @@ export class SeatBookingComponent implements OnInit {
   }
 
   ngOnInit() {
+    //checking the authentication and who is the current User.
     this.authService.isLoggedIn().subscribe((status) => {
       this.isLoggedIn = status;
     });
 
+    //getting the values from the route.
     this.activatedRoute.queryParamMap.subscribe((x) => {
       const busRouteParam = x.get('busRouteId');
       if (busRouteParam) {
@@ -86,43 +91,50 @@ export class SeatBookingComponent implements OnInit {
       }
 
     });
+    //calling the CreateForm function to make the forms(inside the OnInit).
     this.CreateForm();
   }
   AddToCheckOut() {
     if (this.isLoggedIn) {
+      //Getting the data from the formarray and passing it to a const.
       const passengersArray = this.seatReservationForm.get(
         'passengers'
       ) as FormArray;
-      const passengerObjects: Ipassenger[] = [];
 
+      //For each passenger form:(These are for packing the objects so that we could easily send it to the backend API's)
       passengersArray.controls.forEach((passengerForm: AbstractControl) => {
         if (passengerForm instanceof FormGroup && passengerForm.valid) {
+          //Keeping the seatName in a const as we will be searching for the values later in the allSeats data.
           const seatName = passengerForm.get('SeatName')?.value
           const passenger: Ipassenger = {
-            bookingId: 0, // You can set the appropriate booking ID here
+            bookingId: 0, //Setting the booking Id to 0 temporarily(As we will get the data from backend andwe can manually alter it there.)
             firstName: passengerForm.get('FirstName')?.value,
             lastName: passengerForm.get('LastName')?.value,
             age: passengerForm.get('Age')?.value,
             gender: passengerForm.get('Gender')?.value,
             seatName:seatName,
-            seatId: this.allSeats.find(x=>x.seatNumber=seatName)?.seatID, // Use SeatName instead of Seat
+            seatId: this.allSeats.find(x=>x.seatNumber==seatName)?.seatID, // searching the values from the allseats data and then alloting the value.
             phoneNumber: passengerForm.get('PhoneNumber')?.value,
             email: passengerForm.get('Email')?.value,
           };
+          //Adding the current passenger object to the passenger[] in the service as we need the packed object later,for sending it in the Api.
           this.SeatService.addPassengers(passenger)
+          //Getting the current user data from the authService ,as we will be packing the object so that the Api can carry the data easily as a collection of list of objects.
           const user= this.authService.currentUserSession()
+          //Packing the booking header data.
           const booking = {
             userId: user.userId, 
             busRoute:this.onRoute , 
-            bookingDate: new Date(), // Current date
-            journeyDate: this.onDate, // Set the journey date accordingly
-            amount: (this.selectedSeatsData.length)*this.totalAmount, // Set the booking amount accordingly
+            bookingDate: new Date(), // Current date.
+            journeyDate: this.onDate, // Set the journey date accordingly.
+            amount: (this.selectedSeatsData.length)*this.totalAmount, // Set the booking amount accordingly.
           };
+          //Adding the data to the service.
           this.SeatService.addBooking(booking);
         }
       });
       
-    
+    //As there isnt any meaning in staying here we can navigate the router to the respective component.
       this.router.navigate(['/confirm-checkout'])
     
     } else {
@@ -130,10 +142,12 @@ export class SeatBookingComponent implements OnInit {
     }
   }
 
+  //This is useful in the HTML template.
   getSeatName(row: number, column: number): string {
     return String.fromCharCode(65 + column) + (row + 1);
   }
 
+  //Used in the HTML template.
   selectSeat(row: number, column: number) {
     const seat = `${String.fromCharCode(65 + column)}${row + 1}`;
     const isSelected = this.seatRows[row][column].selected;
@@ -201,15 +215,15 @@ export class SeatBookingComponent implements OnInit {
     return this.seatReservationForm.get('passengers') as FormArray;
   }
 
+  //The Grid Driver
   updateSeatRows(seatAvailabilityData: any) {
+
+    //First there will be row allocation
     for (let i = 0; i < 5; i++) {
+      //Then a row variable is declared (an array of objects)
       const row: { selected: boolean; booked: boolean }[] = [];
       for (let j = 0; j < 6; j++) {
-        const seatId = `${String.fromCharCode(65 + j)}${i + 1}`;
-        const availability = seatAvailabilityData[seatId];
-
-        // Set the selected property based on availability
-        row.push({ selected: false, booked: availability === 'BOOKED' });
+        row.push({ selected: false, booked: false });
       }
       this.seatRows.push(row);
     }

@@ -92,11 +92,12 @@ namespace D_KSRTC.Repositories.Seats
             }
         }
 
+
         public async Task<int> UpdateSeatAsync(Seat seat)
         {
             try
             {
-                _dbContext.Entry(seat).State = EntityState.Modified;
+                //_dbContext.Entry(seat).State = EntityState.Modified;
                 await _dbContext.SaveChangesAsync();
                 return 1;
             }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace D_KSRTC.Models
 {
@@ -18,5 +19,11 @@ namespace D_KSRTC.Models
         [Required][MaxLength(10)]public string SeatNumber { get; set; } = string.Empty;
 
         [Required][MaxLength(20)]public string Availability { get; set; } = string.Empty;
+
+        public void UpdateSeatAvailabltity(string bookingStatus)
+        {
+            Availability = bookingStatus;
+        }
+
     }
 }
