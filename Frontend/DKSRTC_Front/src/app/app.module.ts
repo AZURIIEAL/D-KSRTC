@@ -26,6 +26,8 @@ import { CheckOutComponent } from './Components/check-out/check-out.component';
 import { PaymentGatewayComponent } from './Components/payment-gateway/payment-gateway.component';
 // import { ViewTicketComponent } from './Components/view-ticket/view-ticket.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,6 @@ import { PaymentGatewayComponent } from './Components/payment-gateway/payment-ga
     FooterComponent,
     NotFoundComponent,
     CheckOutComponent,
-    // ViewTicketComponent
   ],
   imports: [
     MatSelectModule,
@@ -53,8 +54,8 @@ import { PaymentGatewayComponent } from './Components/payment-gateway/payment-ga
     MatAutocompleteModule,
     ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule,
     NavbarComponent,
+    AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
   ],

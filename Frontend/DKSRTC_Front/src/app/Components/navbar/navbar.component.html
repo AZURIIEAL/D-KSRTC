@@ -1,20 +1,51 @@
 <div class="sticky" style="z-index: 9999;">
-  <nav style="justify-content: space-between;font-family: 'Montserrat', sans-serif;color: #edf0f1">
+  <nav style="justify-content: space-between; font-family: 'Montserrat', sans-serif; color: #edf0f1">
     <div>
-        <h1>DKSRTC</h1>
+      <h1>DKSRTC</h1>
     </div>
-    <div>
-      <ul class="nav__links">
-        <li>
-          <a href=" ">Home</a>
-          <!-- <a href="#">About Us</a>
-          <a href="#">Contact Us</a> -->
-          <a routerlink = "Login" class="cta">
-            <button (click)="GoLogOut()" *ngIf="isLoggedIn">LogOut</button>
-            <button (click)="GoLogin()" *ngIf="!isLoggedIn">Login / Sign up</button>
-          </a>
-        </li>
-      </ul>
+    <div class="nav__links">
+      <a href="#">Home</a>
+      <a href="#">About Us</a>
+      <a href="#">Contact Us</a>
+      <a routerlink="Login" class="cta">
+        <!-- <div class="avatar-circle" (click)="toggleSidebar()" *ngIf="isLoggedIn">
+          <img src="../../../assets/ReqImages/man.png" alt="User Avatar" />
+        </div> -->
+        
+        <button (click)="GoLogin()" *ngIf="!isLoggedIn">Login / Sign up</button>
+      </a>
+      <div class="main_box">
+        <input type="checkbox" id="check">
+        <div class="btn_one">
+          <label for="check">
+            <div class="avatar-circle" *ngIf="isLoggedIn">
+              <img src="../../../assets/ReqImages/man.png" alt="User Avatar" />
+            </div>
+          </label>
+        </div>
+        <div class="sidebar_menu">
+          <div class="menu">
+            <ul>
+              <a href="#">Profile</a>
+            </ul>
+            <ul>
+              <a href="#">Upcoming Journeys</a>
+            </ul>
+            <ul>
+              <a href="#">History</a>
+            </ul>
+            <ul>
+              <a href="#">Log Out</a>
+            </ul>
+        </div>
+      </div>
     </div>
+  
+    </div>
+    
+    
   </nav>
 </div>
+
+
+
