@@ -101,8 +101,11 @@ export class PaymentGatewayComponent implements OnInit {
 
       console.log(this.payload)
       this.bookingService.createReservation(this.payload).subscribe((data)=>
-      console.log(data));
+      console.log(data))
+      this.router.navigate(['View-Ticket']);
 
+
+      
     } else {
       alert('Login to continue');
     }

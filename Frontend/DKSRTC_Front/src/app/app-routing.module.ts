@@ -64,7 +64,12 @@ const routes: Routes = [
     component: PaymentGatewayComponent,
     title: 'Payment Gateway',
   },
-];
+
+
+
+
+
+]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

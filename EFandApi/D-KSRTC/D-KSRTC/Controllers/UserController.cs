@@ -21,7 +21,7 @@ namespace D_KSRTC.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<User>> AddLocationAsync( AddUserCommand user, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<User>> AddLocationAsync([FromBody] AddUserCommand user, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace D_KSRTC.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+                return StatusCode(StatusCodes.Status400BadRequest, "An error occurred while processing your request.");
             }
         }
 

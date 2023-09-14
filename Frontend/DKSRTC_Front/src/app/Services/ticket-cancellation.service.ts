@@ -16,7 +16,7 @@ export class TicketCancellationService {
 //   return this.http.post(`${this.url}/Cancel-Ticket`,{BookingId})
 //  }
 
-cancelTicket(passengerId:Number) {
+cancelTicket(passengerId:Number):Observable<any> {
   return this.http.delete<IBookingDetails>
   (`${this.url}/${passengerId}`);
 }
@@ -26,8 +26,8 @@ cancelTicket(passengerId:Number) {
   (`${this.url}`)
 }
 
-findById(id:number){
-  return this.http.get<IBookingDetails>
-  (`${this.url}/GetById?id=${id}`)
-}
+// findById(id:number){
+//   return this.http.get<IBookingDetails>
+//   (`${this.url}/${passengerId}`)
+// }
 }

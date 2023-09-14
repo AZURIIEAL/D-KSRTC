@@ -5,9 +5,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ILogin } from 'src/app/Interfaces/Ilogin';
-import { AuthCheckService } from 'src/app/Services/auth-check.service';
-import { UserAddService } from 'src/app/Services/user-add.service';
+import { AuthCheckService } from '../../Services/auth-check.service';
+import { UserAddService } from '../../Services/user-add.service';
+import { ILogin } from '../../Interfaces/Ilogin';
 
 @Component({
   selector: 'app-sign-up',
@@ -40,6 +40,7 @@ export class SignUpComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
+        Validators.pattern('^((?!.*[s])(?=.*[A-Z])(?=.*d).{8,99})')
       ]),
       phoneNumber: new FormControl('', [
         Validators.required,
@@ -58,7 +59,8 @@ export class SignUpComponent implements OnInit {
   GoLogin() {
     this.router.navigate(['Login']);
   }
-  signUp() {
+  signUp() 
+  {
     if (!this.isLoggedIn) {
       try{
         const newUser: ILogin = this.addUserForm.value;
@@ -69,12 +71,18 @@ export class SignUpComponent implements OnInit {
               this.router.navigate(['user-login']);
             } else {
               alert("User creation failed");
+              
             }
           }
       )
+      const json = JSON.stringify(newUser);
+      console.log(json);
       }
       catch(ex){
-        console.log(ex)
+        alert(ex)
       }
     }
-}}
+    
+  }
+  
+}
