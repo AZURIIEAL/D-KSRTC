@@ -254,6 +254,10 @@ namespace D_KSRTC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("FromLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -276,6 +280,10 @@ namespace D_KSRTC.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ToLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PassengerId");
 
@@ -501,7 +509,7 @@ namespace D_KSRTC.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("D_KSRTC.Models.User", "User")
+                    b.HasOne("D_KSRTC.Models.User", "userMapping")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -509,7 +517,7 @@ namespace D_KSRTC.Migrations
 
                     b.Navigation("BusRoute");
 
-                    b.Navigation("User");
+                    b.Navigation("userMapping");
                 });
 
             modelBuilder.Entity("D_KSRTC.Models.Bus", b =>
@@ -564,7 +572,7 @@ namespace D_KSRTC.Migrations
             modelBuilder.Entity("D_KSRTC.Models.Passenger", b =>
                 {
                     b.HasOne("D_KSRTC.Models.Booking", "Booking")
-                        .WithMany()
+                        .WithMany("PassengerNav")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -637,6 +645,11 @@ namespace D_KSRTC.Migrations
                         .IsRequired();
 
                     b.Navigation("Bus");
+                });
+
+            modelBuilder.Entity("D_KSRTC.Models.Booking", b =>
+                {
+                    b.Navigation("PassengerNav");
                 });
 
             modelBuilder.Entity("D_KSRTC.Models.BusCategory", b =>

@@ -10,6 +10,7 @@ import { IPayload } from 'src/app/Interfaces/ipayload';
 import { IPaymentPayload } from 'src/app/Interfaces/ipayment-payload';
 import { AuthCheckService } from 'src/app/Services/auth-check.service';
 import { BookingService } from 'src/app/Services/booking.service';
+import { TicketViewService } from 'src/app/Services/ticket-view.service';
 
 @Component({
   selector: 'app-payment-gateway',
@@ -28,7 +29,8 @@ export class PaymentGatewayComponent implements OnInit {
   constructor(
     private authService: AuthCheckService,
     private bookingService: BookingService,
-    private router: Router
+    private router: Router,
+    private ticketService: BookingService
   ) {}
 
   PaymentFormGroup = new FormGroup({
@@ -51,8 +53,6 @@ export class PaymentGatewayComponent implements OnInit {
 
   submitPayment() {
     if (this.isLoggedIn) {
-
-
       this.paymentMethod = this.PaymentFormGroup.value.paymentBy;
       const toSendBooking: IBookingPayload = {
         userId: +this.currentUser.userId,
@@ -74,6 +74,8 @@ export class PaymentGatewayComponent implements OnInit {
           phoneNumber: element.phoneNumber,
           email: element.email,
           status: 'BOOKED',
+          fromLocation:this.ticketService.traversalData.fromName,
+          toLocation:this.ticketService.traversalData.toName
         };
         this.passengerPayload.push(toSendPassenger);
 
@@ -91,6 +93,8 @@ export class PaymentGatewayComponent implements OnInit {
         paymentDate:this.booking['bookingDate'],
         paymentStatus:"PAID"
       };
+      
+
 
       this.payload={
         booking: toSendBooking,
@@ -102,9 +106,7 @@ export class PaymentGatewayComponent implements OnInit {
       console.log(this.payload)
       this.bookingService.createReservation(this.payload).subscribe((data)=>
       console.log(data))
-      this.router.navigate(['View-Ticket']);
-
-
+      this.router.navigate(['/upcoming-journeys']);
       
     } else {
       alert('Login to continue');

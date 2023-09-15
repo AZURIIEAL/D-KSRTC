@@ -45,11 +45,11 @@ public class ProjectController : ControllerBase
     [Route("get-tickets")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<bool>> GetTicketsAsync([FromQuery] int request, CancellationToken cancellationToken = default)
+    public async Task<ActionResult<bool>> GetTicketsAsync([FromQuery] int userId, CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = await _mediator.Send(new TicketQuery { UserId = request }, cancellationToken);
+            var result = await _mediator.Send(new TicketQuery { UserId = userId }, cancellationToken);  
             return Ok(result);
 
         }

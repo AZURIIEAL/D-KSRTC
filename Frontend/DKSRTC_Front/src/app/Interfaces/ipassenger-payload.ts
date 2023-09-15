@@ -9,4 +9,6 @@ export interface IPassengerPayload {
     phoneNumber: string,
     email: string,
     status: string,
+    fromLocation :string,
+    toLocation:string
 }

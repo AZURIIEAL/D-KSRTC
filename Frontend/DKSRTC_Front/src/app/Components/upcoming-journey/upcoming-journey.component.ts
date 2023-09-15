@@ -31,10 +31,15 @@ export class UpcomingJourneyComponent implements OnInit {
         console.log(this.tickets); 
       });
   }
-  cancelTicket(ticket: ITicket) {
-    // Implement your cancellation logic here
-    // You can use the 'ticket' object to identify and cancel the specific ticket
-    // You may also want to update the 'tickets' array to reflect the canceled ticket
+  cancelTicket(passengerId:number) {
+    if (this.isLoggedIn) {
+      const text = "Do you want to cancel this ticket?";
+      if (confirm(text) == true) {
+        this.ticketService.TicketCancel(passengerId)
+      } else {
+      }
+    }
+    
   }
   
 }

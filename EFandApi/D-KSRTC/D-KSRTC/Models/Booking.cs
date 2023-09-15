@@ -12,8 +12,8 @@ namespace D_KSRTC.Models
         public int UserId { get; set; }
 
         [ForeignKey("UserId")]
-        [DeleteBehavior(DeleteBehavior.Restrict)] 
-        public User? User { get; set; }
+        [DeleteBehavior(DeleteBehavior.Restrict)]
+        public User? userMapping { get; set; } = null!;
 
         public int BusRouteId { get; set; }
 

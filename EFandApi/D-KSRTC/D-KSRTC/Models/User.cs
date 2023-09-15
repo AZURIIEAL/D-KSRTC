@@ -8,7 +8,6 @@ namespace D_KSRTC.Models
     {
         [Key]
         public int UserId { get; set; }
-        public virtual Booking? BookingNav { get; set; }
 
         [Required]
         [MaxLength(100)]

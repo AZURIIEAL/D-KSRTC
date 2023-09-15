@@ -45,7 +45,10 @@ namespace D_KSRTC.Requests.Queries.Project.Ticket
                         BusTime = item.BusRoute.Time,
                         BusName = item.BusRoute.BusIdNavigation!.BusName,
                         Seat = passenger.Seat!.SeatNumber,
-                        Status = passenger.Status, 
+                        Status = passenger.Status,
+                        FromLocation = passenger.FromLocation,
+                        ToLocation = passenger.ToLocation,
+
                     };
 
                     ticketList.Add(ticket);

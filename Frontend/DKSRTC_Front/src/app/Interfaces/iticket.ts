@@ -7,4 +7,7 @@ export interface ITicket {
   passengerId:number,
   busName: string;
   seat: string;
+  status:string,
+  fromLocation:string,
+  toLocation:string
 }

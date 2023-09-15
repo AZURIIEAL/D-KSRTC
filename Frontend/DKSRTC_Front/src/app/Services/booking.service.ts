@@ -15,6 +15,8 @@ export class BookingService {
   public passengerDataSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public bookingData: Observable<any[]> = this.bookingDataSubject.asObservable();
   passengerObjectsServiceObject: Ipassenger[] = [];
+  public traversalData!: { fromName: string; toName: string; } ;
+
 
   constructor(private http: HttpClient) { }
   url: string = 'https://localhost:44386/api';
@@ -36,6 +38,13 @@ export class BookingService {
   public createReservation(toAdd:IPayload){
     return this.http.post(`${this.url}/Project/booking-data`,toAdd)
 
+  }
+  public addTraversalData(from:string,to:string){
+ 
+    this.traversalData={
+      fromName:from,
+      toName:to
+    }
   }
 
 

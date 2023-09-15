@@ -1,4 +1,6 @@
-﻿namespace D_KSRTC.DTO_s
+﻿
+
+namespace D_KSRTC.DTO_s
 {
     public class TicketDTO
     {
@@ -11,5 +13,7 @@
         public string BusName { get; set; } = string.Empty;
         public string Seat { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
+        public string FromLocation { get; set; } = string.Empty;
+        public string ToLocation { get; set; } = string.Empty;
     }
 }

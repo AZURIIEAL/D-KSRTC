@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace D_KSRTC.Migrations
 {
     /// <inheritdoc />
-    public partial class allApi : Migration
+    public partial class one : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -196,7 +196,8 @@ namespace D_KSRTC.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BusId = table.Column<int>(type: "int", nullable: false),
                     RouteId = table.Column<int>(type: "int", nullable: false),
-                    TimeId = table.Column<int>(type: "int", nullable: false)
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RouteDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,12 +214,6 @@ namespace D_KSRTC.Migrations
                         principalTable: "Route",
                         principalColumn: "RouteId",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_BusRoute_Time_RouteId",
-                        column: x => x.RouteId,
-                        principalTable: "Time",
-                        principalColumn: "TimeId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -228,6 +223,7 @@ namespace D_KSRTC.Migrations
                     SeatID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BusID = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SeatNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Availability = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
@@ -253,7 +249,7 @@ namespace D_KSRTC.Migrations
                     BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     JourneyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalAmount = table.Column<float>(type: "real", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -314,7 +310,10 @@ namespace D_KSRTC.Migrations
                     Gender = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     SeatId = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FromLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ToLocation = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -439,6 +438,12 @@ namespace D_KSRTC.Migrations
                 name: "IX_Seat_BusID",
                 table: "Seat",
                 column: "BusID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Email",
+                table: "User",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -457,6 +462,9 @@ namespace D_KSRTC.Migrations
                 name: "RouteDetails");
 
             migrationBuilder.DropTable(
+                name: "Time");
+
+            migrationBuilder.DropTable(
                 name: "Seat");
 
             migrationBuilder.DropTable(
@@ -473,9 +481,6 @@ namespace D_KSRTC.Migrations
 
             migrationBuilder.DropTable(
                 name: "Route");
-
-            migrationBuilder.DropTable(
-                name: "Time");
 
             migrationBuilder.DropTable(
                 name: "BusTypeCategory");

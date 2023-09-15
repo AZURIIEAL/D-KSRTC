@@ -33,7 +33,7 @@ namespace D_KSRTC.Requests.Commands.Project.CreateEntryPayload
         {
             var booking = new Booking()
             {
-                UserId = command.payload.Booking.UserId,
+                UserId = command.payload!.Booking!.UserId,
                 BusRouteId = command.payload.Booking.BusRouteId,
                 BookingDate = command.payload.Booking.BookingDate,
                 JourneyDate = command.payload.Booking.JourneyDate,
@@ -44,7 +44,7 @@ namespace D_KSRTC.Requests.Commands.Project.CreateEntryPayload
             };
             var resultBooking = await _bookingRepository.AddBookingAsync(booking);
 
-            foreach (var passengerItem in command.payload.Passengers)
+            foreach (var passengerItem in command.payload.Passengers!)
             {
                 if (passengerItem != null)
                 {
@@ -59,6 +59,9 @@ namespace D_KSRTC.Requests.Commands.Project.CreateEntryPayload
                         PhoneNumber = passengerItem.PhoneNumber,
                         Email = passengerItem.Email,
                         Status = passengerItem.Status,
+                        FromLocation = passengerItem.FromLocation,
+                        ToLocation = passengerItem.ToLocation,
+                        
                     };
                     var resultPassenger = await _passengerRepository.AddPassengerAsync(passMan);
                     var res = await _seatRepository.GetSeatByIdAsync(passengerItem.SeatId);
@@ -72,7 +75,7 @@ namespace D_KSRTC.Requests.Commands.Project.CreateEntryPayload
             Billing billing = new Billing
             {
                 BookingId = resultBooking.BookingId,
-                UserId = command.payload.Billing.UserId,
+                UserId = command.payload.Billing!.UserId,
                 BillingDate = command.payload.Billing.BillingDate ,
                 TotalAmount = command.payload.Billing.TotalAmount,
                 PaymentMethod = command.payload.Billing.PaymentMethod,
@@ -83,7 +86,7 @@ namespace D_KSRTC.Requests.Commands.Project.CreateEntryPayload
             var payment = new Payment()
             {
                 BookingId = resultBooking.BookingId,
-                Amount = command.payload.Payment.Amount,
+                Amount = command.payload.Payment!.Amount,
                 PaymentDate = command.payload.Payment.PaymentDate,
                 PaymentStatus = command.payload.Payment.PaymentStatus,
             };

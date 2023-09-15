@@ -5,6 +5,7 @@ import { ISearch } from 'src/app/Interfaces/Isearch';
 import { ILocationDetails } from 'src/app/Interfaces/ILocationDetails';
 import { dataLocationDetailsService } from 'src/app/Services/data-LocationDetails.service';
 import { AuthCheckService } from 'src/app/Services/auth-check.service';
+import { BookingService } from 'src/app/Services/booking.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private service: dataLocationDetailsService,
-    private authService: AuthCheckService
+    private authService: AuthCheckService,
+    private ticketService :BookingService
   ) {}
 
   busSearchForm = new FormGroup({
@@ -94,6 +96,8 @@ export class HomeComponent implements OnInit {
       const fromLocationDetails = this.options.find(
         (location) => location.locationName === this.FromLocation
       );
+      this.ticketService.addTraversalData(this.FromLocation,this.ToLocation)
+      
 
       this.router.navigate(['/available-buses'], {
         queryParams: {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace D_KSRTC.Migrations
 {
     [DbContext(typeof(DKSRTCContext))]
-    [Migration("20230906041839_latest")]
-    partial class latest
+    [Migration("20230915102754_one")]
+    partial class one
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,8 +78,7 @@ namespace D_KSRTC.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TotalAmount")
                         .HasColumnType("real");
@@ -160,16 +159,14 @@ namespace D_KSRTC.Migrations
                     b.Property<int>("RouteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TimeId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("BusRouteId");
 
                     b.HasIndex("BusId");
 
                     b.HasIndex("RouteId");
-
-                    b.HasIndex("TimeId");
 
                     b.ToTable("BusRoute");
                 });
@@ -260,6 +257,10 @@ namespace D_KSRTC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("FromLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -277,6 +278,15 @@ namespace D_KSRTC.Migrations
 
                     b.Property<int>("SeatId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ToLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PassengerId");
 
@@ -398,6 +408,9 @@ namespace D_KSRTC.Migrations
                     b.Property<int>("BusID")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("SeatNumber")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -466,6 +479,9 @@ namespace D_KSRTC.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("User");
                 });
 
@@ -496,7 +512,7 @@ namespace D_KSRTC.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("D_KSRTC.Models.User", "User")
+                    b.HasOne("D_KSRTC.Models.User", "userMapping")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -504,7 +520,7 @@ namespace D_KSRTC.Migrations
 
                     b.Navigation("BusRoute");
 
-                    b.Navigation("User");
+                    b.Navigation("userMapping");
                 });
 
             modelBuilder.Entity("D_KSRTC.Models.Bus", b =>
@@ -526,35 +542,27 @@ namespace D_KSRTC.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("D_KSRTC.Models.Route", "RouteIdNavigation")
+                    b.HasOne("D_KSRTC.Models.Route", "Route")
                         .WithMany()
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("D_KSRTC.Models.Time", "TimeIdNavigation")
-                        .WithMany()
-                        .HasForeignKey("TimeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("BusIdNavigation");
 
-                    b.Navigation("RouteIdNavigation");
-
-                    b.Navigation("TimeIdNavigation");
+                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("D_KSRTC.Models.BusTypeCategory", b =>
                 {
                     b.HasOne("D_KSRTC.Models.BusCategory", "CategoryIdNavigaton")
-                        .WithMany()
+                        .WithMany("BusTypeCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("D_KSRTC.Models.BusType", "TypeIdNavigaton")
-                        .WithMany()
+                        .WithMany("BusTypeCategories")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -567,7 +575,7 @@ namespace D_KSRTC.Migrations
             modelBuilder.Entity("D_KSRTC.Models.Passenger", b =>
                 {
                     b.HasOne("D_KSRTC.Models.Booking", "Booking")
-                        .WithMany()
+                        .WithMany("PassengerNav")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -615,7 +623,7 @@ namespace D_KSRTC.Migrations
             modelBuilder.Entity("D_KSRTC.Models.RouteDetails", b =>
                 {
                     b.HasOne("D_KSRTC.Models.Route", "RouteIdNavigation")
-                        .WithMany()
+                        .WithMany("RouteDetails")
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -640,6 +648,26 @@ namespace D_KSRTC.Migrations
                         .IsRequired();
 
                     b.Navigation("Bus");
+                });
+
+            modelBuilder.Entity("D_KSRTC.Models.Booking", b =>
+                {
+                    b.Navigation("PassengerNav");
+                });
+
+            modelBuilder.Entity("D_KSRTC.Models.BusCategory", b =>
+                {
+                    b.Navigation("BusTypeCategories");
+                });
+
+            modelBuilder.Entity("D_KSRTC.Models.BusType", b =>
+                {
+                    b.Navigation("BusTypeCategories");
+                });
+
+            modelBuilder.Entity("D_KSRTC.Models.Route", b =>
+                {
+                    b.Navigation("RouteDetails");
                 });
 #pragma warning restore 612, 618
         }
