@@ -1,10 +1,8 @@
 ﻿using D_KSRTC.Data;
 using D_KSRTC.DTO_s;
+using D_KSRTC.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using System.Collections.Generic;
-
 namespace D_KSRTC.Requests.Queries.Project.Ticket
 {
     public class TicketQueryHandler : IRequestHandler<TicketQuery, List<TicketDTO>>
@@ -25,7 +23,7 @@ namespace D_KSRTC.Requests.Queries.Project.Ticket
                .Include(x => x.BusRoute)
                .ThenInclude(x => x!.Route)
                .Include(x => x.BusRoute)
-               .ThenInclude(x => x!.BusIdNavigation) 
+               .ThenInclude(x => x!.BusIdNavigation)
                .Where(x => x.UserId == request.UserId && x.JourneyDate > currentTime)
                .ToListAsync(cancellationToken: cancellationToken);
 
@@ -34,7 +32,7 @@ namespace D_KSRTC.Requests.Queries.Project.Ticket
 
             foreach (var item in data)
             {
-               
+
                 foreach (var passenger in item.PassengerNav)
                 {
                     var ticket = new TicketDTO
@@ -43,9 +41,11 @@ namespace D_KSRTC.Requests.Queries.Project.Ticket
                         LastName = passenger.LastName,
                         BusRouteName = item.BusRoute!.Route!.RouteName,
                         JourneyDate = item.JourneyDate,
+                        PassengerId = passenger.PassengerId,
                         BusTime = item.BusRoute.Time,
                         BusName = item.BusRoute.BusIdNavigation!.BusName,
-                        Seat = passenger.Seat!.SeatNumber
+                        Seat = passenger.Seat!.SeatNumber,
+                        Status = passenger.Status, 
                     };
 
                     ticketList.Add(ticket);

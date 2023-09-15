@@ -7,7 +7,9 @@
         public string BusRouteName { get; set; } = string.Empty;
         public DateTime JourneyDate { get; set; }
         public DateTime BusTime { get; set; }
+        public int PassengerId { get; set; }
         public string BusName { get; set; } = string.Empty;
         public string Seat { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
     }
 }

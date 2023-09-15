@@ -4,7 +4,7 @@
       <h1>DKSRTC</h1>
     </div>
     <div class="nav__links">
-      <a href="#">Home</a>
+      <a [routerLink]="['']">Home</a>
       <a href="#">About Us</a>
       <a href="#">Contact Us</a>
       <a routerlink="Login" class="cta">
@@ -29,13 +29,14 @@
               <a href="#">Profile</a>
             </ul>
             <ul>
-              <a href="#">Upcoming Journeys</a>
+              <a [routerLink]="['/upcoming-journeys']">Upcoming Journeys</a>
             </ul>
+            
             <ul>
               <a href="#">History</a>
             </ul>
             <ul>
-              <a (click)="GoLogOut()" href="#">Log Out</a>
+              <a (click)="GoLogOut()">Log Out</a>
             </ul>
         </div>
       </div>

@@ -28,7 +28,7 @@ export class BookingService {
   public addBooking(booking: any) {
     this.bookings.push(booking);
     this.bookingDataSubject.next(booking);
-  }
+  }  
   public addPassengers(passenger:any){
     this.passengerObjectsServiceObject.push(passenger);
     this.passengerDataSubject.next(this.passengerObjectsServiceObject);

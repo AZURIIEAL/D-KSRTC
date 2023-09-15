@@ -1,0 +1,15 @@
+
+<div *ngIf="isLoggedIn" class="ticket">
+    <div *ngFor="let ticket of tickets">
+      <div class="ticket">
+        <h2>{{ ticket.firstName }} {{ ticket.lastName }}</h2>
+        <p>Bus Route: {{ ticket.busRouteName }}</p>
+        <p>Journey Date: {{ ticket.journeyDate | date }}</p>
+        <p>Bus Time: {{ ticket.busTime | date:'shortTime' }}</p>
+        <p>Bus Name: {{ ticket.busName }}</p>
+        <p>Seat: {{ ticket.seat }}</p>
+        <button (click)="cancelTicket(ticket)">Cancel</button>
+      </div>
+    </div>
+  </div>
+  

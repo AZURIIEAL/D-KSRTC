@@ -6,9 +6,9 @@ import { LoginComponent } from './Components/login/login.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SeatBookingComponent } from './Components/seat-booking/seat-booking.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
-import { TicketCancellationComponent } from './Components/ticket-cancellation/ticket-cancellation.component';
 import { CheckOutComponent } from './Components/check-out/check-out.component';
 import { PaymentGatewayComponent } from './Components/payment-gateway/payment-gateway.component';
+import { UpcomingJourneyComponent } from './Components/upcoming-journey/upcoming-journey.component';
 
 
 const routes: Routes = [
@@ -44,9 +44,9 @@ const routes: Routes = [
     title: 'Book Seats',
   },
   {
-    path: 'ticket-cancellation',
-    component: TicketCancellationComponent,
-    title: 'ticket-cancellation',
+    path: 'upcoming-journeys',
+    component:UpcomingJourneyComponent,
+    title: 'Bookings',
   },
 
   // {
