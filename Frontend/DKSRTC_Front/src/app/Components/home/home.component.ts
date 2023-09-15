@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
   }
 
   filterLocations(controlName: string, event: any) {
-    const inputValue = event.target.value;
+    const inputValue = event.target.value; //to note
     const targetLocations =
       controlName === 'fromLocation'
         ? this.filteredFromLocations
