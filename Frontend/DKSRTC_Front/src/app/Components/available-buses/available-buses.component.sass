@@ -1,5 +1,7 @@
 /* Styles for the bus table component
 
+/* Container Styles
+
 .table-container
   padding: 20px
   margin: 20px auto
@@ -18,25 +20,37 @@
     margin-bottom: 20px
     color: #1d1c1cfe
 
+/* Table Styles
+
 table
   border-collapse: collapse
   font-family: 'Montserrat', sans-serif
   width: 100%
+  margin-top: 20px
 
-.table-header th
-  background-color: #f2f2f2
+  /* Add some space between table and filters
+
+  th
+    background-color: #f2f2f2
+    border: 1px solid #ddd
+    padding: 8px
+    text-align: center
+
+  tbody tr
+    border: 1px solid #ddd
+
+/* Table Header Styles
+
+/* Table Body Styles
+
+/* Table Cell Styles
+
+td
   border: 1px solid #ddd
   padding: 8px
   text-align: center
 
-table tbody
-  tr
-    border: 1px solid #ddd
-
-  td
-    border: 1px solid #ddd
-    padding: 8px
-    text-align: center
+/* View Seats Button Styles
 
 .view-seats-button
   background-color: #fa1b1bfe
@@ -50,3 +64,88 @@ table tbody
 
   &:hover
     background-color: #b61616fe
+
+/* Button to toggle filters
+
+.toggle-filters-button
+  background-color: #fa1b1bfe
+  font-family: 'Montserrat', sans-serif
+  color: #fff
+  border: none
+  padding: 5px 10px
+  border-radius: 20px
+  cursor: pointer
+  font-size: 13px
+  transition: all 0.3s ease 0s
+  margin-bottom: 10px
+
+  &:hover
+    background-color: #b61616fe
+
+/* Filters Section (Initially Hidden)
+
+.filters
+  background-color: #f2f2f2
+  padding: 20px
+  border-radius: 5px
+  display: none
+  margin-top: 10px
+
+  /* Add some space between filters and table
+  transition: all 0.3s ease-in-out
+
+  /* Smooth animation
+  max-height: 0
+  overflow: hidden
+
+/* Show Filters Section when 'showFilters' is true
+
+.show-filters
+  display: block
+  margin-top: 20px
+
+  /* Add more space between filters and table
+  max-height: 500px
+
+  /* Adjust the maximum height
+  transition: all 0.3s ease-in-out
+
+  /* Add transition for smooth expansion
+
+/* Styling for dropdowns
+
+.filters
+  select
+    font-family: 'Montserrat', sans-serif
+
+    /* Use the same font as other elements
+    font-size: 16px
+
+    /* Adjust font size
+    padding: 8px
+    border: 1px solid #ddd
+    border-radius: 5px
+    flex: 1
+    max-width: calc(33% - 10px)
+    margin-bottom: 20px
+
+    /* Add space between dropdowns
+    background-color: #fff
+
+    /* White background
+    color: #1d1c1cfe
+
+    /* Text color
+
+  label
+    font-family: 'Montserrat', sans-serif
+
+    /* Use the same font as other elements
+    font-size: 16px
+
+    /* Adjust font size
+    font-weight: bold
+    margin-right: 10px
+    color: #1d1c1cfe
+
+/* Styling for dropdown labels

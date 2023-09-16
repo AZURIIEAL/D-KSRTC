@@ -1,7 +1,26 @@
-
 <div class="table-container" style="height: 100%;">
   <h1>Explore Available Buses</h1>
   <p>Discover a wide range of buses for your journey.</p>
+
+  <button class="toggle-filters-button" (click)="toggleFilters()">
+    {{ filterButtonText }}
+  </button>
+  
+
+  <!-- Filters Section (Initially Hidden) -->
+  <div class="filters" [ngClass]="{'show-filters': showFilters}">
+    <label for="speederCommute">Speeder Commute:</label>
+    <select id="speederCommute" [(ngModel)]="selectedSpeederCommute">
+      <option value="">Any</option>
+      <option *ngFor="let option of availableFilters[0]" [value]="option">{{ option }}</option>
+    </select>
+
+    <label style="margin-left: 30px;" for="accommodationClass">Accommodation Class:</label>
+    <select id="accommodationClass" [(ngModel)]="selectedAccommodationClass">
+      <option value="">Any</option>
+      <option *ngFor="let option of availableFilters[1]" [value]="option">{{ option }}</option>
+    </select>
+  </div>
 
   <table>
     <thead>
@@ -25,8 +44,8 @@
             [queryParams]="{
               selectedBusId: bus.busId,
               perTicketPrice: (bus.perDistanceFare * bus.distance) + bus.baseFare,
-              busRouteId:bus.busRouteCurrent,
-              journeyDate:onDate
+              busRouteId: bus.busRouteCurrent,
+              journeyDate: onDate
             }"
             class="view-seats-button"
           >

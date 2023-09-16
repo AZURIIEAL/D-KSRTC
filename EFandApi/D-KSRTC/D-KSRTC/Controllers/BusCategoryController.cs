@@ -5,6 +5,7 @@ using D_KSRTC.Requests.Commands.BusCategories.UpdateBusCategory;
 using D_KSRTC.Requests.Queries.BusCategories.GetBusCategoryById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using static D_KSRTC.Requests.Queries.BusCategories.GetAllBusCategory.GetAllBusCategoryQuery;
 
 
@@ -65,8 +66,13 @@ namespace D_KSRTC.Controllers
         {
             try
             {
+                List<string> categoryNames = new List<string>(); // Initialize an empty list to store category names
                 var categories = await _mediator.Send(new GetAllBusCategoriesQuery(), cancellationToken);
-                return Ok(categories);
+                foreach(var category in categories)
+                {
+                    categoryNames.Add(category.CategoryName);
+                }
+                return Ok(categoryNames);
             }
             catch (Exception ex)
             {

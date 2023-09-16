@@ -7,6 +7,7 @@ using D_KSRTC.Requests.Queries.BusTypes.GetBusTypeById;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static D_KSRTC.Requests.Queries.BusCategories.GetAllBusCategory.GetAllBusCategoryQuery;
 
 namespace D_KSRTC.Controllers
 {
@@ -81,8 +82,13 @@ namespace D_KSRTC.Controllers
                 {
                     return NoContent();
                 }
+                List<string> TypeNames = new List<string>(); // Initialize an empty list to store category names
+                foreach (var type in busTypes)
+                {
+                    TypeNames.Add(type.TypeName);
+                }
+                return Ok(TypeNames);
 
-                return Ok(busTypes);
             }
             catch (Exception ex)
             {
