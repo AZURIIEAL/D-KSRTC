@@ -1,11 +1,10 @@
-<div class="table-container" style="height: 100%;">
+<div class="table-container" style="height: 100%;" *ngIf="availableBuses">
   <h1>Explore Available Buses</h1>
   <p>Discover a wide range of buses for your journey.</p>
 
   <button class="toggle-filters-button" (click)="toggleFilters()">
     {{ filterButtonText }}
   </button>
-  
 
   <!-- Filters Section (Initially Hidden) -->
   <div class="filters" [ngClass]="{'show-filters': showFilters}">
@@ -20,23 +19,29 @@
       <option value="">Any</option>
       <option *ngFor="let option of availableFilters[1]" [value]="option">{{ option }}</option>
     </select>
+
+    <button class="toggle-filters-button" style="margin-left: 60px" (click)="applyFilters()">Apply Filters</button>
   </div>
 
-  <table>
-    <thead>
+
+  <table [class.disabled]="!(filteredBuses | async)?.length">
+    <thead *ngIf="!noBusesFound" >
       <tr class="table-header">
         <th *ngFor="let key of keys">{{ key }}</th>
       </tr>
     </thead>
+    <div class="no-buses-found" *ngIf="noBusesFound" style="margin-left: 40%;">
+      No Buses Found 😢
+    </div>
     <tbody>
-      <tr *ngFor="let bus of availableBuses | async">
+      <tr *ngFor="let bus of filteredBuses | async">
         <td>{{ bus.busName }}</td>
         <td>{{ bus.time | date : "shortTime" }}</td>
         <td>{{ bus.distance }} km</td>
         <td>{{ bus.categoryName }}</td>
         <td>{{ bus.typeName }}</td>
         <td>{{ bus.seatAvailability }}</td>
-        <td>₹ {{ bus.perDistanceFare * bus.distance + bus.baseFare }}</td>
+        <td>₹ {{ bus.perDistanceFare * bus.distance + bus.baseFare | number:'1.2-2' }}</td>
         <td *ngIf="isLoggedIn">
           <button
             type="button"
@@ -64,4 +69,7 @@
       </tr>
     </tbody>
   </table>
+</div>
+<div class="no-buses-found" *ngIf="!availableBuses" style="margin-left: 42%;margin-top: 10%;font-size: 30px;">
+  No Buses Found 😢
 </div>
