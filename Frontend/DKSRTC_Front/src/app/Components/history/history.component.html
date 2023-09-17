@@ -1,0 +1,31 @@
+<div *ngIf="isLoggedIn" class="ticket-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Bus Name</th>
+          <th>Bus Route Name</th>
+          <th>First Name</th>
+          <th>Seat</th>
+          <th>Bus Time</th>
+          <th>Journey Date</th>
+          <th>From Location</th>
+          <th>To Location</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of history" class="ticket">
+          <td>{{ ticket.busName }}</td>
+          <td>{{ ticket.busRouteName }}</td>
+          <td>{{ ticket.firstName }}</td>
+          <td>{{ ticket.seat }}</td>
+          <td>{{ ticket.busTime | date:'shortTime' }}</td>
+          <td>{{ ticket.journeyDate | date }}</td>
+          <td>{{ ticket.fromLocation }}</td>
+          <td>{{ ticket.toLocation }}</td>
+          <td>{{ ticket.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

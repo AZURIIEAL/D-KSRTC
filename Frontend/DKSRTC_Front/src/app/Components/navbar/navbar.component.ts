@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthCheckService } from 'src/app/Services/auth-check.service';
 import { RouterModule } from '@angular/router';
+import { IUser } from 'src/app/Interfaces/IUser';
 
 
 @Component({
@@ -17,10 +18,12 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn = false;
+  currentUser!:IUser;
   constructor(private router:Router,private authService:AuthCheckService){}
   ngOnInit() {
     this.authService.isLoggedIn().subscribe((status) => {
       this.isLoggedIn = status;
+      this.currentUser=this.authService.currentUserSession();
     })
   }
 GoLogin() {

@@ -24,6 +24,7 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { CheckOutComponent } from './Components/check-out/check-out.component';
 import { PaymentGatewayComponent } from './Components/payment-gateway/payment-gateway.component';
 import { UpcomingJourneyComponent } from './Components/upcoming-journey/upcoming-journey.component';
+import { HistoryComponent } from './Components/history/history.component';
 
 
 
@@ -42,6 +43,7 @@ import { UpcomingJourneyComponent } from './Components/upcoming-journey/upcoming
     NotFoundComponent,
     CheckOutComponent,
     UpcomingJourneyComponent,
+    HistoryComponent,
   ],
   imports: [
     MatSelectModule,

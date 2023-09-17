@@ -8,9 +8,6 @@
       <a href="#">About Us</a>
       <a href="#">Contact Us</a>
       <a routerlink="Login" class="cta">
-        <!-- <div class="avatar-circle" (click)="toggleSidebar()" *ngIf="isLoggedIn">
-          <img src="../../../assets/ReqImages/man.png" alt="User Avatar" />
-        </div> -->
         
         <button (click)="GoLogin()" *ngIf="!isLoggedIn">Login / Sign up</button>
       </a>
@@ -33,7 +30,7 @@
             </ul>
             
             <ul>
-              <a href="#">History</a>
+              <a [routerLink]="['/history']">History</a>
             </ul>
             <ul>
               <a (click)="GoLogOut()">Log Out</a>

@@ -1,19 +1,14 @@
-
-<div *ngIf="isLoggedIn" class="ticket">
-    <div *ngFor="let ticket of tickets">
-      <div class="ticket">
-        <h2>{{ ticket.firstName }} {{ ticket.lastName }}</h2>
-        <p>Bus Route: {{ ticket.busRouteName }}</p>
-        <p>Journey Date: {{ ticket.journeyDate | date }}</p>
-        <p>Seat: {{ ticket.fromLocation }}</p>
-        <p>Seat: {{ ticket.toLocation }}</p>
-        <p>Seat: {{ ticket.seat }}</p>
-        <p>Bus Time: {{ ticket.busTime | date:'shortTime' }}</p>
-        <p>Bus Name: {{ ticket.busName }}</p>
-        <p>Seat: {{ ticket.seat }}</p>
-        <p>Status: {{ ticket.status }}</p>
-        <button (click)="cancelTicket(ticket.passengerId)">Cancel</button>
-      </div>
+<div *ngIf="isLoggedIn" class="ticket-container">
+  <div *ngFor="let ticket of tickets" class="ticket">
+    <div class="ticket yellow">
+      <div class="label">{{ ticket.busName }}</div>
+      <div class="serial">{{ ticket.busRouteName }}</div>
+      <div class="rate">{{ ticket.firstName }}</div>
+      <div class="rate">{{ ticket.seat }}</div>
+      <div class="serial">{{ ticket.busTime | date:'shortTime' }}</div>
+      <div class="serial">{{ ticket.journeyDate | date }}</div>
+      <div class="serial"> To : {{ ticket.toLocation}}</div>
+      <button class="toggle-filters-button" (click)="cancelTicket(ticket.passengerId)" style="margin-left: 70px;margin-top: 15px;">Cancel</button>
     </div>
   </div>
-  
+</div>
