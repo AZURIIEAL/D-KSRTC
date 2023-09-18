@@ -17,7 +17,6 @@ export class TicketViewService {
   }
   public TicketCancel(passengerId:number) { 
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("passengerId",passengerId);
-    return this.http.patch<boolean>(`${this.url}/Project/ticket-cancellation`,{params:queryParams});
+    return this.http.patch<boolean>(`${this.url}/Project/ticket-cancellation`,{passengerId});
   }
 }

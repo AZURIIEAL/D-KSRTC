@@ -64,11 +64,11 @@ public class ProjectController : ControllerBase
     [Route("ticket-cancellation")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<bool>> TicketCancellationAsync([FromQuery] int passengerId, CancellationToken cancellationToken = default)
+    public async Task<ActionResult<bool>> TicketCancellationAsync([FromBody] TicketCancellationCommand cmd, CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = await _mediator.Send(new TicketCancellationCommand { passengerId = passengerId }, cancellationToken);
+            var result = await _mediator.Send(cmd, cancellationToken);
             return Ok(result);
 
         }
@@ -79,4 +79,4 @@ public class ProjectController : ControllerBase
         }
     }
 }
-
+ 

@@ -9,4 +9,9 @@ namespace D_KSRTC.DTO_s
         public BillingDTO? Billing { get; set; }
         public PaymentDTO? Payment { get; set; }
     }
+
+    public class ss
+    {
+        public int PassengerId { get; set; }
+    }
 }

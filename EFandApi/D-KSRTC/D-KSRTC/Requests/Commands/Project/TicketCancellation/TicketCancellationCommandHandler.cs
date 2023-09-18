@@ -19,11 +19,7 @@ namespace D_KSRTC.Requests.Commands.Project.TicketCancellation
         public async Task<bool> Handle(TicketCancellationCommand command, CancellationToken cancellationToken)
         {
             var res = await _dbContext.Passenger.FindAsync(command.passengerId);
-            if (res == null)
-            {
-                throw new FileNotFoundException();
-            }
-            res.Status = "CANCELLED";
+            res!.Status = "CANCELLED";
             await _dbContext.SaveChangesAsync(cancellationToken);
 
 
