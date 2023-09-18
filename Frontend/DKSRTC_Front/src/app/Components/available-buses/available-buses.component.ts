@@ -45,7 +45,7 @@ export class AvailableBusesComponent implements OnInit {
 
   noBusesFound = false;
 
-  AlertLogin() {
+  alertLogin() {
     alert('Please login to view tickets or book tickets for your next journey');
   }
 

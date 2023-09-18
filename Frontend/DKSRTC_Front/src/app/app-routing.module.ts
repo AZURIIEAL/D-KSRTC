@@ -55,6 +55,11 @@ const routes: Routes = [
     title: 'Bookings',
   },
   {
+    path: 'payment-gateway',
+    component: PaymentGatewayComponent,
+    title: 'Payment Gateway',
+  },
+  {
     path: 'notfound',
     component: NotFoundComponent,
     title: 'Not Found',
@@ -64,11 +69,7 @@ const routes: Routes = [
     component: NotFoundComponent,
     title: 'Not Found',
   },
-  {
-    path: 'payment-gateway',
-    component: PaymentGatewayComponent,
-    title: 'Payment Gateway',
-  },
+
 
 ]
 @NgModule({

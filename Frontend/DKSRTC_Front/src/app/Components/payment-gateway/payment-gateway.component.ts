@@ -48,9 +48,6 @@ export class PaymentGatewayComponent implements OnInit {
       this.passengers = x;
     });
   }
-
-
-
   submitPayment() {
     if (this.isLoggedIn) {
       this.paymentMethod = this.PaymentFormGroup.value.paymentBy;
